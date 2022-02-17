@@ -69,7 +69,6 @@ class HomeScreen extends React.Component {
     // lecture de la phrase créée. Ceci est possible grâce à la librairie expo-speech
     textToSpeech(tab) {
         if (this.state.selectedPicto){
-            tab.push(this.state.selectedPicto)
             for (let i=1; i<tab.length; i++) {
                 Speech.speak(tab[i-1].Nom, {language: 'fr'})
             }
