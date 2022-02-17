@@ -16,13 +16,22 @@ class HomeScreen extends React.Component {
     // Constructeur permettant de stocker les différentes données des pictogrammes en tant que props
     constructor(props) {
         super(props)
-        this.state = { images: [], selectedPicto: "", favorites: [], selectedFav: "" }
+        this.state = { 
+            images: [], 
+            selectedPicto: "", 
+            favorites: [], 
+            selectedFav: "" 
+        }
     }
 
     // Fonction permettant de récupérer tous les pictogrammes grâce à l'appel de l'API getImage.php
     async _loadImage(childData) {
         const res = await getImageFromDatabase()
         this.setState({images: res})
+    }
+
+    componentDidMount(){
+        this._loadImage();
     }
 
     // Fonction de callback de faire passer des composants entre components enfants et parents
@@ -83,6 +92,7 @@ class HomeScreen extends React.Component {
                         <FlatList
                             numColumns={8}
                             data={tab1}
+                            extraData={this.state.selectedPicto}
                             keyExtractor={(item) => item.IDpictogramme.toString()}
                             renderItem={({item}) => <SelectedPictos image={item}/>}/>
                     </View>
@@ -110,7 +120,9 @@ class HomeScreen extends React.Component {
                             numColumns={9}
                             data={this.state.images}
                             keyExtractor={(item) => item.IDpictogramme.toString()}
-                            renderItem={({item}) => <Pictogramme parentCallback={this.callbackFunction} image={item}/>}
+                            renderItem={({item}) => 
+                                <Pictogramme parentCallback={this.callbackFunction} image={item}/>
+                            }
                         />
                     </TouchableOpacity>
                 </View>

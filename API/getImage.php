@@ -1,4 +1,5 @@
 <?php
+header('Access-Control-Allow-Origin: *');
 
 //On commence par se connecter à la base de donnée
 $Connection = mysqli_connect("localhost","root","");
@@ -13,13 +14,14 @@ if (mysqli_num_rows($Table) > 0) {
     for ($counter = 1; $counter <= mysqli_num_rows($Table); $counter++) {
         $Row = mysqli_fetch_assoc($Table);
         $IDpictogramme = $Row['IDpictogramme'];
-        $Nom = $Row['Nom'];
+        $Nom = utf8_encode($Row['Nom']);
         $url = $Row['url'];
 
         $Response[] = array("IDpictogramme"=>$IDpictogramme, "Nom"=>$Nom, "url"=>$url);
     }
     //On stocke les différentes données dans un tableau que l'on encode en json pour l'envoyer à l'application
     echo json_encode($Response);
+
 }
 else {
     $Message = "Server Error...Please try later";

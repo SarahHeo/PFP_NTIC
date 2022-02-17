@@ -1,6 +1,7 @@
 // Appel de l'API getImage.php
 export function getImageFromDatabase () {
-    return fetch('http://10.0.2.2:80/API/getImage.php')
+    return fetch(
+        'http://localhost/API/getImage.php')
         .then((response) => response.json())
         .catch((error) => console.log(error))
 }

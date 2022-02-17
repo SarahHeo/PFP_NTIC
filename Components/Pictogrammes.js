@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     images : {
         resizeMode: 'contain',
         width: '100%',
-        height: undefined,
+        height: '100%',
         aspectRatio: 1,
         borderRadius: 200
     }
