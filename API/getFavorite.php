@@ -1,6 +1,5 @@
 <?php
-
-// Le pricipe est exactement identique à celui utilisé dans getImage.php
+header('Access-Control-Allow-Origin: *');
 
 $Connection = mysqli_connect("localhost","root","");
 $DB = mysqli_select_db($Connection, "ntic");
@@ -13,7 +12,7 @@ if (mysqli_num_rows($Table) > 0) {
     for ($counter = 1; $counter <= mysqli_num_rows($Table); $counter++) {
         $Row = mysqli_fetch_assoc($Table);
         $IDfavoris = $Row['IDfavoris'];
-        $Nom = $Row['Nom'];
+        $Nom = utf8_encode($Row['Nom']);
         $url = $Row['url'];
 
         $Response[] = array("IDfavoris"=>$IDfavoris, "Nom"=>$Nom, "url"=>$url);

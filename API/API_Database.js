@@ -8,7 +8,7 @@ export function getImageFromDatabase () {
 
 // Appel de l'API getFavorite.php
 export function getPictosFavoriteFromDatabase () {
-    const url = 'http://10.0.2.2:80/API/getFavorite.php'
+    const url = 'http://localhost/API/getFavorite.php'
     return fetch(url)
         .then((response) => response.json())
         .catch((error) => console.log(error))
