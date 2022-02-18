@@ -3,6 +3,7 @@ import styles from '../style/homeScreen.js';
 
 import {StyleSheet, View, Text, TouchableOpacity, ImageBackground, FlatList, Image} from 'react-native'
 import {getImageFromDatabase, getPictosFavoriteFromDatabase} from "../API/API_Database";
+import PictogramService from '../services/PictogramService.js';
 import Pictogram from "./Pictogram";
 import SelectedPictos from "./SelectedPictos";
 import SelectedFav from "./SelectedFav";
@@ -20,15 +21,9 @@ function HomeScreen() {
     const [selectedFav, setSelectedFav] = useState("");
 
     useEffect(function loadAllPicto(){
-        (async () => {
-            return await getImageFromDatabase();
-        })()
-        .then((data) => {
-            setAllPicto(data);
-        })
-        .catch((err) => {
-            console.error("Failed to get picto images : " + err);
-        })
+        PictogramService.getPictograms().then((response) => {
+            setAllPicto(response.data);
+        });
     }, []);
 
     useEffect(function loadFavPicto(){
