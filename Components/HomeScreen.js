@@ -1,15 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import styles from '../style/homeScreen.js';
+import {StyleSheet, View, Text, TouchableOpacity, ImageBackground, FlatList, Image} from 'react-native';
 
-import {StyleSheet, View, Text, TouchableOpacity, ImageBackground, FlatList, Image} from 'react-native'
 import {getImageFromDatabase, getPictosFavoriteFromDatabase} from "../API/API_Database";
 import Pictogram from "./Pictogram";
-import SelectedPictos from "./SelectedPictos";
-import SelectedFav from "./SelectedFav";
-import FavoritePictos from "./FavoritePictos";
-import * as Speech from 'expo-speech';
-import {SpeechOptions} from "expo-speech";
 
+import * as Speech from 'expo-speech';
+
+import styles from '../style/homeScreen.js';
 
 function HomeScreen() {
 
@@ -17,8 +14,9 @@ function HomeScreen() {
     const [pictoArray, setPictoArray] = useState([]);
     const [favPicto, setFavPicto] = useState([]);
 
-    const [selectedFav, setSelectedFav] = useState("");
-
+    // useEffect = after every render
+    // 2nd argument: "You can tell React to skip applying an effect if certain values haven’t changed between re-renders"
+    // if [], only called the first time
     useEffect(function loadAllPicto(){
         (async () => {
             return await getImageFromDatabase();
@@ -43,7 +41,7 @@ function HomeScreen() {
         })
     }, []);
 
-
+    // For debug only
     useEffect(function updatePictoArray(){
         // Display in console
         for (let i=0; i<pictoArray.length; i++) {
@@ -94,7 +92,7 @@ function HomeScreen() {
                         numColumns={8}
                         data={pictoArray}
                         keyExtractor={(item) => item.IDpictogramme ? item.IDpictogramme.toString() : item.IDfavoris.toString()}
-                        renderItem={({item}) => <SelectedPictos image={item}/>}/>
+                        renderItem={({item}) => <Pictogram picto={item} isTouchable={false}/>}/>
                 </View>
                 <TouchableOpacity style={styles.readButton} onPress={() => {handleReadSentence()}}>
                     <ImageBackground source={require('../Images/ReadIcone.png')} style={styles.image}/>
@@ -115,7 +113,7 @@ function HomeScreen() {
                         data={favPicto}
                         keyExtractor={(item) => item.IDfavoris.toString()}
                         renderItem={({item}) => 
-                            <Pictogram onPressHandler={selectPictoCallback} picto={item} isFav={true}/>
+                            <Pictogram picto={item} isTouchable={true} onPressHandler={selectPictoCallback} isFav={true}/>
                         }
                     />
                 </TouchableOpacity>
@@ -125,7 +123,7 @@ function HomeScreen() {
                         data={allPicto}
                         keyExtractor={(item) => item.IDpictogramme.toString()}
                         renderItem={({item}) => 
-                            <Pictogram onPressHandler={selectPictoCallback} picto={item} isFav={false}/>
+                            <Pictogram picto={item} isTouchable={true} onPressHandler={selectPictoCallback} isFav={false}/>
                         }
                     />
                 </TouchableOpacity>

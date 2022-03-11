@@ -1,41 +1,32 @@
-import React from 'react'
+import React, { useState, useEffect, useCallback }  from 'react'
 import { View, TouchableOpacity, TextInput, Text, StyleSheet } from 'react-native'
 
-class Registration_Form extends React.Component {
+import styles from '../style/registrationForm.js';
+
+function RegistrationForm() {
 
     // Constructeur permettant de stocker les différentes données des pictogrammes en tant que props
-    constructor(props) {
-        super();
-        this.state = {
-            NomPatient:'',
-            PrenomPatient:'',
-            Age:'',
-            Sexe:'',
-            NomMedecin:'',
-            PrenomMedecin:'',
-            Email:'',
-            MotDePasse:'',
-            MotDePasse2:'',
-        }
-    }
+    const [name, setName] = useState([]);
+    const [firstName, setFirstName] = useState([]);
+    const [dateOfBirth, setDateOfBirth] = useState([]);
+    const [gender, setGender] = useState([]);
+
+    const [proName, setProName] = useState([]);
+    const [proFirstName, setProFirstName] = useState([]);
+    const [proEmail, setProEmail] = useState([]);
+    const [proPassword, setProPassword] = useState([]);
+    const [proConfirmedPassword, setProConfirmedPassword] = useState([]);
 
     // On récupère les données entrées par l'utilisateur et les envoies à la base de données
-    submitForm() {
-        const NomPatient = this.state.NomPatient;
-        const PrenomPatient=this.state.PrenomPatient;
-        const Age=this.state.Age;
-        const Sexe=this.state.Sexe;
-        const NomMedecin=this.state.NomMedecin;
-        const PrenomMedecin=this.state.PrenomMedecin;
-        const Email=this.state.Email;
-        const MotDePasse=this.state.MotDePasse;
-        const MotDePasse2=this.state.MotDePasse2;
+    let submitForm = function() {
 
-        if(NomPatient.length===0 || PrenomPatient.length===0 || Age.length===0 || Sexe.length===0 || NomMedecin.length===0 || PrenomMedecin.length===0 || Email.length===0 || MotDePasse.length===0 || MotDePasse2.length===0) {
-            alert("ERREUR : Veuillez Remplir Tous Les Champs")
+        if (name.length===0 || firstName.length===0 || dateOfBirth.length===0 || gender.length===0 
+            || proName.length===0 || proFirstName.length===0 || proEmail.length===0 || proPassword.length===0 
+            || proConfirmedPassword.length===0) {
+            alert("Erreur: Veuillez renseigner tous les champs.")
         }
-        else if (MotDePasse !== MotDePasse2) {
-            alert("ERREUR : Mots De Passe Incohérents")
+        else if (proPassword !== proConfirmedPassword) {
+            alert("Erreur: Les mots de passe ne correspondent pas.")
         }
         else {
 
@@ -45,24 +36,25 @@ class Registration_Form extends React.Component {
                 'Content-Type':'application.json'
             };
 
-            const Data={
+            // faudra changer le nom des champs en anglais, et que ça corresponde à insert.php
+            const data = {
                 IDpatient: '',
                 IDmedecin: '',
-                NomPatient: NomPatient,
-                PrenomPatient: PrenomPatient,
-                Age: Age,
-                Sexe: Sexe,
-                NomMedecin: NomMedecin,
-                PrenomMedecin: PrenomMedecin,
-                Email: Email,
-                MotDePasse: MotDePasse
+                NomPatient: name,
+                PrenomPatient: firstName,
+                DateOfBirth: dateOfBirth,
+                Sexe: gender,
+                NomMedecin: proName,
+                PrenomMedecin: proFirstName,
+                Email: proEmail,
+                MotDePasse: proPassword
             };
 
             fetch(InsertAPIURL,
                 {
                     method:'POST',
                     headers:headers,
-                    body: JSON.stringify(Data)
+                    body: JSON.stringify(data)
                 })
                 .then((response) => response.json())
                 .then((response) =>
@@ -74,116 +66,41 @@ class Registration_Form extends React.Component {
                     alert("Error" + error)
                 })
 
-            this.props.navigation.navigate("ConfirmationScreen")
+            this.props.navigation.navigate("ConfirmationScreen"); // ?? A remplacer
         }
     }
 
-    render() {
-        return (
-            <View style={styles.mainContainer}>
-                <Text style={styles.titleText}>Formulaire d'inscription</Text>
-                <View style={styles.formContainer}>
-                    <View style={styles.leftContainer}>
-                        <Text style={styles.litleTitle}>Informations de l'utilisateur</Text>
-                        <View style={styles.textinputContainer}>
-                            <TextInput style={styles.textinput} placeholder = "Nom" onChangeText={NomPatient => this.setState({NomPatient})}/>
-                            <TextInput style={styles.textinput} placeholder = "Prenom" onChangeText={PrenomPatient => this.setState({PrenomPatient})}/>
-                            <TextInput style={styles.textinput} placeholder = "Age" keyboardType={"numeric"} onChangeText={Age => this.setState({Age})}/>
-                            <TextInput style={styles.textinput} placeholder = "Sexe" onChangeText={Sexe => this.setState({Sexe})}/>
-                        </View>
-                    </View>
-                    <View style={styles.rightContainer}>
-                        <Text style={styles.litleTitle}>Informations de l'éducateur</Text>
-                        <View style={styles.textinputContainer}>
-                            <TextInput style={styles.textinput} placeholder = "Nom" onChangeText={NomMedecin => this.setState({NomMedecin})}/>
-                            <TextInput style={styles.textinput} placeholder = "Prenom" onChangeText={PrenomMedecin => this.setState({PrenomMedecin})}/>
-                            <TextInput style={styles.textinput} placeholder = "Email" onChangeText={Email => this.setState({Email})}/>
-                            <TextInput style={styles.textinput} placeholder = "Mot de passe" onChangeText={MotDePasse => this.setState({MotDePasse})} secureTextEntry={true}/>
-                            <TextInput style={styles.textinput} placeholder = "Confirmer mot de passe" onChangeText={MotDePasse2 => this.setState({MotDePasse2})} secureTextEntry={true}/>
-                        </View>
+    return (
+        <View style={styles.mainContainer}>
+            <Text style={styles.titleText}>Inscription</Text>
+            <View style={styles.formContainer}>
+                <View style={styles.leftContainer}>
+                    <Text style={styles.litleTitle}>Informations de l'utilisateur</Text>
+                    <View style={styles.textinputContainer}>
+                        <TextInput style={styles.textinput} placeholder = "Nom" onChangeText={newName => setName(newName)}/>
+                        <TextInput style={styles.textinput} placeholder = "Prénom" onChangeText={newFirstName => setFirstName(newFirstName)}/>
+                        <TextInput style={styles.textinput} placeholder = "Date de naissance" onChangeText={newDateOfBirth => setDateOfBirth(newDateOfBirth)}/>
+                        <TextInput style={styles.textinput} placeholder = "Sexe" onChangeText={newGender => setGender(newGender)}/>
                     </View>
                 </View>
-                <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.submitButton} onPress={() => {this.submitForm()}}>
-                        <Text style={styles.textButton}> S'inscire </Text>
-                    </TouchableOpacity>
+                <View style={styles.rightContainer}>
+                    <Text style={styles.litleTitle}>Informations de l'éducateur</Text>
+                    <View style={styles.textinputContainer}>
+                        <TextInput style={styles.textinput} placeholder = "Nom" onChangeText={newName => setProName(newName)}/>
+                        <TextInput style={styles.textinput} placeholder = "Prénom" onChangeText={newFirstName => setProFirstName(newFirstName)}/>
+                        <TextInput style={styles.textinput} placeholder = "Adresse mail" onChangeText={newEmail => setProEmail(newEmail)}/>
+                        <TextInput style={styles.textinput} placeholder = "Mot de passe" onChangeText={newPassword => setProPassword(newPassword)} secureTextEntry={true}/>
+                        <TextInput style={styles.textinput} placeholder = "Confirmation du mot de passe" onChangeText={newPassword => setProConfirmedPassword(newPassword)} secureTextEntry={true}/>
+                    </View>
                 </View>
             </View>
-        )
-    }
+            <View style={styles.buttonContainer}>
+                <TouchableOpacity style={styles.submitButton} onPress={() => submitForm()}>
+                    <Text style={styles.textButton}>S'inscrire</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+    )
 }
 
-
-const styles = StyleSheet.create({
-    mainContainer: {
-        fontFamily: 'Roboto',
-        flex: 1,
-        marginTop: 30,
-        alignItems: 'center',
-        justifyContent: 'flex-start'
-    },
-    formContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        marginTop: 30,
-    },
-    leftContainer: {
-        flex: 1,
-        flexDirection: 'column',
-    },
-    rightContainer: {
-        flex: 1,
-        flexDirection: 'column',
-    },
-    textinputContainer: {
-        flex: 1,
-        justifyContent: 'space-evenly',
-        marginTop: 15,
-        borderLeftWidth: 1,
-    },
-    titleText: {
-        fontSize: 40,
-        fontWeight: 'bold',
-        color: 'white'
-    },
-    litleTitle: {
-        textAlign: 'center',
-        fontSize: 25,
-        color: 'white',
-        fontWeight: 'bold'
-    },
-    textinput: {
-        marginLeft: 30,
-        marginRight: 30,
-        textAlign: 'center',
-        height: 40,
-        backgroundColor: '#e0e0e0',
-        borderColor: '#000000',
-        borderWidth: 0.8,
-        borderRadius: 20,
-        elevation: 5,
-        fontSize: 20,
-    },
-    buttonContainer: {
-        flex: 0.2,
-        alignItems: 'center',
-        justifyContent: 'center'
-
-    },
-    submitButton: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#F0B0D6',
-        borderRadius: 20,
-        height: 40,
-        width: 150,
-        elevation: 5,
-    },
-    textButton: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: '#ffffff'
-    }
-})
-
-export default Registration_Form
+export default RegistrationForm;
