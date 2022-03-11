@@ -14,7 +14,7 @@ export default class App extends React.Component {
             </NavigationContainer>
 
             // Navigation avec inscription mais sans barre de navigation inférieur (fichier navigation.js)
-            // <Navigation/>
+            //<Navigation/>
         );
     }
 }
