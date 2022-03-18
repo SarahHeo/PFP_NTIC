@@ -8,7 +8,7 @@ const Pictogram = function(pictogram) {
 // SELECT SQL Queries
 
 Pictogram.getAll = (result) => {
-    database.query(`SELECT * FROM pictogramme`, (error, res) =>{
+    database.query(`SELECT * FROM Pictogram`, (error, res) =>{
         if (error){
             console.log("error: ", error);
             result(error, null);
@@ -21,7 +21,7 @@ Pictogram.getAll = (result) => {
 };
 
 Pictogram.getById = (id, result) => {
-    database.query(`SELECT * FROM pictogramme WHERE IDpictogramme = ?`, id, (error, res) =>{
+    database.query(`SELECT * FROM Pictogram WHERE id = ?`, id, (error, res) =>{
         if (error){
             console.log("error: ", error);
             result(error, null);
@@ -37,7 +37,7 @@ Pictogram.getById = (id, result) => {
 // INSERT SQL Queries
 
 Pictogram.add = (newPictogram, result) => {
-    database.query(`INSERT INTO pictogramme SET ?`, newPictogram, (error, res) =>{
+    database.query(`INSERT INTO Pictogram SET ?`, newPictogram, (error, res) =>{
         if (error){
             console.log("error: ", error);
             result(error, null);
@@ -52,7 +52,7 @@ Pictogram.add = (newPictogram, result) => {
 // DELETE SQL Queries
 
 Pictogram.delete = (id, result) => {
-    database.query(`DELETE FROM pictogramme WHERE IDpictogramme = ?`, id, (error, res) =>{
+    database.query(`DELETE FROM Pictogram WHERE id = ?`, id, (error, res) =>{
         if (error){
             console.log("error: ", error);
             result(error, null);

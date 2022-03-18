@@ -57,7 +57,7 @@ function HomeScreen() {
 
     let handleReadSentence = function(){
         for (let i = 0; i < pictoArray.length; i++) {
-            readWord(pictoArray[i].Nom)
+            readWord(pictoArray[i].name)
         }
     }
 
@@ -86,7 +86,7 @@ function HomeScreen() {
                     <FlatList
                         numColumns={8}
                         data={pictoArray}
-                        keyExtractor={(item) => item.IDpictogramme ? item.IDpictogramme.toString() : item.IDfavoris.toString()}
+                        keyExtractor={(item) => item.id.toString()}
                         renderItem={({item}) => <Pictogram picto={item} isTouchable={false}/>}/>
                 </View>
                 <TouchableOpacity style={styles.readButton} onPress={() => {handleReadSentence()}}>
@@ -106,7 +106,7 @@ function HomeScreen() {
                     <FlatList
                         numColumns={1}
                         data={favPicto}
-                        keyExtractor={(item) => item.IDfavoris.toString()}
+                        keyExtractor={(item) => item.id.toString()}
                         renderItem={({item}) => 
                             <Pictogram picto={item} isTouchable={true} onPressHandler={selectPictoCallback} isFav={true}/>
                         }
@@ -116,7 +116,7 @@ function HomeScreen() {
                     <FlatList
                         numColumns={9}
                         data={allPicto}
-                        keyExtractor={(item) => item.IDpictogramme.toString()}
+                        keyExtractor={(item) => item.id.toString()}
                         renderItem={({item}) => 
                             <Pictogram picto={item} isTouchable={true} onPressHandler={selectPictoCallback} isFav={false}/>
                         }
