@@ -1,0 +1,71 @@
+const database = require("../database/database.js");
+
+const Pictogram = function(pictogram) {
+    this.Nom = pictogram.name;
+    this.url = pictogram.url;
+}
+
+// SELECT SQL Queries
+
+Pictogram.getAll = (result) => {
+    database.query(`SELECT * FROM pictogramme`, (error, res) =>{
+        if (error){
+            console.log("error: ", error);
+            result(error, null);
+            return;
+        }
+        console.log("pictograms: ", res);
+        result(null, res);
+    });
+
+};
+
+Pictogram.getById = (id, result) => {
+    database.query(`SELECT * FROM pictogramme WHERE IDpictogramme = ?`, id, (error, res) =>{
+        if (error){
+            console.log("error: ", error);
+            result(error, null);
+            return;
+        }
+        console.log("pictograms: ", res[0]);
+        result(null, res[0]);
+        return;
+    });
+
+};
+
+// INSERT SQL Queries
+
+Pictogram.add = (newPictogram, result) => {
+    database.query(`INSERT INTO pictogramme SET ?`, newPictogram, (error, res) =>{
+        if (error){
+            console.log("error: ", error);
+            result(error, null);
+            return;
+        }
+        console.log("created tutorial: ", { id: res.insertId, ...newPictogram });
+    result(null, { id: res.insertId, ...newPictogram });
+    });
+
+};
+
+// DELETE SQL Queries
+
+Pictogram.delete = (id, result) => {
+    database.query(`DELETE FROM pictogramme WHERE IDpictogramme = ?`, id, (error, res) =>{
+        if (error){
+            console.log("error: ", error);
+            result(error, null);
+            return;
+        }
+        if (res.affectedRows == 0) {
+            // Pictogram with the id not found
+            result({ kind: "not_found" }, null);
+            return;
+        }
+        console.log(`deleted tutorial with id: ${id}`);
+        result(null, res);
+    });
+};
+
+module.exports = Pictogram;

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import {StyleSheet, View, Text, TouchableOpacity, ImageBackground, FlatList, Image} from 'react-native';
 
 import {getImageFromDatabase, getPictosFavoriteFromDatabase} from "../API/API_Database";
+import PictogramService from '../services/PictogramService.js';
 import Pictogram from "./Pictogram";
 
 import * as Speech from 'expo-speech';
@@ -18,15 +19,9 @@ function HomeScreen() {
     // 2nd argument: "You can tell React to skip applying an effect if certain values haven’t changed between re-renders"
     // if [], only called the first time
     useEffect(function loadAllPicto(){
-        (async () => {
-            return await getImageFromDatabase();
-        })()
-        .then((data) => {
-            setAllPicto(data);
-        })
-        .catch((err) => {
-            console.error("Failed to get picto images : " + err);
-        })
+        PictogramService.getPictograms().then((response) => {
+            setAllPicto(response.data);
+        });
     }, []);
 
     useEffect(function loadFavPicto(){
