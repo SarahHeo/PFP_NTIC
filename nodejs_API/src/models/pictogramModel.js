@@ -1,7 +1,7 @@
 const database = require("../database/database.js");
 
 const Pictogram = function(pictogram) {
-    this.Nom = pictogram.name;
+    this.name = pictogram.name;
     this.url = pictogram.url;
 }
 
@@ -14,7 +14,7 @@ Pictogram.getAll = (result) => {
             result(error, null);
             return;
         }
-        console.log("pictograms: ", res);
+        //console.log("pictograms: ", res);
         result(null, res);
     });
 
@@ -27,7 +27,7 @@ Pictogram.getById = (id, result) => {
             result(error, null);
             return;
         }
-        console.log("pictograms: ", res[0]);
+        //console.log("pictograms: ", res[0]);
         result(null, res[0]);
         return;
     });
@@ -44,7 +44,7 @@ Pictogram.add = (newPictogram, result) => {
             return;
         }
         console.log("created tutorial: ", { id: res.insertId, ...newPictogram });
-    result(null, { id: res.insertId, ...newPictogram });
+        result(null, { id: res.insertId, ...newPictogram });
     });
 
 };

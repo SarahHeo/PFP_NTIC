@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import {StyleSheet, View, Text, TouchableOpacity, ImageBackground, FlatList, Image} from 'react-native';
 
-import {getImageFromDatabase, getPictosFavoriteFromDatabase} from "../API/API_Database";
 import PictogramService from '../services/PictogramService.js';
+import UserService from '../services/UserService.js';
 import Pictogram from "./Pictogram";
 
 import * as Speech from 'expo-speech';
@@ -21,19 +21,18 @@ function HomeScreen() {
     useEffect(function loadAllPicto(){
         PictogramService.getPictograms().then((response) => {
             setAllPicto(response.data);
-        });
+        }).catch((err) => {
+            console.error("Failed to get all picto: " + err);
+        });  ;
     }, []);
 
     useEffect(function loadFavPicto(){
-        (async () => {
-            return await getPictosFavoriteFromDatabase();
-        })()
-        .then((data) => {
-            setFavPicto(data);
-        })
-        .catch((err) => {
-            console.error("Failed to get fav images : " + err);
-        })
+        // !!!!!!!!!!!!!!!!!!!! hardcoded user id !!!!!!!!!!!!!!!!!!!!
+        UserService.getUserFavPicto(22).then((response) => {
+            setFavPicto(response.data);
+        }).catch((err) => {
+            console.error("Failed to get fav images: " + err);
+        });    
     }, []);
 
     // For debug only

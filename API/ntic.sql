@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 18 mars 2022 à 15:20
+-- Généré le : sam. 19 mars 2022 à 13:18
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -29,19 +29,19 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `educator`;
 CREATE TABLE IF NOT EXISTS `educator` (
-  `Idid` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `firstName` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` text NOT NULL,
-  PRIMARY KEY (`Idid`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `educator`
 --
 
-INSERT INTO `educator` (`Idid`, `name`, `firstName`, `email`, `password`) VALUES
+INSERT INTO `educator` (`id`, `name`, `firstName`, `email`, `password`) VALUES
 (22, 'Dupont', 'Jean', 'Jean@gmail.com', '*69E04464BC0A7BEA62070D6C8E465A3E0AC4FBAC');
 
 -- --------------------------------------------------------
@@ -185,7 +185,7 @@ INSERT INTO `user_favpicto` (`idUser`, `idPictogram`) VALUES
 -- Contraintes pour la table `educator_user`
 --
 ALTER TABLE `educator_user`
-  ADD CONSTRAINT `educator_user_ibfk_1` FOREIGN KEY (`idEducator`) REFERENCES `educator` (`Idid`),
+  ADD CONSTRAINT `educator_user_ibfk_1` FOREIGN KEY (`idEducator`) REFERENCES `educator` (`id`),
   ADD CONSTRAINT `educator_user_ibfk_2` FOREIGN KEY (`idUser`) REFERENCES `user` (`Id`);
 
 --

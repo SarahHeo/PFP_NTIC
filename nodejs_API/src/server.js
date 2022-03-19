@@ -15,6 +15,7 @@ app.get("/", (req, res) => {
 });
 
 require("./routes/pictogramRoutes.js")(app);
+require("./routes/userRoutes.js")(app);
 
 const PORT = process.env.PORT || 8080;
 
