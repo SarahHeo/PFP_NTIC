@@ -19,8 +19,6 @@ User.getFavPicto = (id, result) => {
 };
 
 
-// INSERT SQL Queries
-
 // DELETE SQL Queries
 
 

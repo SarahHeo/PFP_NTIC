@@ -46,7 +46,6 @@ Pictogram.add = (newPictogram, result) => {
         console.log("created tutorial: ", { id: res.insertId, ...newPictogram });
         result(null, { id: res.insertId, ...newPictogram });
     });
-
 };
 
 // DELETE SQL Queries

@@ -18,8 +18,3 @@ exports.getFavPicto = (req, res) => {
         }
     });
 };
-
-// POST Requests
-
-
-// DELETE Requests

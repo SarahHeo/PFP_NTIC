@@ -7,6 +7,14 @@ class UserService {
     getUserFavPicto(userId){
         return axios.get(USER_BASE_URL + "/" + userId + "/favpicto");
     }
+
+    addFavSentence(userId, pictoArray){
+        return axios.post(USER_BASE_URL + "/" + userId + "/favsentence", pictoArray);
+    }
+
+    getFavSentences(userId){
+        return axios.get(USER_BASE_URL + "/" + userId + "/favsentence");
+    }
 }
 
 export default new UserService();

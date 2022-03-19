@@ -54,6 +54,14 @@ function HomeScreen() {
         stopReading();
     }
 
+    let handleAddSentenceToFav = function(){
+        if (pictoArray.length < 2) {
+            alert("Sélectionnez au moins 2 pictogrammes pour mettre la phrase en favori !")
+            return;
+        }
+        addSentenceToFav();
+    }
+    
     let handleReadSentence = function(){
         for (let i = 0; i < pictoArray.length; i++) {
             readWord(pictoArray[i].name)
@@ -66,6 +74,14 @@ function HomeScreen() {
 
     let removeLastPicto = function() {
         setPictoArray(oldArray => [...oldArray.slice(0, oldArray.length - 1)]);
+    }
+
+    let addSentenceToFav = function() {
+        UserService.addFavSentence(22, pictoArray).then((response) => {
+            alert("Phrase ajoutée aux favoris !");
+        }).catch((err) => {
+           console.error("Failed to add sentence to fav: " + err);
+        });  
     }
 
     let readWord = function(word) {
@@ -94,7 +110,7 @@ function HomeScreen() {
                 <TouchableOpacity style={styles.deleteButton} onPress={() => {handleRemovePicto()}}>
                     <ImageBackground source={require('../Images/DeleteIcone.png')} style={styles.image}/>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.favButton}>
+                <TouchableOpacity style={styles.favButton} onPress={() => {handleAddSentenceToFav()}}>
                     <ImageBackground source={require('../Images/FavIcone.png')} style={styles.image}/>
                 </TouchableOpacity>
             </View>

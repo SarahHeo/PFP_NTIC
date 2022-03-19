@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : sam. 19 mars 2022 à 13:18
+-- Généré le : sam. 19 mars 2022 à 19:58
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -175,7 +175,39 @@ INSERT INTO `user_favpicto` (`idUser`, `idPictogram`) VALUES
 (22, 20),
 (22, 48),
 (22, 39),
-(22, 57);
+(22, 57),
+(21, 15),
+(21, 6);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `user_favsentence`
+--
+
+DROP TABLE IF EXISTS `user_favsentence`;
+CREATE TABLE IF NOT EXISTS `user_favsentence` (
+  `id` int(11) NOT NULL,
+  `idUser` int(11) NOT NULL,
+  `position` int(11) NOT NULL,
+  `idPictogram` int(11) NOT NULL,
+  PRIMARY KEY (`id`,`idUser`,`position`),
+  KEY `idUser` (`idUser`),
+  KEY `idPictogram` (`idPictogram`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `user_favsentence`
+--
+
+INSERT INTO `user_favsentence` (`id`, `idUser`, `position`, `idPictogram`) VALUES
+(4, 22, 0, 5),
+(8, 22, 0, 12),
+(8, 22, 1, 13),
+(4, 22, 1, 14),
+(2, 22, 0, 20),
+(6, 22, 0, 20),
+(6, 22, 1, 29);
 
 --
 -- Contraintes pour les tables déchargées
@@ -194,6 +226,13 @@ ALTER TABLE `educator_user`
 ALTER TABLE `user_favpicto`
   ADD CONSTRAINT `user_favpicto_ibfk_1` FOREIGN KEY (`idPictogram`) REFERENCES `pictogram` (`id`),
   ADD CONSTRAINT `user_favpicto_ibfk_2` FOREIGN KEY (`idUser`) REFERENCES `user` (`Id`);
+
+--
+-- Contraintes pour la table `user_favsentence`
+--
+ALTER TABLE `user_favsentence`
+  ADD CONSTRAINT `user_favsentence_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `user` (`Id`),
+  ADD CONSTRAINT `user_favsentence_ibfk_2` FOREIGN KEY (`idPictogram`) REFERENCES `pictogram` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
