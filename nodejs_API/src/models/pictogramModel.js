@@ -43,7 +43,7 @@ Pictogram.add = (newPictogram, result) => {
             result(error, null);
             return;
         }
-        console.log("created tutorial: ", { id: res.insertId, ...newPictogram });
+        console.log("created pictogram: ", { id: res.insertId, ...newPictogram });
         result(null, { id: res.insertId, ...newPictogram });
     });
 };
