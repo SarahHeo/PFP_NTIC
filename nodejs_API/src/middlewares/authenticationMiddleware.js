@@ -1,11 +1,11 @@
 const express = require("express");
 const JWT = require("../utils/authenticationServices.js");
 
-const AuthMiddleware = function(){
+const authMiddleware = function(){
 
 }
 
-AuthMiddleware.mustBeAuthenticated = (req, res, next) => {
+authMiddleware.mustBeAuthenticated = (req, res, next) => {
     const authorization = req.headers.authorization;
     if (!authorization) {
         return res.status(500).json('No authorization header');
@@ -21,4 +21,4 @@ AuthMiddleware.mustBeAuthenticated = (req, res, next) => {
       next();
 }
 
-module.exports = AuthMiddleware;
+module.exports = authMiddleware;

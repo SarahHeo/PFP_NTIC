@@ -1,6 +1,6 @@
 module.exports = app => {
     const pictogram = require("../controllers/pictogramController.js");
-    const AuthMiddleware = require("../middlewares/authenticationMiddleware.js");
+    const authMiddleware = require("../middlewares/authenticationMiddleware.js");
     var router = require("express").Router();
 
     router.get("/", pictogram.getAll);         // Retrieve all pictograms

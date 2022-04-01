@@ -21,7 +21,7 @@ userFavSentence.getByUserId = (userId, result) => {
             result(null, res);
             return;
         }
-        // Could not find Pictogram with the id
+        // Could not find favorite sentence with the user id
         result({ kind: "not_found" }, null);
     });
 };
