@@ -12,8 +12,12 @@ User.getFavPicto = (id, result) => {
             result(error, null);
             return;
         }
-        result(null, res);
-        return;
+        if (res.length) {
+            result(null, res);
+            return;
+        }
+        // Could not find favorite pictogram with the user id
+        result({ kind: "not_found" }, null);
     });
 
 };

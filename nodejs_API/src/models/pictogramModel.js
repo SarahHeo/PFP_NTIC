@@ -27,9 +27,13 @@ Pictogram.getById = (id, result) => {
             result(error, null);
             return;
         }
-        //console.log("pictograms: ", res[0]);
-        result(null, res[0]);
-        return;
+        if (res.length) {
+            console.log("found tutorial: ", res[0]);
+            result(null, res[0]);
+            return;
+          }
+          // not found Tutorial with the id
+          result({ kind: "not_found" }, null);
     });
 
 };

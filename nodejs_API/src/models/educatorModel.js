@@ -16,9 +16,13 @@ Educator.getByEmail = (email, result) => {
             result(error, null);
             return;
         }
-        //console.log("pictograms: ", res[0]);
-        result(null, res[0]);
-        return;
+        if (res.length) {
+            console.log("found tutorial: ", res[0]);
+            result(null, res[0]);
+            return;
+        }
+        //Could not find Educator with the email
+        result({ kind: "not_found" }, null);
     });
 };
 

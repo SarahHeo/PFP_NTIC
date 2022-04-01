@@ -36,7 +36,7 @@ exports.getById = (req, res) => {
 // POST Requests
 
 exports.add = (req, res) => {
-    if (!req.body){
+    if (Object.keys(req.body).length === 0){
         res.status(400).send({
             message: `Can't create a new pictogram out of an empty request body`
         });

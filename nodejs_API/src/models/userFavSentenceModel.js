@@ -17,7 +17,12 @@ userFavSentence.getByUserId = (userId, result) => {
             result(error, null);
             return;
         }
-        result(null, res);
+        if (res.length) {
+            result(null, res);
+            return;
+        }
+        // Could not find Pictogram with the id
+        result({ kind: "not_found" }, null);
     });
 };
 

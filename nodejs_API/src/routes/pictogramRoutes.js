@@ -1,5 +1,6 @@
 module.exports = app => {
     const pictogram = require("../controllers/pictogramController.js");
+    const AuthMiddleware = require("../middlewares/authenticationMiddleware.js");
     var router = require("express").Router();
 
     router.get("/", pictogram.getAll);         // Retrieve all pictograms
@@ -8,4 +9,5 @@ module.exports = app => {
     router.delete("/:id", pictogram.delete);   // Delete the pictogram with given ID from the SQL table
     
     app.use('/pictograms', router);
+    //app.use('/pictograms', AuthMiddleware.mustBeAuthenticated, router);
 }
