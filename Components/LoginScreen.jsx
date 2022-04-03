@@ -2,7 +2,9 @@ import React from 'react';
 import { Button, View, Text } from 'react-native';
 import AuthenticationService, { setToken } from '../services/AuthenticationService.js';
 import Form from './Form.jsx';
-import {validateContent, validateLength } from '../validators/authenticationValidator.jsx';
+import {validateContent,  
+    validateEmail, 
+    validatePassword } from '../validators/authenticationValidator.jsx';
 import styles from '../style/authenticationStyle.jsx';
 
 function LoginScreen({navigation}) {
@@ -20,8 +22,8 @@ function LoginScreen({navigation}) {
 
     return (
         <View style={styles.main_container}>
-            <Text style={styles.title}>Log In</Text>
             <Form
+            title="Log In"
             style={styles.form}
             action={AuthenticationService.login}
             afterSubmit={handleResult}
@@ -29,14 +31,14 @@ function LoginScreen({navigation}) {
             fields={{
                 email: {
                     label: 'Email',
-                    validators: [validateContent],
+                    validators: [validateContent, validateEmail],
                     inputProps: {
                     keyboardType: 'email-address',
                     },
                 },
                 password: {
                     label: 'Password',
-                    validators: [validateContent, validateLength],
+                    validators: [validateContent, validatePassword],
                     inputProps: {
                     secureTextEntry: true,
                     },

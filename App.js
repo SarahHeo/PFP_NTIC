@@ -22,15 +22,16 @@ export default class App extends React.Component {
 }
 */
 
-/*import { createAppContainer } from 'react-navigation';
+import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import LoginScreen from './Components/LoginScreen';
 import HomeScreen from './Components/HomeScreen';
+import Tabs from './Navigation/BottomTab';
 import RegisterScreen from './Components/RegisterScreen';
 
 const AppNavigator = createStackNavigator(
   {
-    Home: HomeScreen,
+    Home: Tabs,
     Login: LoginScreen,
     Register: RegisterScreen,
   },
@@ -39,22 +40,4 @@ const AppNavigator = createStackNavigator(
   },
 );
 
-export default createAppContainer(AppNavigator);*/
-
-import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-const Stack = createNativeStackNavigator();
-
-function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-}
-
-export default App();
+export default createAppContainer(AppNavigator);

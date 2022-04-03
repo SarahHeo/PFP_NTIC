@@ -1,10 +1,13 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-    title: {
-        fontSize: 40,
-        marginBottom: 20,
-        textAlign: 'center'
+    field: {
+        fontSize: 15,
+        margin: 8,
+    },
+    input_area: {
+        borderWidth: 1,
+        padding: 8
     },
     error: {
         color: 'red',

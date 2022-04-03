@@ -1,6 +1,7 @@
 import React, { useState} from 'react';
-import { Text, View, Button, TextInput } from 'react-native';
+import { Text, View, Button } from 'react-native';
 import { hasValidationError, validateFields } from '../validators/authenticationValidator.jsx';
+import Field from './Field.jsx';
 import styles from '../style/formStyle.jsx';
 
 
@@ -15,7 +16,7 @@ const createInitialState = (fieldKeys) => {
     return state;
 }
 
-const Form = ({fields, buttonText, action, afterSubmit }) => {
+const Form = ({title, fields, buttonText, action, afterSubmit }) => {
     // Create an array of keys out of the keys of fields
     const fieldKeys = Object.keys(fields);
     const [values, setValues] = useState(createInitialState(fieldKeys));
@@ -25,7 +26,6 @@ const Form = ({fields, buttonText, action, afterSubmit }) => {
     const onChangeValue = (key, value) => {
         const newValues = { ...values, [key] : value };
         setValues(newValues);
-        console.log(values);
 
         if (validationErrors[key]) {
             const newErrors = { ...validationErrors, [key]: ''};
@@ -37,6 +37,7 @@ const Form = ({fields, buttonText, action, afterSubmit }) => {
         return fieldKeys.sort().map(key => values[key]);
     };*/
 
+    //submit function, calls the action of the form if all validations are ok, shows errors otherwise
     const submit = async () => {
         setErrorMessage('');
         setValidationErrors(createInitialState(fieldKeys));
@@ -49,31 +50,26 @@ const Form = ({fields, buttonText, action, afterSubmit }) => {
             const result = await action(values);
             await afterSubmit(result);
         } catch(e) {
-            setErrorMessage(e.message);
+            setErrorMessage(`An error has occured ${e.message}`);
         }        
     };
 
     // for every key, create a input area in our form
     return (
         <View>
-            <Text>{errorMessage}</Text>
+            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.error}>{errorMessage}</Text>
             {fieldKeys.map((key) => {
-            const field = fields[key];
-            const fieldError = validationErrors[key];
-
-            return(
-
-                <View key ={key}>
-
-                    <Text style={styles.field}>{field.label}</Text>
-                    <TextInput
-                    style={styles.input_area}
-                    {...field.inputProps}
+                return(
+                    <Field
+                    key={key}
+                    fieldName={key}
+                    field={fields[key]}
+                    error={validationErrors[key]}
+                    onChangeText={onChangeValue}
                     value={values[key]}
-                    onChangeText= {(text) => onChangeValue(key, text)} />
-                    <Text>{fieldError}</Text>
-                </View>
-            );
+                    />
+                );
             })}
 
             <Button title={buttonText} onPress={submit}/>

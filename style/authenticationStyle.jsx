@@ -12,9 +12,4 @@ export default StyleSheet.create({
     form:{
         marginBottom: 20   
     },
-    title: {
-        fontSize: 40,
-        marginBottom: 20,
-        textAlign: 'center'
-    }
 });

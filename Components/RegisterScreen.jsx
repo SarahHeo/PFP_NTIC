@@ -2,7 +2,9 @@ import React from 'react';
 import { Button, View, Text } from 'react-native';
 import AuthenticationService, { setToken } from '../services/AuthenticationService';
 import Form from './Form.jsx';
-import {validateContent, validateLength } from '../validators/authenticationValidator.jsx';
+import {validateContent,  
+    validateEmail, 
+    validatePassword } from '../validators/authenticationValidator.jsx';
 import styles from '../style/authenticationStyle.jsx';
 
 function RegisterScreen({navigation}) {
@@ -19,8 +21,8 @@ function RegisterScreen({navigation}) {
 
     return (
         <View style={styles.main_container}>
-            <Text style={styles.title}>Register</Text>
             <Form
+            title="Register"
             style={styles.form}
             action={AuthenticationService.register}
             afterSubmit={handleResult}
@@ -36,14 +38,14 @@ function RegisterScreen({navigation}) {
                 },
                 email: {
                     label: 'Email',
-                    validators: [validateContent],
+                    validators: [validateContent, validateEmail],
                     inputProps: {
                     keyboardType: 'email-address',
                     },
                 },
                 password: {
                     label: 'Password',
-                    validators: [validateContent, validateLength],
+                    validators: [validateContent, validatePassword],
                     inputProps: {
                     secureTextEntry: true,
                     },

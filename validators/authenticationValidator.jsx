@@ -4,10 +4,32 @@ export const validateContent = (text) => {
     }
 }
 
-export const validateLength = (text) => {
-    if (text && text.length < 8) {
-        return 'Minimal length is 8.';
+export const validateEmail = (text) => {
+    if (text && text.search('[a-zA-Z0-9]*[^@]@{1}[a-zA-Z0-9]*[.][a-zA-Z]+') === -1) {
+        return "This email is not valid.";
     }
+}
+
+export const validatePassword = (text) => {
+    let error = '';
+
+    if (text && text.search('[a-z]') === -1) {
+        error += 'At least 1 lowercase letter is required.\n'
+    }
+
+    if (text && text.search('[A-Z]') === -1) {
+        error += 'At least 1 uppercase letter is required.\n'
+    }
+
+    if (text && text.search('[0-9]') === -1) {
+        error += 'At least 1 number is required.\n'
+    }
+
+    if (text && text.length < 8) {
+        error += 'Minimal length is 8.\n';
+    }
+
+    return error;
 }
 
 // Validate a field based on the validators it has
