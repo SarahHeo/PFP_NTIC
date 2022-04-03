@@ -18,12 +18,14 @@ function HomeScreen() {
     // useEffect = after every render
     // 2nd argument: "You can tell React to skip applying an effect if certain values haven’t changed between re-renders"
     // if [], only called the first time
+    
+    
     useEffect(function loadAllPicto(){
         PictogramService.getPictograms().then((response) => {
             setAllPicto(response.data);
         }).catch((err) => {
-            console.error("Failed to get all picto: " + err);
-        });  ;
+            console.log("Failed to get all picto: " + err);
+        });
     }, []);
 
     useEffect(function loadFavPicto(){
@@ -31,10 +33,10 @@ function HomeScreen() {
         UserService.getUserFavPicto(22).then((response) => {
             setFavPicto(response.data);
         }).catch((err) => {
-            console.error("Failed to get fav images: " + err);
+            console.log("Failed to get fav images: " + err);
         });    
     }, []);
-
+  
     // For debug only
     useEffect(function updatePictoArray(){
         // Display in console
@@ -43,7 +45,8 @@ function HomeScreen() {
         }
         console.log('________________');
     }, [pictoArray]);
-
+    
+    
     // useCallBack : "memoïsation", va garder en mémoire les return selon les inputs, opti (2eme argu = les dépendances)
     let selectPictoCallback = useCallback((picto) => { 
         addPictoToArray(picto);

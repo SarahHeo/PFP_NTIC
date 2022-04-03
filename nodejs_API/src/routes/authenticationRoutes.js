@@ -7,4 +7,4 @@ module.exports = app => {
     router.post("/login", educator.login);
 
     app.use('/authentication', router);
-}
+}   

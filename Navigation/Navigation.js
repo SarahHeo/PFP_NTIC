@@ -1,10 +1,11 @@
 import {createAppContainer} from "react-navigation";
 
 import { NavigationContainer } from '@react-navigation/native';
-import RegistrationForm from "../components/RegistrationForm";
+import RegistrationForm from "../Components/RegistrationForm";
 import ConfirmationScreen from "../Components/ConfirmationScreen";
 import HomeScreen from "../Components/HomeScreen";
 import Favorites from "../Components/Favorites";
+
 import createStackNavigator from "react-native-screens/createNativeStackNavigator";
 
 const SearchStackNavigator = createStackNavigator({

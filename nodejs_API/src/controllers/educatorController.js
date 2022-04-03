@@ -27,7 +27,8 @@ exports.register = async (req, res) => {
                     message: error.message || `An error occured while creating the new pictogram`
                 });
             } else {
-                res.send(data);
+                const accessToken = JWT.generateJWT(data.id, data.email);
+                res.send({auth_token: accessToken});
             }
         });
     } else {
@@ -82,7 +83,7 @@ exports.login = (req, res) => {
                 console.log(data);
                 if (await bcrypt.compare(req.body.password, data.password)){
                     const accessToken = JWT.generateJWT(data.id, data.email);
-                    res.send(accessToken);
+                    res.send({auth_token: accessToken});
                 } else {
                     res.status(500).send({
                         message: `Password is not correct: ${req.body.email}`
