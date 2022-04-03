@@ -14,7 +14,7 @@ export default StyleSheet.create({
     images : {
         resizeMode: 'contain',
         width: '100%',
-        height: '100px',
+        height: 100,
         aspectRatio: 1,
         borderRadius: 200
     }
