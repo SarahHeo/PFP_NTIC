@@ -1,9 +1,9 @@
 import React from 'react'
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {StyleSheet, View, Text, TouchableOpacity, ImageBackground, FlatList, Image} from "react-native";
-import HomeScreen from "../Components/HomeScreen";
-import Favorites from "../Components/Favorites";
-import Settings from "../Components/Settings";
+import HomeScreen from "../components/HomeScreen";
+import Favorites from "../components/Favorites";
+import Settings from "../components/Settings";
 import Navigation from "./Navigation";
 import {NavigationContainer} from "@react-navigation/native";
 
@@ -36,7 +36,7 @@ function Tabs() {
                     tabBarIcon: ({focused}) => (
                         <View style={{alignItems: 'center', justifyContent:'center', width: 100}}>
                             <Image
-                                source={require('../Images/HomeIcon.png')}
+                                source={require('../images/HomeIcon.png')}
                                 resizeMode='contain'
                                 style={{
                                     width: 55,
@@ -57,7 +57,7 @@ function Tabs() {
                             tabBarIcon: ({focused}) => (
                                 <View style={{alignItems: 'center', justifyContent:'center', width: 100}}>
                                     <Image
-                                        source={require('../Images/FavIcon2.png')}
+                                        source={require('../images/FavIcon2.png')}
                                         resizeMode='contain'
                                         style={{
                                             width: 55,
@@ -77,7 +77,7 @@ function Tabs() {
                             tabBarIcon: ({focused}) => (
                                 <View style={{alignItems: 'center', justifyContent:'center', width: 100}}>
                                     <Image
-                                        source={require('../Images/Settings.png')}
+                                        source={require('../images/Settings.png')}
                                         resizeMode='contain'
                                         style={{
                                             width: 55,

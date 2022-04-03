@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigationContainer} from "@react-navigation/native";
-import Tabs from "./Navigation/BottomTab";
-import Navigation from "./Navigation/Navigation";
+import Tabs from "./navigation/BottomTab";
+import Navigation from "./navigation/Navigation";
 
 
 export default class App extends React.Component {

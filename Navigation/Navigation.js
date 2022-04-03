@@ -2,9 +2,9 @@ import {createAppContainer} from "react-navigation";
 
 import { NavigationContainer } from '@react-navigation/native';
 import RegistrationForm from "../components/RegistrationForm";
-import ConfirmationScreen from "../Components/ConfirmationScreen";
-import HomeScreen from "../Components/HomeScreen";
-import Favorites from "../Components/Favorites";
+import ConfirmationScreen from "../components/ConfirmationScreen";
+import HomeScreen from "../components/HomeScreen";
+import Favorites from "../components/Favorites";
 import createStackNavigator from "react-native-screens/createNativeStackNavigator";
 
 const SearchStackNavigator = createStackNavigator({

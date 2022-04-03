@@ -105,13 +105,13 @@ function HomeScreen() {
                         renderItem={({item}) => <Pictogram picto={item} isTouchable={false}/>}/>
                 </View>
                 <TouchableOpacity style={styles.readButton} onPress={() => {handleReadSentence()}}>
-                    <ImageBackground source={require('../Images/ReadIcone.png')} style={styles.image}/>
+                    <ImageBackground source={require('../images/ReadIcone.png')} style={styles.image}/>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.deleteButton} onPress={() => {handleRemovePicto()}}>
-                    <ImageBackground source={require('../Images/DeleteIcone.png')} style={styles.image}/>
+                    <ImageBackground source={require('../images/DeleteIcone.png')} style={styles.image}/>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.favButton} onPress={() => {handleAddSentenceToFav()}}>
-                    <ImageBackground source={require('../Images/FavIcone.png')} style={styles.image}/>
+                    <ImageBackground source={require('../images/FavIcone.png')} style={styles.image}/>
                 </TouchableOpacity>
             </View>
 
