@@ -1,9 +1,8 @@
 import React, { useState} from 'react';
 import { Text, View, Button } from 'react-native';
 import { hasValidationError, validateFields } from '../validators/authenticationValidator.jsx';
-import Field from './Field.jsx';
-import styles from '../style/formStyle.jsx';
-
+import Field from '../components/Field.jsx';
+import styles from '../styles/components/form.jsx';
 
 // Create empty state with different substates for every key in fields
 

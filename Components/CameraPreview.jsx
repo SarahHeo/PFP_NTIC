@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ImageBackground, TouchableOpacity } from 'react-native';
-import styles from '../style/cameraPreviewStyle.jsx';
+import styles from '../styles/components/cameraPreview.jsx';
 
 const CameraPreview = ({ photo, onRetake, onSave  }) => {
     return (

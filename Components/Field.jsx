@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, TextInput, View } from 'react-native';
-import styles from '../style/fieldStyle';
+import styles from '../styles/components/field.jsx';
 
 const Field = ({ fieldName, field, value, onChangeText, error }) => {
     return (
