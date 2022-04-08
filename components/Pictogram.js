@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import {StyleSheet, View, Text, Image, ImageBackground, TouchableOpacity} from "react-native";
 
-import pictoStyle from '../style/pictogram.js';
-import favPictoStyle from '../style/favPictogram.js';
-import selectedPictoStyle from '../style/selectedPictogram.js';
+import pictoStyle from '../style/pages/pictogram.js';
+import favPictoStyle from '../style/pages/favPictogram.js';
+import selectedPictoStyle from '../style/pages/selectedPictogram.js';
 
 function Pictogram(props) {
 

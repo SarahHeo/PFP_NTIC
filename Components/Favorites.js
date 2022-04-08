@@ -3,7 +3,8 @@ import {StyleSheet, View, Text, TouchableOpacity, ImageBackground, FlatList, Ima
 
 import Pictogram from "./Pictogram";
 import UserService from '../services/UserService.js';
-import styles from '../style/favorites.js';
+import styles from '../style/pages/favorites.js';
+import style from '../style/components/global.js';
 
 // for now, need to refresh the page to see the updates
 function Favorites() {
@@ -56,6 +57,10 @@ function Favorites() {
                                     <Pictogram picto={item} isTouchable={false} isFav={false}/>
                                 }
                             />
+                            <TouchableOpacity style={style.deleteButtonFav} onPress={() => {handleRemovePicto()}}>
+                                <ImageBackground source={require('../images/DeleteIcone.png')} style={styles.image}/>
+                            </TouchableOpacity>
+                            <div>yo</div>
                         </View>
                     )
                 })}

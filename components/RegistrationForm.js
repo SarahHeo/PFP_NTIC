@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback }  from 'react'
 import { View, TouchableOpacity, TextInput, Text, StyleSheet } from 'react-native'
 
-import styles from '../style/registrationForm.js';
+import styles from '../style/pages/registrationForm.js';
 
 function RegistrationForm() {
 

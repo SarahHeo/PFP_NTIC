@@ -7,7 +7,7 @@ import Settings from "../components/Settings";
 import Navigation from "./Navigation";
 import {NavigationContainer} from "@react-navigation/native";
 
-import styles from '../style/tabs.js';
+import styles from '../style/pages/tabs.js';
 
 const Tab = createBottomTabNavigator();
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native'
 
-import styles from '../style/confirmationScreen.js';
+import styles from '../style/pages/confirmationScreen.js';
 
 function ConfirmationScreen() {
 

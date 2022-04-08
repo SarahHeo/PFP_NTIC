@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 
-import styles from '../style/settings.js';
+import styles from '../style/pages/settings.js';
 
 function Settings() {
 

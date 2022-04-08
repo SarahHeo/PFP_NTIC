@@ -7,7 +7,8 @@ import Pictogram from "./Pictogram";
 
 import * as Speech from 'expo-speech';
 
-import styles from '../style/homeScreen.js';
+import styles from '../style/pages/homeScreen.js';
+import style from '../style/components/global.js';
 
 function HomeScreen() {
 
@@ -23,7 +24,7 @@ function HomeScreen() {
             setAllPicto(response.data);
         }).catch((err) => {
             console.error("Failed to get all picto: " + err);
-        });  ;
+        });
     }, []);
 
     useEffect(function loadFavPicto(){
@@ -94,7 +95,6 @@ function HomeScreen() {
         
     return (
         <View style={styles.main_container}>
-
             {/* Sentence bar + buttons */}
             <View style={styles.top_container}>
                 <View style={styles.searchBar}>
@@ -107,7 +107,7 @@ function HomeScreen() {
                 <TouchableOpacity style={styles.readButton} onPress={() => {handleReadSentence()}}>
                     <ImageBackground source={require('../images/ReadIcone.png')} style={styles.image}/>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.deleteButton} onPress={() => {handleRemovePicto()}}>
+                <TouchableOpacity style={style.deleteButton} onPress={() => {handleRemovePicto()}}>
                     <ImageBackground source={require('../images/DeleteIcone.png')} style={styles.image}/>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.favButton} onPress={() => {handleAddSentenceToFav()}}>

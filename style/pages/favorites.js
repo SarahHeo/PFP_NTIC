@@ -26,5 +26,15 @@ export default StyleSheet.create({
         borderWidth: 2,
         borderRadius: 60,
         elevation: 10
+    },
+    deleteButtonFav: {
+        flex: 0.07,
+        marginTop: 10,
+        marginLeft: 10,
+        justifyContent: 'center',
+        backgroundColor: '#ff4b4b',
+        borderRadius: 70,
+        elevation: 10,
+        height: "100%"
     }
 })
