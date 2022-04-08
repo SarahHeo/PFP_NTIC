@@ -55,7 +55,7 @@ function Favorites() {
     }
 
     return (
-        <View style={styles.main_container}>
+        <View style={globalStyle.mainContainer}>
             <View style={styles.container}>
                 {allFavSentences.length == 0 &&
                     <View style={styles.phrase_container}>
@@ -74,7 +74,7 @@ function Favorites() {
                                 }
                             />
                             <TouchableOpacity style={[globalStyle.deleteButton, style.deleteButton]} onPress={() => {handleRemoveFavSentence(sentence[0].idSentence)}}>
-                                <ImageBackground source={require('../images/DeleteIcone.png')} style={styles.image}/>
+                                <ImageBackground source={require('../images/DeleteIcon.png')} style={styles.image}/>
                             </TouchableOpacity>
                         </View>
                     )

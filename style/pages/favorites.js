@@ -2,12 +2,6 @@ import { StyleSheet } from 'react-native';
 import globalStyle from '../components/global.js';
 
 const style = StyleSheet.create({
-    main_container: {
-        flex: 1,
-        flexDirection: 'column',
-        marginTop: 30,
-        backgroundColor: '#2a9d8F'
-    },
     container: {
         flex: 1,
         flexDirection: 'column',

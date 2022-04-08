@@ -14,6 +14,7 @@ const Tab = createBottomTabNavigator();
 function Tabs() {
     return(
         <Tab.Navigator
+            //initialRouteName="Favoris"
             tabBarOptions={{
                 showLabel: false,
                 style: {

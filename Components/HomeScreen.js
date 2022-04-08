@@ -8,7 +8,7 @@ import Pictogram from "./Pictogram";
 import * as Speech from 'expo-speech';
 
 import styles from '../style/pages/homeScreen.js';
-import style from '../style/components/global.js';
+import globalStyle from '../style/components/global.js';
 
 function HomeScreen() {
 
@@ -94,7 +94,7 @@ function HomeScreen() {
     }
         
     return (
-        <View style={styles.main_container}>
+        <View style={globalStyle.mainContainer}>
             {/* Sentence bar + buttons */}
             <View style={styles.top_container}>
                 <View style={styles.searchBar}>
@@ -104,14 +104,14 @@ function HomeScreen() {
                         keyExtractor={(item) => item.id.toString()}
                         renderItem={({item}) => <Pictogram picto={item} isTouchable={false}/>}/>
                 </View>
-                <TouchableOpacity style={styles.readButton} onPress={() => {handleReadSentence()}}>
-                    <ImageBackground source={require('../images/ReadIcone.png')} style={styles.image}/>
+                <TouchableOpacity style={globalStyle.readButton} onPress={() => {handleReadSentence()}}>
+                    <ImageBackground source={require('../images/ReadIcon.png')} style={globalStyle.imageButton}/>
                 </TouchableOpacity>
-                <TouchableOpacity style={style.deleteButton} onPress={() => {handleRemovePicto()}}>
-                    <ImageBackground source={require('../images/DeleteIcone.png')} style={styles.image}/>
+                <TouchableOpacity style={globalStyle.deleteButton} onPress={() => {handleRemovePicto()}}>
+                    <ImageBackground source={require('../images/DeleteIcon.png')} style={globalStyle.imageButton}/>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.favButton} onPress={() => {handleAddSentenceToFav()}}>
-                    <ImageBackground source={require('../images/FavIcone.png')} style={styles.image}/>
+                <TouchableOpacity style={globalStyle.favButton} onPress={() => {handleAddSentenceToFav()}}>
+                    <ImageBackground source={require('../images/FavIcon.png')} style={globalStyle.imageButton}/>
                 </TouchableOpacity>
             </View>
 
