@@ -8,13 +8,11 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row',
-        borderRadius: 90,
     },
     images : {
         resizeMode: 'contain',
         width: '100%',
         height: '100%',
         aspectRatio: 1,
-        borderRadius: 200
     }
 })

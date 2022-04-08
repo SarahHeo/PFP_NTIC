@@ -16,6 +16,5 @@ export default StyleSheet.create({
         width: '100%',
         height: 100,
         aspectRatio: 1,
-        borderRadius: 200
     }
 })

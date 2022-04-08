@@ -16,7 +16,7 @@ const createInitialState = (fieldKeys) => {
     return state;
 }
 
-const Form = ({title, fields, buttonText, action, afterSubmit }) => {
+const Form = ({ title, fields, buttonText, action, afterSubmit }) => {
     // Create an array of keys out of the keys of fields
     const fieldKeys = Object.keys(fields);
     const [values, setValues] = useState(createInitialState(fieldKeys));
