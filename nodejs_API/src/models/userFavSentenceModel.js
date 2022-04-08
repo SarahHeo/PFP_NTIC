@@ -46,4 +46,21 @@ userFavSentence.getLastIndex = (result) => {
     });
 };
 
+userFavSentence.delete = (idUser, idSentence, result) => {
+    const query = "DELETE FROM User_FavSentence WHERE id = " + idSentence + " AND idUser = " + idUser + ";";
+    database.query(query, (error, res) =>{
+        if (error){
+            console.log("error: ", error);
+            result(error, null);
+            return;
+        }
+        if (res.affectedRows == 0) {
+            // id not found
+            result({ kind: "not_found" }, null);
+            return;
+        }
+        result(null, res);
+    });
+};
+
 module.exports = userFavSentence;

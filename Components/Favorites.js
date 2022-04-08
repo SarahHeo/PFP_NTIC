@@ -4,7 +4,8 @@ import {StyleSheet, View, Text, TouchableOpacity, ImageBackground, FlatList, Ima
 import Pictogram from "./Pictogram";
 import UserService from '../services/UserService.js';
 import styles from '../style/pages/favorites.js';
-import style from '../style/components/global.js';
+import style from '../style/pages/favorites.js';
+import globalStyle from '../style/components/global.js';
 
 // for now, need to refresh the page to see the updates
 function Favorites() {
@@ -17,7 +18,7 @@ function Favorites() {
             recreateSentences(response.data);
         }).catch((err) => {
             console.error("Failed to get fav sentences: " + err);
-        });  ;
+        });
     }, []);
 
     let recreateSentences = function(data){
@@ -36,6 +37,21 @@ function Favorites() {
         favSentences.push(currentSentence);
 
         setAllFavSentences(favSentences);
+    }
+
+    let handleRemoveFavSentence = function(idSentence){
+        UserService.deleteFavSentence(22, idSentence).then((response) => {
+            removeSentenceFromDisplay(idSentence);
+        }).catch((err) => {
+           console.error("Failed to add sentence to fav: " + err);
+        });  
+    }
+
+    let removeSentenceFromDisplay = function(idSentence){
+        const newArray = allFavSentences.filter(function(sentence) { 
+            return sentence[0].idSentence !== idSentence
+        });
+        setAllFavSentences(newArray);
     }
 
     return (
@@ -57,10 +73,9 @@ function Favorites() {
                                     <Pictogram picto={item} isTouchable={false} isFav={false}/>
                                 }
                             />
-                            <TouchableOpacity style={style.deleteButtonFav} onPress={() => {handleRemovePicto()}}>
+                            <TouchableOpacity style={[globalStyle.deleteButton, style.deleteButton]} onPress={() => {handleRemoveFavSentence(sentence[0].idSentence)}}>
                                 <ImageBackground source={require('../images/DeleteIcone.png')} style={styles.image}/>
                             </TouchableOpacity>
-                            <div>yo</div>
                         </View>
                     )
                 })}

@@ -8,13 +8,18 @@ class UserService {
         return axios.get(USER_BASE_URL + "/" + userId + "/favpicto");
     }
 
-    addFavSentence(userId, pictoArray){
-        return axios.post(USER_BASE_URL + "/" + userId + "/favsentence", pictoArray);
-    }
-
     getFavSentences(userId){
         return axios.get(USER_BASE_URL + "/" + userId + "/favsentence");
     }
+
+    addFavSentence(userId, pictoArray){
+        return axios.post(USER_BASE_URL + "/" + userId + "/favsentence/add", pictoArray);
+    }
+
+    deleteFavSentence(userId, sentenceId){
+        return axios.delete(USER_BASE_URL + "/" + userId + "/favsentence/" + sentenceId + "/delete");
+    }
+
 }
 
 export default new UserService();

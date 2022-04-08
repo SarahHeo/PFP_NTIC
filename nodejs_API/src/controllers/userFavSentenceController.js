@@ -59,3 +59,21 @@ exports.add = (req, res) => {
         console.log("Error: " + err)
     })
 };
+
+exports.delete = (req, res) => {
+    userFavSentence.delete(req.params.id, req.params.idsentence, (error, data) => {
+        if (error) {
+            if(error.kind === "not_found"){
+                res.status(404).send({
+                    message: `Couldn't find the sentence with id: ${req.params.idsentence} for user with id: ${req.params.id}`
+                });
+            } else {
+                res.status(500).send({
+                    message: `An error occured deleting fav sentence with id: ${req.params.idsentence} for user with id: ${req.params.id}`
+                });
+            }
+        } else {
+            res.send({message: `Fav sentence with id ${req.params.idsentence} for user with id ${req.params.id} has been successfully deleted`});
+        }
+    });
+};
