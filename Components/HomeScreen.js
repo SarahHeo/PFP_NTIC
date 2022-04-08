@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import {StyleSheet, View, Text, TouchableOpacity, ImageBackground, FlatList, Image} from 'react-native';
+import {View, TouchableOpacity, ImageBackground, FlatList} from 'react-native';
 
 import PictogramService from '../services/PictogramService.js';
 import UserService from '../services/UserService.js';
@@ -38,6 +38,7 @@ function HomeScreen() {
     }, []);
   
     // For debug only
+    /*
     useEffect(function updatePictoArray(){
         // Display in console
         for (let i=0; i<pictoArray.length; i++) {
@@ -45,7 +46,7 @@ function HomeScreen() {
         }
         console.log('________________');
     }, [pictoArray]);
-    
+    */
     
     // useCallBack : "memoïsation", va garder en mémoire les return selon les inputs, opti (2eme argu = les dépendances)
     let selectPictoCallback = useCallback((picto) => { 

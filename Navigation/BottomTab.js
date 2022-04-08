@@ -4,6 +4,7 @@ import {StyleSheet, View, Text, TouchableOpacity, ImageBackground, FlatList, Ima
 import HomeScreen from "../Components/HomeScreen";
 import Favorites from "../Components/Favorites";
 import Settings from "../Components/Settings";
+import CustomPictogramScreen from "../Components/CustomPictogramScreen.jsx";
 import Navigation from "./Navigation";
 import {NavigationContainer} from "@react-navigation/native";
 
@@ -52,7 +53,7 @@ function Tabs() {
                         )
                     }}
                 />
-                <Tab.Screen name="Favoris"
+                <Tab.Screen name="Favorites"
                             component={Favorites}
                             options={{
                                 tabBarIcon: ({focused}) => (
@@ -72,6 +73,27 @@ function Tabs() {
                                     </View>
                                 )
                             }}/>
+                <Tab.Screen name="Pictogramme personnalisé"
+                    component={CustomPictogramScreen}
+                    options={{
+                        tabBarIcon: ({focused}) => (
+                            <View style={{alignItems: 'center', justifyContent:'center', width: 100}}>
+                                <Image
+                                    source={require('../Images/Custom.png')}
+                                    resizeMode='contain'
+                                    style={{
+                                        width: 55,
+                                        height: 55,
+                                        tintColor: focused ? '#F0B0D6' : '#5e5e5e',
+                                    }}
+                                />
+                                <Text style={{color: focused ? '#F0B0D6' : '#5e5e5e', fontSize: 18}}>
+                                    PERS.
+                                </Text>
+                            </View>
+                        )
+                    }}
+                />
                 <Tab.Screen name="Réglages"
                             component={Settings}
                             options={{
