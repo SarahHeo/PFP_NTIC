@@ -1,8 +1,8 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import Login from './components/Login.jsx';
-import Tabs from './navigation/BottomTab.jsx';
-import Register from './components/Register.jsx';
+import Login from './screens/Login.jsx';
+import Tabs from './navigations/BottomTab.jsx';
+import Register from './screens/Register.jsx';
 
 const AppNavigator = createStackNavigator(
   {

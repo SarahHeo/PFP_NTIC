@@ -2,19 +2,12 @@ import { StyleSheet } from 'react-native';
 import globalStyle from '../components/global.jsx';
 
 const style = StyleSheet.create({
-    main_container: {
-        flex: 1,
-        flexDirection: 'column',
-        marginTop: 30,
-        backgroundColor: '#2a9d8F'
-    },
     container: {
         flex: 1,
         flexDirection: 'column',
         marginBottom: 90,
         backgroundColor: '#2a9d8F',
         justifyContent: 'center'
-
     },
     phrase_container: {
         flex: 0.15,
@@ -30,6 +23,11 @@ const style = StyleSheet.create({
     },
     deleteButton: { 
         height: "100%", 
+    },
+    image: {
+        flex: 1,
+        width: '100%',
+        height: '100%',
     }
 })
 

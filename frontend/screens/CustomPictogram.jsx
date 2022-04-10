@@ -69,28 +69,7 @@ function CustomPictogram({navigation}) {
             throw new Error('Something went wrong.');
         }
     }
-
-    /*
-    return (
-        <View style={styles.container}>
-            <Camera style={styles.camera} ref={camera} type={type}>
-                <View style={styles.buttonContainer}>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={flipCamera}>
-                    <ImageBackground style={styles.image} source={require('../Images/FlipCamera.png')}/>
-                </TouchableOpacity>
-                <TouchableOpacity 
-                style={styles.button}
-                onPress={takePicture}>
-                    <ImageBackground style={styles.image} source={require('../Images/Camera.png')}/>
-                </TouchableOpacity>
-                </View>
-            </Camera>
-        </View>
-    );
-    */
-    
+  
     return (
         <View style={styles.container}>
         {isCameraOn ? (
@@ -103,12 +82,12 @@ function CustomPictogram({navigation}) {
                         <TouchableOpacity
                             style={styles.button}
                             onPress={flipCamera}>
-                            <ImageBackground style={styles.icon} source={require('../Images/FlipCamera.png')}/>
+                            <ImageBackground style={styles.icon} source={require('../images/FlipCamera.png')}/>
                         </TouchableOpacity>
                         <TouchableOpacity 
                             style={styles.button}
                             onPress={takePicture}>
-                            <ImageBackground style={styles.icon} source={require('../Images/Camera.png')}/>
+                            <ImageBackground style={styles.icon} source={require('../images/Camera.png')}/>
                         </TouchableOpacity>
                     </View>
                 </Camera>

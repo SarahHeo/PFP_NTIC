@@ -58,4 +58,4 @@ function Register({navigation}) {
     );
 }
 
-export default RegisterScreen;
+export default Register;

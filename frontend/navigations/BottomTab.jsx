@@ -5,10 +5,8 @@ import { View, Text, Image} from "react-native";
 import Home from "../screens/Home.jsx";
 import Favorites from "../screens/Favorites.jsx";
 import Settings from "../screens/Settings.jsx";
-import CustomPictogram from "../components/CustomPictogram.jsx";
-
-
-import styles from '../style/pages/tabs.js';
+import CustomPictogram from "../screens/CustomPictogram.jsx";
+import styles from '../styles/screens/tabs.jsx';
 
 const Tab = createBottomTabNavigator();
 
@@ -38,7 +36,7 @@ function Tabs() {
                         tabBarIcon: ({focused}) => (
                             <View style={{alignItems: 'center', justifyContent:'center', width: 100}}>
                                 <Image
-                                    source={require('../Images/HomeIcon.png')}
+                                    source={require('../images/HomeIcon.png')}
                                     resizeMode='contain'
                                     style={{
                                         width: 55,
@@ -59,7 +57,7 @@ function Tabs() {
                                 tabBarIcon: ({focused}) => (
                                     <View style={{alignItems: 'center', justifyContent:'center', width: 100}}>
                                         <Image
-                                            source={require('../Images/FavIcon2.png')}
+                                            source={require('../images/FavIcon2.png')}
                                             resizeMode='contain'
                                             style={{
                                                 width: 55,
@@ -79,7 +77,7 @@ function Tabs() {
                         tabBarIcon: ({focused}) => (
                             <View style={{alignItems: 'center', justifyContent:'center', width: 100}}>
                                 <Image
-                                    source={require('../Images/Custom.png')}
+                                    source={require('../images/Custom.png')}
                                     resizeMode='contain'
                                     style={{
                                         width: 55,
@@ -100,7 +98,7 @@ function Tabs() {
                                 tabBarIcon: ({focused}) => (
                                     <View style={{alignItems: 'center', justifyContent:'center', width: 100}}>
                                         <Image
-                                            source={require('../Images/Settings.png')}
+                                            source={require('../images/Settings.png')}
                                             resizeMode='contain'
                                             style={{
                                                 width: 55,

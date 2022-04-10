@@ -13,12 +13,12 @@ const CameraPreview = ({ photo, onRetake, onSave  }) => {
                 <TouchableOpacity
                     style={styles.button}
                     onPress={onRetake}>
-                    <ImageBackground style={styles.image} source={require('../Images/Cancel.png')}/>
+                    <ImageBackground style={styles.image} source={require('../images/Cancel.png')}/>
                 </TouchableOpacity>
                 <TouchableOpacity 
                     style={styles.button}
                     onPress={onSave}>
-                    <ImageBackground style={styles.image} source={require('../Images/Validate.png')}/>
+                    <ImageBackground style={styles.image} source={require('../images/Validate.png')}/>
                 </TouchableOpacity>
             </View>
             </ImageBackground>

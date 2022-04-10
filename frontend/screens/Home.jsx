@@ -3,12 +3,11 @@ import {View, TouchableOpacity, ImageBackground, FlatList} from 'react-native';
 
 import PictogramService from '../services/PictogramService.jsx';
 import UserService from '../services/UserService.jsx';
-import Pictogram from "../components/Pictogram";
+import Pictogram from "../components/Pictogram.jsx";
 
 import * as Speech from 'expo-speech';
-
-import styles from '../styles/screens/homeScreen.js';
-import style from '../styles/components/global.js';
+import styles from '../styles/screens/home.jsx';
+import style from '../styles/components/global.jsx';
 
 function Home() {
 
