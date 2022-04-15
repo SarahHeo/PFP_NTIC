@@ -1,11 +1,17 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+import variables from '../utils/variables.js';
+
+const dimWindow = Dimensions.get("window");
 
 export default StyleSheet.create({  
+
     mainContainer: {
-        border: "2px solid purple",
+        //border: "3px solid purple",
         flex: 1,
-        flexDirection: 'column',
-        marginTop: 30,
-        backgroundColor: '#2a9d8F'
+        backgroundColor: variables.color.mid,
+        paddingLeft: 25,
+        paddingRight: 25,
+        paddingTop: 15,
+        //paddingBottom: 15
     },
 })

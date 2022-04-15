@@ -2,13 +2,14 @@ import React from 'react';
 import {StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 
 import styles from '../style/pages/settings.js';
+import globalStyle from '../style/components/global.js';
 
 function Settings() {
 
     return (
         <View style={styles.main_container}>
-            <View style={styles.title_container}>
-                <Text style={styles.titleText}>Veuillez vous connecter pour accéder aux réglages</Text>
+            <View style={globalStyle.mainTitleContainer}>
+                <Text style={globalStyle.mainTitle}>Veuillez vous connecter pour accéder aux réglages</Text>
             </View>
             <View style={styles.container}>
                 <View style={styles.phrase_container}>

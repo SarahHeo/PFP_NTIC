@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import {StyleSheet, View, Text, TouchableOpacity, ImageBackground, FlatList, Image} from 'react-native';
 
-import Pictogram from "./Pictogram";
+import Pictogram from "./Pictogram.js";
 import UserService from '../services/UserService.js';
 import styles from '../style/pages/favorites.js';
 import style from '../style/pages/favorites.js';
 import globalStyle from '../style/components/global.js';
+
+
 
 // for now, need to refresh the page to see the updates
 function Favorites() {
@@ -56,7 +58,10 @@ function Favorites() {
 
     return (
         <View style={globalStyle.mainContainer}>
-            <View style={styles.container}>
+            <View style={globalStyle.mainTitleContainer}>
+                <Text style={globalStyle.mainTitle}>Phrases enregistrées</Text>
+            </View>
+            <View style={style.container}>
                 {allFavSentences.length == 0 &&
                     <View style={styles.phrase_container}>
                         <Text>Aucune phrase n'a encore été ajoutée en favori !</Text>
@@ -64,13 +69,13 @@ function Favorites() {
                 }
                 {allFavSentences.length != 0 && allFavSentences.map(sentence => {
                     return (
-                        <View style={styles.phrase_container} key={sentence[0].idSentence.toString()}>
+                        <View style={style.sentenceContainer} key={sentence[0].idSentence.toString()}>
                             <FlatList
-                                numColumns={9}
+                                numColumns={14}
                                 data={sentence}
                                 keyExtractor={(item) => item.idPicto.toString()}
                                 renderItem={({item}) => 
-                                    <Pictogram picto={item} isTouchable={false} isFav={false}/>
+                                    <Pictogram picto={item} isTouchable={false} id={"favScreen"}/>
                                 }
                             />
                             <TouchableOpacity style={[globalStyle.deleteButton, style.deleteButton]} onPress={() => {handleRemoveFavSentence(sentence[0].idSentence)}}>

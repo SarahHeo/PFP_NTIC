@@ -3,12 +3,15 @@ import {StyleSheet, View, Text, TouchableOpacity, ImageBackground, FlatList, Ima
 
 import PictogramService from '../services/PictogramService.js';
 import UserService from '../services/UserService.js';
-import Pictogram from "./Pictogram";
+import Pictogram from "./Pictogram.js";
 
 import * as Speech from 'expo-speech';
 
-import styles from '../style/pages/homeScreen.js';
+import style from '../style/pages/homeScreen.js';
 import globalStyle from '../style/components/global.js';
+import selectedPictoStyle from '../style/pages/selectedPictogram.js';
+import listPictoStyle from '../style/pages/listPictogram.js';
+import favPictoStyle from '../style/pages/favPictogram.js';
 
 function HomeScreen() {
 
@@ -96,13 +99,13 @@ function HomeScreen() {
     return (
         <View style={globalStyle.mainContainer}>
             {/* Sentence bar + buttons */}
-            <View style={styles.top_container}>
-                <View style={styles.searchBar}>
+            <View style={style.topContainer}>
+                <View style={style.selectedPictoContainer}>
                     <FlatList
-                        numColumns={8}
+                        numColumns={14}
                         data={pictoArray}
                         keyExtractor={(item) => item.id.toString()}
-                        renderItem={({item}) => <Pictogram picto={item} isTouchable={false}/>}/>
+                        renderItem={({item}) => <Pictogram picto={item} isTouchable={false} id={"selected"}/>}/>
                 </View>
                 <TouchableOpacity style={globalStyle.readButton} onPress={() => {handleReadSentence()}}>
                     <ImageBackground source={require('../images/ReadIcon.png')} style={globalStyle.imageButton}/>
@@ -116,27 +119,27 @@ function HomeScreen() {
             </View>
 
             {/* Favorites + main */}
-            <View style={styles.bot_container}>
-                <TouchableOpacity activeOpacity={0.7} style={styles.favoritePictosContainer}>
+            <View style={style.botContainer}>
+                <View style={[style.favPictoContainer, {}]}>
                     <FlatList
-                        numColumns={1}
+                        //numColumns={12}
                         data={favPicto}
                         keyExtractor={(item) => item.id.toString()}
                         renderItem={({item}) => 
-                            <Pictogram picto={item} isTouchable={true} onPressHandler={selectPictoCallback} isFav={true}/>
+                            <Pictogram picto={item} isTouchable={true} onPressHandler={selectPictoCallback} id={"fav"}/>
                         }
                     />
-                </TouchableOpacity>
-                <TouchableOpacity activeOpacity={0.7} style={styles.pictos_container}>
+                </View>
+                <View style={style.pictoContainer}>
                     <FlatList
                         numColumns={9}
                         data={allPicto}
                         keyExtractor={(item) => item.id.toString()}
                         renderItem={({item}) => 
-                            <Pictogram picto={item} isTouchable={true} onPressHandler={selectPictoCallback} isFav={false}/>
+                            <Pictogram picto={item} isTouchable={true} onPressHandler={selectPictoCallback} id={"list"}/>
                         }
                     />
-                </TouchableOpacity>
+                </View>
             </View>
         </View>
     )

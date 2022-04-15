@@ -1,29 +1,33 @@
 import { StyleSheet } from 'react-native';
 import globalStyle from '../components/global.js';
+import variables from '../utils/variables.js';
 
 const style = StyleSheet.create({
+
     container: {
         flex: 1,
-        flexDirection: 'column',
-        marginBottom: 90,
-        backgroundColor: '#2a9d8F',
-        justifyContent: 'center'
-
+        //flexDirection: 'column',
+        marginBottom: 110,
+        overflow: "auto"
     },
-    phrase_container: {
-        flex: 0.15,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        margin: 20,
-        backgroundColor: '#2a9d8F',
-        borderColor: '#FFFFFF',
+
+    sentenceContainer: {
+        borderColor: variables.color.light,
         borderWidth: 2,
         borderRadius: 60,
-        elevation: 10
+        height: 120,
+        marginTop: 10,
+        marginBottom: 10,
+        paddingLeft: 25,
+        paddingRight: 25,
+        flexDirection: 'row',
+        //justifyContent: 'center',
+        alignItems: 'center',
     },
+
     deleteButton: { 
         height: "100%", 
+        width: 100
     }
 })
 

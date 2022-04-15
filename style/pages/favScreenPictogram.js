@@ -2,9 +2,9 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
 
-    mainContainer: {
-        margin : 5,
-        height: 100,
-        width: 100
+    mainContainer : {
+        height: 86,
+        width: 80,
+        margin: 10
     }
 })

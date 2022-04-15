@@ -7,17 +7,7 @@ export default StyleSheet.create({
         marginTop: 30,
         backgroundColor: '#2a9d8F',
     },
-    title_container: {
-        flex: 0.3,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    titleText: {
-        fontSize: 40,
-        fontWeight: 'bold',
-        color: 'white'
-    },
+
     container: {
         flex: 1.5,
         flexDirection: 'column',
