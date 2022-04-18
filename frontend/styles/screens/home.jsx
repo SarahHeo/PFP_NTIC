@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
-import globalStyle from '../components/global.js';
-import variables from '../utils/variables.js';
+import globalStyle from '../components/global.jsx';
+import variables from '../utils/variables.jsx';
 
 const style =  StyleSheet.create({
     

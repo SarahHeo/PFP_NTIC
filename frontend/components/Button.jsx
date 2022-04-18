@@ -1,7 +1,7 @@
-import React from 'react'
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native'
+import React from 'react';
+import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 
-import globalStyle from '../style/components/global.js';
+import globalStyle from '../styles/components/global.jsx';
 
 function Button() {
 

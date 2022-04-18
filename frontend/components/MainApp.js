@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
 import Tabs from "../navigation/BottomTab";
 
-import globalStyle from '../style/components/global.js';
+import globalStyle from '../styles/components/global.jsx';
 
 function MainApp() {
     return (
