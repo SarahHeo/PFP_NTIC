@@ -25,7 +25,7 @@ const style =  StyleSheet.create({
             flexDirection: 'row',
             marginTop: 10,
             justifyContent: 'flex-start',
-            borderColor: variables.color.light,
+            borderColor: variables.color.veryLight,
             borderWidth: 2,
             borderRadius: 60,
             paddingLeft: 30,
@@ -41,7 +41,7 @@ const style =  StyleSheet.create({
             padding: 20,
             //justifyContent: 'center',
             alignItems: 'center',
-            borderColor: variables.color.light,
+            borderColor: variables.color.veryLight,
             borderWidth: 2,
             borderRadius: 50
         },
@@ -51,7 +51,7 @@ const style =  StyleSheet.create({
             justifyContent: 'center',
             marginTop: 10,
             marginLeft: 15,
-            borderColor: variables.color.light,
+            borderColor: variables.color.veryLight,
             borderWidth: 2,
             borderRadius: 30,
             padding: 15

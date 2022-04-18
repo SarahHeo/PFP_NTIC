@@ -12,7 +12,7 @@ const style = StyleSheet.create({
     },
 
     sentenceContainer: {
-        borderColor: variables.color.light,
+        borderColor: variables.color.veryLight,
         borderWidth: 2,
         borderRadius: 60,
         height: 120,

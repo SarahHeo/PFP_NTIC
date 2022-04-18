@@ -12,7 +12,7 @@ function Login({navigation}) {
         if (result.data.auth_token) {
             console.log(result.data);
             await setToken(result.data.auth_token);
-            navigation.navigate('Home');
+            navigation.navigate('MainApp', { screen: 'Home' });
         } else if (result.status === 401) {
             throw new Error('Invalid login.');
         } else {
