@@ -20,7 +20,8 @@ exports.getFavPicto = (req, res) => {
 };
 
 // POST Requests
-exports.getFavPicto = (req, res) => {
+// ???? à supp ?
+/*exports.getFavPicto = (req, res) => {
     User.getFavPicto(req.params.id, (error, data) => {
         if (error) {
             if(error.kind === "not_found"){
@@ -36,4 +37,4 @@ exports.getFavPicto = (req, res) => {
             res.send(data);
         }
     });
-};
+};*/
