@@ -15,7 +15,8 @@ const Tab = createBottomTabNavigator();
 
 function Tabs() {
     return(
-            <Tab.Navigator screenOptions={{ tabBarActiveTintColor: globalStyle.color.pink,
+            <Tab.Navigator initialRouteName={"Home"}
+                           screenOptions={{ tabBarActiveTintColor: globalStyle.color.pink,
                                             tabBarInactiveTintColor: globalStyle.color.inactive,
                                             tabBarLabelStyle: style.label,
                                             tabBarLabelPosition: "below-icon",

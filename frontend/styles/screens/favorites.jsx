@@ -7,8 +7,7 @@ const style = StyleSheet.create({
     container: {
         flex: 1,
         //flexDirection: 'column',
-        marginBottom: 110,
-        overflow: "auto"
+        marginBottom: 110
     },
 
     sentenceContainer: {

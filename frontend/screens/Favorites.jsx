@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, ImageBackground, FlatList, Image} from 'react-native';
+import { View, Text, TouchableOpacity, ImageBackground, FlatList, Image, ScrollView} from 'react-native';
 
 import Pictogram from "../components/Pictogram.jsx";
 import UserService from '../services/UserService.jsx';
@@ -61,7 +61,7 @@ function Favorites() {
             <View style={globalStyle.mainTitleContainer}>
                 <Text style={globalStyle.mainTitle}>Phrases enregistrées</Text>
             </View>
-            <View style={style.container}>
+            <ScrollView style={style.container}>
                 {allFavSentences.length == 0 &&
                     <View style={styles.phrase_container}>
                         <Text>Aucune phrase n'a encore été ajoutée en favori !</Text>
@@ -79,12 +79,12 @@ function Favorites() {
                                 }
                             />
                             <TouchableOpacity style={[globalStyle.deleteButton, style.deleteButton]} onPress={() => {handleRemoveFavSentence(sentence[0].idSentence)}}>
-                                <ImageBackground source={require('../images/DeleteIcon.png')} style={styles.image}/>
+                                <ImageBackground source={require('../images/DeleteIcon.png')} style={globalStyle.imageButton}/>
                             </TouchableOpacity>
                         </View>
                     )
                 })}
-            </View>
+            </ScrollView>
         </View>
     )
 }

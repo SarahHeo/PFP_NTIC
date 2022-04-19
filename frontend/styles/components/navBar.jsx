@@ -18,7 +18,6 @@ export default StyleSheet.create({
 
     bar: {
         position: 'absolute',
-        border: "3px solid purple",
         bottom: 10,
         left: 20,
         right: 20,

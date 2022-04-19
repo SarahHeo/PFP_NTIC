@@ -29,7 +29,7 @@ function CustomChoice({navigation}) {
                     {selectedTab == 0 && <Custom1/>}
                     {selectedTab == 1 && <Custom2/>}
                     {selectedTab == 2 && <Custom3/>}
-                    </View>
+                </View>
             </View>
 
         </View>
