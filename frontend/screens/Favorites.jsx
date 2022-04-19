@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, ImageBackground, FlatList, Image, ScrollView} from 'react-native';
+import * as Speech from 'expo-speech';
 
 import Pictogram from "../components/Pictogram.jsx";
 import UserService from '../services/UserService.jsx';
@@ -56,6 +57,17 @@ function Favorites() {
         setAllFavSentences(newArray);
     }
 
+    let handleReadSentence = function(sentence){
+        const te = "re";
+        for (let i = 0; i < sentence.length; i++) {
+            readWord(sentence[i].name)
+        }
+    }
+
+    let readWord = function(word) {
+        Speech.speak(word, {language: 'fr'})
+    }
+
     return (
         <View style={globalStyle.mainContainer}>
             <View style={globalStyle.mainTitleContainer}>
@@ -79,7 +91,10 @@ function Favorites() {
                                     <Pictogram picto={item} isTouchable={false} id={"favScreen"}/>
                                 }
                             />
-                            <TouchableOpacity style={[globalStyle.deleteButton, style.deleteButton]} onPress={() => {handleRemoveFavSentence(sentence[0].idSentence)}}>
+                            <TouchableOpacity style={[globalStyle.readButton, style.button]} onPress={() => {handleReadSentence(sentence)}}>
+                                <ImageBackground source={require('../images/ReadIcon.png')} style={globalStyle.imageButton}/>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={[globalStyle.deleteButton, style.button]} onPress={() => {handleRemoveFavSentence(sentence[0].idSentence)}}>
                                 <ImageBackground source={require('../images/DeleteIcon.png')} style={globalStyle.imageButton}/>
                             </TouchableOpacity>
                         </View>
