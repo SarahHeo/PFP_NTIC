@@ -63,14 +63,15 @@ function Favorites() {
             </View>
             <ScrollView style={style.container}>
                 {allFavSentences.length == 0 &&
-                    <View style={styles.phrase_container}>
-                        <Text>Aucune phrase n'a encore été ajoutée en favori !</Text>
+                    <View style={style.messageContainer}>
+                        <Text style={style.message}>Aucune phrase n'a encore été ajoutée en favori !</Text>
                     </View>
                 }
                 {allFavSentences.length != 0 && allFavSentences.map(sentence => {
                     return (
                         <View style={style.sentenceContainer} key={sentence[0].idSentence.toString()}>
                             <FlatList
+                                //contentContainerStyle={style.test}
                                 numColumns={14}
                                 data={sentence}
                                 keyExtractor={(item) => item.idPicto.toString()}

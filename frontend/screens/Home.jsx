@@ -107,13 +107,13 @@ function Home() {
                         keyExtractor={(item) => item.id.toString()}
                         renderItem={({item}) => <Pictogram picto={item} isTouchable={false} id={"selected"}/>}/>
                 </View>
-                <TouchableOpacity style={globalStyle.readButton} onPress={() => {handleReadSentence()}}>
+                <TouchableOpacity style={[globalStyle.readButton, style.button]} onPress={() => {handleReadSentence()}}>
                     <ImageBackground source={require('../images/ReadIcon.png')} style={globalStyle.imageButton}/>
                 </TouchableOpacity>
-                <TouchableOpacity style={globalStyle.deleteButton} onPress={() => {handleRemovePicto()}}>
+                <TouchableOpacity style={[globalStyle.deleteButton, style.button]} onPress={() => {handleRemovePicto()}}>
                     <ImageBackground source={require('../images/DeleteIcon.png')} style={globalStyle.imageButton}/>
                 </TouchableOpacity>
-                <TouchableOpacity style={globalStyle.favButton} onPress={() => {handleAddSentenceToFav()}}>
+                <TouchableOpacity style={[globalStyle.favButton, style.button]} onPress={() => {handleAddSentenceToFav()}}>
                     <ImageBackground source={require('../images/FavIcon.png')} style={globalStyle.imageButton}/>
                 </TouchableOpacity>
             </View>
@@ -132,6 +132,8 @@ function Home() {
                 </View>
                 <View style={style.pictoContainer}>
                     <FlatList
+                        //contentContainerStyle={style.pictoList0}
+                        columnWrapperStyle={style.pictoList}
                         numColumns={9}
                         data={allPicto}
                         keyExtractor={(item) => item.id.toString()}

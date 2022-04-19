@@ -11,22 +11,33 @@ const style = StyleSheet.create({
     },
 
     sentenceContainer: {
+        //flex: 1,
         borderColor: variables.color.veryLight,
         borderWidth: 2,
-        borderRadius: 60,
-        height: 120,
+        borderRadius: 35,
+        //minHeight: 120,
         marginTop: 10,
         marginBottom: 10,
         paddingLeft: 25,
         paddingRight: 25,
-        flexDirection: 'row',
         //justifyContent: 'center',
         alignItems: 'center',
+        flexDirection: 'row'
     },
 
-    deleteButton: { 
-        height: "100%", 
-        width: 100
+    deleteButton: {
+        height: 65, 
+        width: 65,
+        marginLeft: 10
+    },
+
+    messageContainer: {
+        marginTop: 50
+    },
+
+    message: {
+        fontSize: 15,
+        textAlign: "center"
     }
 })
 

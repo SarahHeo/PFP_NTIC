@@ -54,8 +54,22 @@ const style =  StyleSheet.create({
             borderColor: variables.color.veryLight,
             borderWidth: 2,
             borderRadius: 30,
-            padding: 15
-        }
+            padding: 15,
+            //border:"1px solid purple"
+        },
+
+        pictoList: {
+           // border:"1px solid red",
+            //flex: 1,
+            justifyContent: 'space-evenly'
+        },
+
+    /* */
+    button: {
+        flex: 0.07,
+        marginTop: 10,
+        marginLeft: 10,
+    }
 });
 
 export default style;
