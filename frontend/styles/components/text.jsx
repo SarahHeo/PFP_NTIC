@@ -5,7 +5,7 @@ import variables from '../utils/variables';
 export default StyleSheet.create({
 
     mainTitle: {
-        color: variables.color.mainTitle,
+        color: variables.color.veryLight,
         fontSize: 30,
         //fontWeight: 'bold'
     },

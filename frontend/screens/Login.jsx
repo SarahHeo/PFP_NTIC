@@ -1,23 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Button, View, Text } from 'react-native';
-import AuthenticationService, { setToken } from '../services/AuthenticationService.jsx';
+import AuthenticationService, { setToken, getToken } from '../services/AuthenticationService.jsx';
 import Form from '../components/Form.jsx';
-import {validateContent,  
-    validateEmail, 
-    validatePassword } from '../validators/authenticationValidator.jsx';
+import {validateContent, validateEmail, validatePassword } from '../validators/authenticationValidator.jsx';
 import styles from '../styles/screens/authentication.jsx';
 
 function Login({navigation}) {
+
+    useEffect(() => {
+        async function checkIfAlreadyLoggedIn() {
+            const token = await getToken();
+            if (token != null){
+                navigation.navigate('MainApp');
+            }
+        }
+        checkIfAlreadyLoggedIn();
+    }, []);
+
     const handleResult = async (result) => {
         if (result.data.auth_token) {
-            console.log(result.data);
-            await setToken(result.data.auth_token);
-            navigation.navigate('MainApp', { screen: 'Home' });
+            successLoginCallback(result.data);
         } else if (result.status === 401) {
             throw new Error('Invalid login.');
         } else {
             throw new Error('Something went wrong.');
         }
+    }
+
+    let successLoginCallback = async function(data){
+        console.log(data);
+        await setToken(data.auth_token);
+
+        navigation.navigate('MainApp', { screen: 'Home' });
     }
 
     return (

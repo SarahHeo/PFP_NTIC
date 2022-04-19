@@ -15,10 +15,10 @@ class AuthenticationService {
 
 export const getToken = async () => {
     try {
-        const value = await AsyncStorage.getItem('@auth-token');
-        if (value !== null){
+        const value = await AsyncStorage.getItem('@auth_token');
+        //if (value !== null){
             return value;
-        }
+        //}
     } catch (e) {
         return null;
     }

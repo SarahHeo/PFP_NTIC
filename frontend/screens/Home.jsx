@@ -20,8 +20,6 @@ function Home() {
     // useEffect = after every render
     // 2nd argument: "You can tell React to skip applying an effect if certain values haven’t changed between re-renders"
     // if [], only called the first time
-    
-    
     useEffect(function loadAllPicto(){
         PictogramService.getPictograms().then((response) => {
             setAllPicto(response.data);

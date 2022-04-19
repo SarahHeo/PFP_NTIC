@@ -11,8 +11,6 @@ const styleVariables = {
         dark1: '#114943',
         dark: '#11403B',
 
-        mainTitle: "white",
-
         // navbar
         pink: "#ea4ba9",
         inactive: "#5e5e5e"
