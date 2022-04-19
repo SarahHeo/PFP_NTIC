@@ -5,6 +5,7 @@ import Home from "../screens/Home.jsx";
 import Favorites from "../screens/Favorites.jsx";
 import Settings from "../screens/Settings.jsx";
 import CustomPictogram from "../screens/CustomPictogram.jsx";
+import CustomPictogram2 from "../screens/CustomPictogram2.jsx";
 
 import styles from '../styles/components/navBar.jsx';
 import style from '../styles/components/navBar.jsx';
@@ -19,6 +20,7 @@ function Tabs() {
                                             tabBarLabelStyle: style.label,
                                             tabBarLabelPosition: "below-icon",
                                             tabBarStyle: style.bar,
+                                            headerShown: false
                                             /*tabBarItemStyle: {}*/}}>
                 <Tab.Screen name="Home"
                             component={Home}
@@ -43,7 +45,7 @@ function Tabs() {
                 />
 
                 <Tab.Screen name="CustomPictograms"
-                            component={CustomPictogram}
+                            component={CustomPictogram2}
                             options={{
                                 tabBarLabel: "PERS.",
                                 tabBarIcon: ({focused, color, size}) => (
