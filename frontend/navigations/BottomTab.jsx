@@ -4,8 +4,7 @@ import { View, Text, Image} from "react-native";
 import Home from "../screens/Home.jsx";
 import Favorites from "../screens/Favorites.jsx";
 import Settings from "../screens/Settings.jsx";
-import CustomPictogram from "../screens/CustomPictogram.jsx";
-import CustomPictogram2 from "../screens/CustomPictogram2.jsx";
+import CustomChoice from "../screens/CustomChoice.jsx"
 
 import styles from '../styles/components/navBar.jsx';
 import style from '../styles/components/navBar.jsx';
@@ -46,7 +45,7 @@ function Tabs() {
                 />
 
                 <Tab.Screen name="CustomPictograms"
-                            component={CustomPictogram2}
+                            component={CustomChoice}
                             options={{
                                 tabBarLabel: "PERS.",
                                 tabBarIcon: ({focused, color, size}) => (

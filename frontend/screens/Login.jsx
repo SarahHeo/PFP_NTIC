@@ -10,6 +10,7 @@ function Login({navigation}) {
     useEffect(() => {
         async function checkIfAlreadyLoggedIn() {
             const token = await getToken();
+            console.log(token);
             if (token != null){
                 navigation.navigate('MainApp');
             }

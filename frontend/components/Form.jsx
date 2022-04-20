@@ -56,7 +56,7 @@ const Form = ({ title, fields, buttonText, action, afterSubmit }) => {
     // for every key, create a input area in our form
     return (
         <View style={styles.main_container}>
-            <Text style={styles.title}>{title}</Text>
+            {title !== "" && <Text style={styles.title}>{title}</Text>}
             <Text style={styles.error}>{errorMessage}</Text>
             {fieldKeys.map((key) => {
                 return(

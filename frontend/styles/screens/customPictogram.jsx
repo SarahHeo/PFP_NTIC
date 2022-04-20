@@ -9,7 +9,7 @@ export default StyleSheet.create({
         width: '100%'
     },
     camera: {
-        flex: 0.8,  
+        height: '90%'  
     },
     buttonContainer: {
         flex: 1,
@@ -34,5 +34,18 @@ export default StyleSheet.create({
     icon: {
         width: '100%',
         height: '100%',
+    },
+    field: {
+        fontSize: 15,
+        margin: 8,
+    },
+    input_area: {
+        borderWidth: 1,
+        padding: 8
+    }, 
+    image: {
+        width:100,
+        height:100,
+        alignSelf:'center'
     }
 });

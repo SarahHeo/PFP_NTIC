@@ -1,20 +1,31 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { View, TouchableOpacity, ImageBackground, Button } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { View, TouchableOpacity, ImageBackground, Button, Image, Text } from 'react-native';
 import { Camera } from 'expo-camera';
-import Form from '../components/Form.jsx';
 import CameraPreview from '../components/CameraPreview.jsx';
 import PictogramService from '../services/PictogramService.jsx';
-import {validateContent} from '../validators/authenticationValidator.jsx';
+import * as FileSystem from 'expo-file-system';
 import styles from '../styles/screens/customPictogram.jsx';
+import { TextInput } from 'react-native-gesture-handler';
 
+/*
+{capturedImage != null ? (
+<Text>{capturedImage.uri}</Text>
+) : (
+<Text></Text>
+)}
 
-function CustomPictogram({navigation}) {
+*/
+
+function CustomPictogramCamera({navigation}) {
 
     const [isCameraOn, setIsCameraOn] = useState(false);
     const [type, setType] = useState(Camera.Constants.Type.back);
     const [previewVisible, setPreviewVisible] = useState(false);
-    const [capturedImage, setCapturedImage] = useState(null);
+    const [pictogramName, setPictogramName] = useState('');
+    const [pictogramImage, setPictogramImage] = useState(null);
     const camera = useRef(null);
+
+    //On Camera
 
     const startCamera = async () => {
         const { status } = await Camera.requestPermissionsAsync();
@@ -24,19 +35,6 @@ function CustomPictogram({navigation}) {
             console.log("Access denied.");
         }
     }
-    
-    const savePhoto = () => {
-        setIsCameraOn(false);
-        setPreviewVisible(false);
-        setCapturedImage(null);
-        navigation.navigate('Home');
-    }
-
-    const retakePhoto = () => {
-        setCapturedImage(null);
-        setPreviewVisible(false);
-        startCamera();
-    }
 
     async function takePicture() {
         if (camera) {
@@ -44,7 +42,7 @@ function CustomPictogram({navigation}) {
             let photo = await camera.current.takePictureAsync();
             console.log(photo);
             setPreviewVisible(true);
-            setCapturedImage(photo);
+            setPictogramImage(photo);
         }
         else {
             console.log('Camera Not Open');
@@ -59,23 +57,41 @@ function CustomPictogram({navigation}) {
         );
     }
 
-    const handleResult = async (result) => {
-        if (result.data) {
-            console.log("Customized pictogram successfully added")
-            navigation.navigate('Home');
-        } else if (result.status === 401) {
-            throw new Error('Invalid login.');
-        } else {
-            throw new Error('Something went wrong.');
-        }
+    //On Photo Preview
+    
+    const savePhoto = () => {
+        setIsCameraOn(false);
+        setPreviewVisible(false);
+        //navigation.navigate('Home');
+    }
+
+    const retakePhoto = () => {
+        setPictogramImage(null);
+        setPreviewVisible(false);
+        startCamera();
+    }
+
+    //Form
+
+    const submit = async () => {
+        const base64 = await FileSystem.readAsStringAsync(pictogramImage.uri, { encoding: 'base64' });
+        PictogramService.addCustomPictogramImage({
+            name: pictogramName,
+            url: base64
+        }).then(()=>
+            {
+                setPictogramImage(null);
+                setPictogramName(null);
+            }
+        );
     }
   
     return (
-        <View style={styles.container}>
+        <View>
         {isCameraOn ? (
-            <View style={styles.cameraContainer}>
-                {previewVisible && capturedImage ? (
-                    <CameraPreview photo={capturedImage} onRetake={retakePhoto} onSave={savePhoto}/>
+            <View>
+                {previewVisible && pictogramImage ? (
+                    <CameraPreview photo={pictogramImage} onRetake={retakePhoto} onSave={savePhoto}/>
                 ) : (
                 <Camera style={styles.camera} ref={camera} type={type}>
                     <View style={styles.buttonContainer}>
@@ -95,27 +111,23 @@ function CustomPictogram({navigation}) {
             </View>
         ) : (
             <View>
-                <Form
-                title="Add a custom pictogram"
-                action={PictogramService.addCustomPictogram}
-                afterSubmit={handleResult}
-                buttonText="Add"
-                fields={{
-                    name: {
-                        label: 'Pictogram Name',
-                        validators: [validateContent],
-                    },
-                    url: {
-                        label: 'Pictogram URL',
-                        validators: [validateContent],
-                    },
-                }}
+                <Text style={styles.field}>
+                    Nom du pictogramme
+                </Text>
+                <TextInput style={styles.input_area}
+                    value={pictogramName}
+                    onChangeText={name => setPictogramName(name)}
                 />
-                <Button onPress={startCamera} title="Take picture"></Button>
+                {pictogramImage && <Image
+                    source={{uri: pictogramImage && pictogramImage.uri}}
+                    style={styles.image}
+                />}
+                <Button onPress={startCamera} title="Prendre une photo"></Button>
+                <Button onPress={submit} title="Créer le pictogramme"></Button>
             </View>
         )}
         </View>
     );
 }
 
-export default CustomPictogram;
+export default CustomPictogramCamera;
