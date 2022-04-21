@@ -6,9 +6,9 @@ const style =  StyleSheet.create({
     
     /** Main containers **/
         topContainer: {
-            flex: 0.20,
+            flex: 0.2,
             flexDirection: 'row',
-            minHeight: 50
+            minHeight: 100
         },
         
         botContainer: {
@@ -25,12 +25,28 @@ const style =  StyleSheet.create({
             flexDirection: 'row',
             marginTop: 10,
             justifyContent: 'flex-start',
+            alignItems: "center",
             borderColor: variables.color.veryLight,
             borderWidth: 2,
             borderRadius: 60,
             paddingLeft: 30,
             paddingRight: 30,
             padding: 10
+        },
+
+        buttonsContainer:{
+            flex: 0.2,
+            flexDirection: 'row',
+            alignItems: 'center',
+            minWidth: 150
+        },
+
+        button: {
+            //border: "1px solid black",
+            flex: 0.33,
+            margin: 5,
+            height: "100%",
+            maxHeight: 80
         },
 
     /** Bot **/
@@ -55,21 +71,15 @@ const style =  StyleSheet.create({
             borderWidth: 2,
             borderRadius: 30,
             padding: 15,
-            //border:"1px solid purple"
         },
 
         pictoList: {
-           // border:"1px solid red",
             //flex: 1,
             justifyContent: 'space-evenly'
         },
 
     /* */
-    button: {
-        flex: 0.07,
-        marginTop: 10,
-        marginLeft: 10,
-    }
+
 });
 
 export default style;

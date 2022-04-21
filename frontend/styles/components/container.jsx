@@ -13,5 +13,6 @@ export default StyleSheet.create({
         paddingRight: 25,
         paddingTop: 15,
         //paddingBottom: 15
+        //height: "100%"
     },
 })

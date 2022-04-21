@@ -1,30 +1,45 @@
 import { StyleSheet } from 'react-native';
 
+const button = {
+    justifyContent: 'center',
+    alignItems:'center',
+    borderRadius: 70,
+    elevation: 10
+}
+
+const imageButton = {
+    textAlign:'center',
+    resizeMode: 'contain',
+    opacity: 0.8
+}
+
 export default StyleSheet.create({  
+
     deleteButton: {
-        justifyContent: 'center',
         backgroundColor: '#ff4b4b',
-        borderRadius: 70,
-        elevation: 10
+        ...button
     },
+
     readButton: {
-        justifyContent: 'center',
         backgroundColor: '#F0B0D6',
-        borderRadius: 70,
-        elevation: 10
+        ...button
     },
+
     favButton: {
-        justifyContent: 'center',
-        alignItems:'center',
         backgroundColor: '#ffb036',
-        borderRadius: 70,
-        elevation: 10
+        ...button
     },
-    imageButton: {
-        flex: 1,
-        width: '100%',
-        height: '100%',
-        opacity: 0.8,
-        padding: 10
+
+    buttonImage: {
+        width: "60%",
+        height: "60%",
+        ...imageButton
+    },
+
+    deleteImage: {
+        width: "50%",
+        height: "50%",
+        ...imageButton
     }
+
 });

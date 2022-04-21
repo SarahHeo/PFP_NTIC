@@ -92,10 +92,10 @@ function Favorites() {
                                 }
                             />
                             <TouchableOpacity style={[globalStyle.readButton, style.button]} onPress={() => {handleReadSentence(sentence)}}>
-                                <ImageBackground source={require('../images/ReadIcon.png')} style={globalStyle.imageButton}/>
+                                <Image source={require('../images/sound.png')} style={globalStyle.buttonImage}/>
                             </TouchableOpacity>
                             <TouchableOpacity style={[globalStyle.deleteButton, style.button]} onPress={() => {handleRemoveFavSentence(sentence[0].idSentence)}}>
-                                <ImageBackground source={require('../images/DeleteIcon.png')} style={globalStyle.imageButton}/>
+                                <Image source={require('../images/delete.png')} style={globalStyle.deleteImage}/>
                             </TouchableOpacity>
                         </View>
                     )

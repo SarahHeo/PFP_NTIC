@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import {View, TouchableOpacity, ImageBackground, FlatList} from 'react-native';
+import {View, TouchableOpacity, ImageBackground, FlatList, Image } from 'react-native';
 
 import PictogramService from '../services/PictogramService.jsx';
 import UserService from '../services/UserService.jsx';
@@ -107,15 +107,17 @@ function Home() {
                         keyExtractor={(item) => item.id.toString()}
                         renderItem={({item}) => <Pictogram picto={item} isTouchable={false} id={"selected"}/>}/>
                 </View>
-                <TouchableOpacity style={[globalStyle.readButton, style.button]} onPress={() => {handleReadSentence()}}>
-                    <ImageBackground source={require('../images/ReadIcon.png')} style={globalStyle.imageButton}/>
-                </TouchableOpacity>
-                <TouchableOpacity style={[globalStyle.deleteButton, style.button]} onPress={() => {handleRemovePicto()}}>
-                    <ImageBackground source={require('../images/DeleteIcon.png')} style={globalStyle.imageButton}/>
-                </TouchableOpacity>
-                <TouchableOpacity style={[globalStyle.favButton, style.button]} onPress={() => {handleAddSentenceToFav()}}>
-                    <ImageBackground source={require('../images/FavIcon.png')} style={globalStyle.imageButton}/>
-                </TouchableOpacity>
+                <View style={style.buttonsContainer}>
+                    <TouchableOpacity style={[globalStyle.readButton, style.button]} onPress={() => {handleReadSentence()}}>
+                        <Image source={require('../images/sound.png')} style={globalStyle.buttonImage}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[globalStyle.deleteButton, style.button]} onPress={() => {handleRemovePicto()}}>
+                        <Image source={require('../images/delete.png')} style={globalStyle.deleteImage}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[globalStyle.favButton, style.button]} onPress={() => {handleAddSentenceToFav()}}>
+                        <Image source={require('../images/fav.png')} style={globalStyle.buttonImage}/>
+                    </TouchableOpacity>
+                </View>
             </View>
 
             {/* Favorites + main */}
