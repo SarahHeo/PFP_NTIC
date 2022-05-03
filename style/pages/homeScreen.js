@@ -40,13 +40,13 @@ export default StyleSheet.create({
         borderWidth: 2,
         borderColor: '#FFFFFF'
     },
-   
-    
     favoritePictosContainer: {
         flex: 0.11,
         flexDirection: 'column',
         marginTop: 10,
         marginLeft: 5,
+        paddingTop: 30,
+        paddingBottom: 30,
         justifyContent: 'center',
         alignItems: 'center',
         borderColor: '#FFFFFF',
@@ -70,6 +70,16 @@ export default StyleSheet.create({
         borderWidth: 2,
         borderRadius: 30
     },
+    pictos_container_add_favorite: {
+        flex: 1,
+        justifyContent: 'center',
+        marginTop: 10,
+        marginLeft: 15,
+        borderColor: '#FFFFFF',
+        borderWidth: 2,
+        borderRadius: 30,
+        borderColor: 'blue'
+    },
     pressIcone: {
         flex: 1,
         marginTop: 230,
@@ -88,5 +98,25 @@ export default StyleSheet.create({
         height: undefined,
         aspectRatio: 1,
         borderRadius: 200
+    },
+    addButton: {
+        flex:1,
+        justifyContent: "flex-end"
+    },
+    addImage: {
+        flex: 1,
+        width: '100%',
+        height: '100%',
+        opacity: 0.8,
+        padding: 50
+    },
+    addImagePressed: {
+        flex: 1,
+        width: '100%',
+        height: '100%',
+        opacity: 0.5,
+        padding: 50,
+        border: 1,
+        borderColor: '#334CFF'
     }
 });
