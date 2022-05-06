@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import globalStyle from '../components/global.jsx';
 import variables from '../utils/variables.jsx';
 
 const style =  StyleSheet.create({
@@ -41,12 +40,22 @@ const style =  StyleSheet.create({
             minWidth: 150
         },
 
+        favButtonContainer:{
+            alignItems: 'center'
+        },
+
         button: {
             //border: "1px solid black",
             flex: 0.33,
             margin: 5,
             height: "100%",
             maxHeight: 80
+        },
+
+        favButton: {
+            margin: 5,
+            height: 80,
+            width: 80
         },
 
     /** Bot **/

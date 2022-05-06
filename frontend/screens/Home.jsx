@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import {View, TouchableOpacity, ImageBackground, FlatList, Image } from 'react-native';
+import {View, TouchableOpacity, FlatList, Image } from 'react-native';
 
 import PictogramService from '../services/PictogramService.jsx';
 import UserService from '../services/UserService.jsx';
@@ -16,26 +16,33 @@ function Home() {
     const [allPicto, setAllPicto] = useState([]);
     const [pictoArray, setPictoArray] = useState([]);
     const [favPicto, setFavPicto] = useState([]);
+    const [favPictoId, setFavPictoId] = useState([]);
+    const [isAddingToFav, setIsAddingToFav] = useState(false);
 
     // useEffect = after every render
     // 2nd argument: "You can tell React to skip applying an effect if certain values haven’t changed between re-renders"
     // if [], only called the first time
+    useEffect(function loadFavPicto(){
+        // !!!!!!!!!!!!!!!!!!!! hardcoded user id !!!!!!!!!!!!!!!!!!!!
+        UserService.getUserFavPicto(22).then((response) => {
+            setFavPicto(response.data);
+            const favPictoIdList = [];
+            for (let i=0; i<response.data.length; i++) {
+                favPictoIdList.push(response.data[i].id);
+            }
+            setFavPictoId(favPictoIdList);
+        }).catch((err) => {
+            console.log("Failed to get fav images: " + err);
+        });
+    }, []);
+
     useEffect(function loadAllPicto(){
         PictogramService.getPictograms().then((response) => {
             setAllPicto(response.data);
         }).catch((err) => {
             console.log("Failed to get all picto: " + err);
         });
-    }, []);
-
-    useEffect(function loadFavPicto(){
-        // !!!!!!!!!!!!!!!!!!!! hardcoded user id !!!!!!!!!!!!!!!!!!!!
-        UserService.getUserFavPicto(22).then((response) => {
-            setFavPicto(response.data);
-        }).catch((err) => {
-            console.log("Failed to get fav images: " + err);
-        });    
-    }, []);
+    }, [isAddingToFav, favPicto]);
   
     // For debug only
     /*
@@ -49,8 +56,13 @@ function Home() {
     */
     
     // useCallBack : "memoïsation", va garder en mémoire les return selon les inputs, opti (2eme argu = les dépendances)
-    let selectPictoCallback = useCallback((picto) => { 
+    let selectPictoCallback = useCallback((picto) => {
         addPictoToArray(picto);
+    });
+
+    let selectFavPictoCallback = useCallback((picto) => {
+        addPictoToFav(picto);
+        setIsAddingToFav(false);
     });
 
     let handleRemovePicto = function(){
@@ -65,7 +77,7 @@ function Home() {
         }
         addSentenceToFav();
     }
-    
+
     let handleReadSentence = function(){
         for (let i = 0; i < pictoArray.length; i++) {
             readWord(pictoArray[i].name)
@@ -85,7 +97,26 @@ function Home() {
             alert("Phrase ajoutée aux favoris !");
         }).catch((err) => {
            console.error("Failed to add sentence to fav: " + err);
-        });  
+        });
+    }
+
+    let isInFavPicto = function(picto) {
+        const isInFavPicto = favPictoId.includes(picto.id);
+        return isInFavPicto;
+    };
+
+    let handleAddPictoToFav = useCallback(() => {
+        setIsAddingToFav(true);
+    });
+
+    let addPictoToFav = function(picto) {
+        setFavPicto(oldArray => [...oldArray, picto]);
+        setFavPictoId(oldArray => [...oldArray, picto.id]);
+        UserService.addFavPicto(22, picto).then((response) => {
+            alert("Pictogramme ajouté aux favoris !");
+        }).catch((err) => {
+           console.error("Failed to add picto to fav: " + err);
+        });
     }
 
     let readWord = function(word) {
@@ -95,7 +126,17 @@ function Home() {
     let stopReading = function(){
         Speech.stop();
     }
-        
+
+    const footer = () => {
+        return (
+            <View style={style.favButtonContainer}>
+                <TouchableOpacity style={[globalStyle.addFavButton, style.favButton]} onPress={() => {handleAddPictoToFav()}}>
+                    <Image source={require('../images/AddIcon.png')} style={globalStyle.buttonImage}/>
+                </TouchableOpacity>
+            </View>
+        );
+    };
+
     return (
         <View style={globalStyle.mainContainer}>
             {/* Sentence bar + buttons */}
@@ -126,9 +167,10 @@ function Home() {
                     <FlatList
                         //numColumns={12}
                         data={favPicto}
+                        ListFooterComponent={footer}
                         keyExtractor={(item) => item.id.toString()}
                         renderItem={({item}) => 
-                            <Pictogram picto={item} isTouchable={true} onPressHandler={selectPictoCallback} id={"fav"}/>
+                            <Pictogram picto={item} isTouchable={true} onPressHandler={selectPictoCallback} id={"fav"} isAddingToFav={isAddingToFav} canAddToFav={false}/>
                         }
                     />
                 </View>
@@ -140,7 +182,7 @@ function Home() {
                         data={allPicto}
                         keyExtractor={(item) => item.id.toString()}
                         renderItem={({item}) => 
-                            <Pictogram picto={item} isTouchable={true} onPressHandler={selectPictoCallback} id={"list"}/>
+                            <Pictogram picto={item} isTouchable={true} onPressHandler={isAddingToFav ? selectFavPictoCallback : selectPictoCallback} id={"list"} isAddingToFav={isAddingToFav} canAddToFav={!isInFavPicto(item)}/>
                         }
                     />
                 </View>

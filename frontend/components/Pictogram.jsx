@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
+import {TouchableOpacity, Image} from 'react-native';
 
 import pictoStyle from '../styles/components/pictogram.jsx';
 import listPictoStyle from '../styles/components/listPictogram.jsx';
@@ -12,6 +12,8 @@ function Pictogram(props) {
     const picto = props.picto;
     const isTouchable = props.isTouchable;
     const id = props.id;
+    const isAddingToFav = props.isAddingToFav;
+    const canAddToFav = props.canAddToFav;
 
     var style;
 
@@ -31,15 +33,22 @@ function Pictogram(props) {
         default:
             style = listPictoStyle;
     }
-    
-    return (
-        <>
+
+    if (isTouchable && isAddingToFav && !canAddToFav) {
+        return (
+            <TouchableOpacity style={[pictoStyle.mainContainer, style.mainContainer]} disabled={true}>
+                <Image source={{uri: picto.url}} style={pictoStyle.disabledImage}/>
+            </TouchableOpacity>
+        )
+    } else {
+        return (
             <TouchableOpacity style={[pictoStyle.mainContainer, style.mainContainer]} disabled={!isTouchable}
-                                onPress={() => props.onPressHandler(picto)}>
+                            onPress={() => props.onPressHandler(picto)}>
                 <Image source={{uri: picto.url}} style={pictoStyle.image}/>
             </TouchableOpacity>
-        </>
-    )
+        )
+    }
+
 }
 
 export default Pictogram;

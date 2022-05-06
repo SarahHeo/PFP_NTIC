@@ -30,6 +30,11 @@ export default StyleSheet.create({
         ...button
     },
 
+    addFavButton: {
+        backgroundColor: '#1675FF',
+        ...button
+    },
+
     buttonImage: {
         width: "60%",
         height: "60%",
@@ -41,5 +46,4 @@ export default StyleSheet.create({
         height: "50%",
         ...imageButton
     }
-
 });
