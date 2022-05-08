@@ -8,6 +8,10 @@ class UserService {
         return axios.get(USER_BASE_URL + "/" + userId + "/favpicto");
     }
 
+    addFavPicto(userId, picto){
+        return axios.post(USER_BASE_URL + "/" + userId + "/favpicto/add", picto);
+    }
+
     getFavSentences(userId){
         return axios.get(USER_BASE_URL + "/" + userId + "/favsentence");
     }
