@@ -12,6 +12,10 @@ class UserService {
         return axios.post(USER_BASE_URL + "/" + userId + "/favpicto/add", picto);
     }
 
+    deleteFavPicto(userId, pictoId){
+        return axios.delete(USER_BASE_URL + "/" + userId + "/favpicto/" + pictoId + "/delete");
+    }
+
     getFavSentences(userId){
         return axios.get(USER_BASE_URL + "/" + userId + "/favsentence");
     }

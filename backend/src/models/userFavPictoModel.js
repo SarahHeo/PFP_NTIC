@@ -16,4 +16,21 @@ UserFavPicto.add = (userFavPicto, result) => {
     });
 };
 
+UserFavPicto.delete = (idUser, idPicto, result) => {
+    const query = "DELETE FROM User_FavPicto WHERE idPictogram = " + idPicto + " AND idUser = " + idUser + ";";
+    database.query(query, (error, res) =>{
+        if (error){
+            console.log("error: ", error);
+            result(error, null);
+            return;
+        }
+        if (res.affectedRows == 0) {
+            // id not found
+            result({ kind: "not_found" }, null);
+            return;
+        }
+        result(null, res);
+    });
+};
+
 module.exports = UserFavPicto;
