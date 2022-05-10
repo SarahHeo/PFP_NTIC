@@ -21,3 +21,21 @@ exports.add = (req, res) => {
         }
     });
 };
+
+exports.delete = (req, res) => {
+    userFavPicto.delete(req.params.id, req.params.idpicto, (error, data) => {
+        if (error) {
+            if(error.kind === "not_found"){
+                res.status(404).send({
+                    message: `Couldn't find the pictogram with id: ${req.params.idpicto} for user with id: ${req.params.id}`
+                });
+            } else {
+                res.status(500).send({
+                    message: `An error occured deleting fav pictogram with id: ${req.params.idpicto} for user with id: ${req.params.id}`
+                });
+            }
+        } else {
+            res.send({message: `Fav pictogram with id ${req.params.idpicto} for user with id ${req.params.id} has been successfully deleted`});
+        }
+    });
+};

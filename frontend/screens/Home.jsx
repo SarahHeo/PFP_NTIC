@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import {View, TouchableOpacity, FlatList, Image } from 'react-native';
+import { View, TouchableOpacity, FlatList, Image, Alert, Platform } from 'react-native';
 
 import PictogramService from '../services/PictogramService.jsx';
 import UserService from '../services/UserService.jsx';
@@ -64,6 +64,43 @@ function Home() {
         addPictoToFav(picto);
         setIsAddingToFav(false);
     });
+
+    let getDeleteFavPictoDialog = useCallback((picto) => {
+        Platform.OS === 'web' ?
+            webAlert("Supprimer", "Supprimer ce pictogramme des favoris ?", picto)
+            :
+            Alert.alert(
+                "Supprimer",
+                "Supprimer ce pictogramme des favoris ?",
+                [
+                    {
+                        text: "Annuler",
+                        style: "cancel"
+                    },
+                    { 
+                        text: "OK",
+                        onPress: () => deleteFavPicto(picto)
+                    }
+                ]
+            );
+    });
+
+    let webAlert = (title, description, picto) => {
+        const result = window.confirm([title, description].filter(Boolean).join('\n'))
+        if (result) {
+            deleteFavPicto(picto)
+        }
+    }
+
+    let deleteFavPicto = function(picto) {
+        setFavPicto(oldArray => [...oldArray.filter(item => item !== picto)]);
+        setFavPictoId(oldArray => [...oldArray.filter(item => item !== picto.id)]);
+        UserService.deleteFavPicto(22, picto.id).then((response) => {
+            alert("Pictogramme supprimé des favoris !");
+        }).catch((err) => {
+           console.error("Failed to delete picto from fav: " + err);
+        });
+    }
 
     let handleRemovePicto = function(){
         removeLastPicto();
@@ -150,7 +187,7 @@ function Home() {
                 </View>
                 <View style={style.buttonsContainer}>
                     <TouchableOpacity style={[globalStyle.readButton, style.button]} onPress={() => {handleReadSentence()}}>
-                        <Image source={require('../images/sound.png')} style={globalStyle.buttonImage}/>
+                        <Image source={require('../images/Sound.png')} style={globalStyle.buttonImage}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={[globalStyle.deleteButton, style.button]} onPress={() => {handleRemovePicto()}}>
                         <Image source={require('../images/delete.png')} style={globalStyle.deleteImage}/>
@@ -170,7 +207,7 @@ function Home() {
                         ListFooterComponent={footer}
                         keyExtractor={(item) => item.id.toString()}
                         renderItem={({item}) => 
-                            <Pictogram picto={item} isTouchable={true} onPressHandler={selectPictoCallback} id={"fav"} isAddingToFav={isAddingToFav} canAddToFav={false}/>
+                            <Pictogram picto={item} isTouchable={true} onPressHandler={selectPictoCallback} onLongPress={getDeleteFavPictoDialog} id={"fav"} isAddingToFav={isAddingToFav} canAddToFav={false}/>
                         }
                     />
                 </View>
