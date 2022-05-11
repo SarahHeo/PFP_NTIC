@@ -6,22 +6,47 @@ import UserService from '../services/UserService.jsx';
 import styles from '../styles/screens/favorites.jsx';
 import style from '../styles/screens/favorites.jsx';
 import globalStyle from '../styles/components/global.jsx';
-
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // for now, need to refresh the page to see the updates
 function Favorites() {
 
     const [allFavSentences, setAllFavSentences] = useState([]);
+    const [firstRender, setFirstRender] = useState(true);
+    const [userId, setUserId] = useState();
+
+    useEffect(() =>{
+        const retrieveId = async () => {
+            try {
+                const id = await AsyncStorage.getItem("@user_id");
+                console.log(`Retrieved id: ${id}`);
+                if (id === null){
+                    setUserId(22);
+                } else {
+                    setUserId(JSON.parse(id));
+                }
+                 
+            } catch(error) {
+                console.log("An error occured retrieving current user");
+                setUserId(22);
+            }
+        }       
+        retrieveId();
+    }, []);
 
     useEffect(function loadFavSentences(){
-        // !!!!!!!!!!!!!!!!!!!! hardcoded user id !!!!!!!!!!!!!!!!!!!!
-        UserService.getFavSentences(22).then((response) => {
-            recreateSentences(response.data);
-        }).catch((err) => {
-            console.error("Failed to get fav sentences: " + err);
-        });
-    }, []);
+        if (firstRender) {
+            setFirstRender(false);
+        } else {
+            UserService.getFavSentences(userId).then((response) => {
+                if (response.data.length !== 0){
+                    recreateSentences(response.data);
+                }
+            }).catch((err) => {
+                console.error("Failed to get fav sentences: " + err);
+            });
+        }
+    }, [userId]);
 
     let recreateSentences = function(data){
         var favSentences = [];

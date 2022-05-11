@@ -6,14 +6,13 @@ import {validateContent} from '../validators/authenticationValidator.jsx';
 import styles from '../styles/screens/customPictogram.jsx';
 
 
-function CustomPictogramURL({navigation}) {
+function CustomPictogramURL() {
 
     //Form
 
     const handleResult = async (result) => {
         if (result.data) {
             console.log("Customized pictogram successfully added")
-            //navigation.navigate('Home');
         } else if (result.status === 401) {
             throw new Error('Invalid login.');
         } else {

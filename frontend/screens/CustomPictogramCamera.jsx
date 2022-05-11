@@ -16,7 +16,7 @@ import { TextInput } from 'react-native-gesture-handler';
 
 */
 
-function CustomPictogramCamera({navigation}) {
+function CustomPictogramCamera() {
 
     const [isCameraOn, setIsCameraOn] = useState(false);
     const [type, setType] = useState(Camera.Constants.Type.back);

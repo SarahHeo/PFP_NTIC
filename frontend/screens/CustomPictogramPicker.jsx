@@ -15,7 +15,7 @@ import { TextInput } from 'react-native-gesture-handler';
 
 */
 
-function CustomPictogramPicker({navigation}) {
+function CustomPictogramPicker() {
 
     const [pictogramName, setPictogramName] = useState('');
     const [pictogramImage, setPictogramImage] = useState(null);

@@ -6,7 +6,7 @@ import CustomPictogramURL from './CustomPictogramURL.jsx';
 import CustomPictogramCamera from './CustomPictogramCamera.jsx';
 import CustomPictogramPicker from './CustomPictogramPicker.jsx';
 
-function CustomChoice({navigation}) {
+function CustomChoice() {
 
     const [selectedTab, setSelectedTab] = useState(0);
 

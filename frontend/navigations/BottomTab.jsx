@@ -6,15 +6,15 @@ import Favorites from "../screens/Favorites.jsx";
 import Settings from "../screens/Settings.jsx";
 import CustomChoice from "../screens/CustomChoice.jsx"
 
-import styles from '../styles/components/navBar.jsx';
 import style from '../styles/components/navBar.jsx';
 import globalStyle from '../styles/components/global.jsx';
+import Users from '../screens/Users.jsx';
 
 const Tab = createBottomTabNavigator();
 
 function Tabs() {
     return(
-            <Tab.Navigator initialRouteName={"Home"}
+            <Tab.Navigator initialRouteName={"Users"}
                            screenOptions={{ tabBarActiveTintColor: globalStyle.color.pink,
                                             tabBarInactiveTintColor: globalStyle.color.inactive,
                                             tabBarLabelStyle: style.label,
@@ -29,7 +29,8 @@ function Tabs() {
                                 tabBarIcon: ({focused, color, size}) => (
                                     <Image source={require('../images/HomeIcon.png')}
                                            style={[style.icon, {tintColor: color}]}/>
-                                )
+                                ),
+                                unmountOnBlur: true
                             }}
                 />
                 
@@ -40,7 +41,8 @@ function Tabs() {
                                 tabBarIcon: ({focused, color, size}) => (
                                     <Image source={require('../images/FavIcon2.png')}
                                            style={[style.icon, {tintColor: color}]}/>
-                                )
+                                ),
+                                unmountOnBlur: true
                             }}
                 />
 
@@ -52,6 +54,18 @@ function Tabs() {
                                     <Image source={require('../images/Custom.png')}
                                            style={[style.icon, {tintColor: color}]}/>
                                 )
+                            }}
+                />
+
+                <Tab.Screen name="Users"
+                            component={Users}
+                            options={{
+                                tabBarLabel: "UTILISATEURS",
+                                tabBarIcon: ({focused, color, size}) => (
+                                    <Image source={require('../images/user.png')}
+                                           style={[style.icon, {tintColor: color}]}/>
+                                ),
+                                unmountOnBlur: true
                             }}
                 />
 

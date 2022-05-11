@@ -9,14 +9,20 @@ import * as Speech from 'expo-speech';
 
 import style from '../styles/screens/home.jsx';
 import globalStyle from '../styles/components/global.jsx';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 function Home() {
 
     const [allPicto, setAllPicto] = useState([]);
+    // Without first render, the favorite pictograms would be loaded before the user id is even retrieved from the async storage,
+    // thus always being empty 
+    const [firstRender, setFirstRender] = useState(true);
     const [pictoArray, setPictoArray] = useState([]);
     const [favPicto, setFavPicto] = useState([]);
-
+    const [userId, setUserId] = useState();
+ 
     // useEffect = after every render
     // 2nd argument: "You can tell React to skip applying an effect if certain values haven’t changed between re-renders"
     // if [], only called the first time
@@ -28,15 +34,37 @@ function Home() {
         });
     }, []);
 
-    useEffect(function loadFavPicto(){
-        // !!!!!!!!!!!!!!!!!!!! hardcoded user id !!!!!!!!!!!!!!!!!!!!
-        UserService.getUserFavPicto(22).then((response) => {
-            setFavPicto(response.data);
-        }).catch((err) => {
-            console.log("Failed to get fav images: " + err);
-        });    
+    useEffect(() =>{
+        const retrieveId = async () => {
+            try {
+                const id = await AsyncStorage.getItem("@user_id");
+                console.log(`Retrieved id: ${id}`);
+                if (id === null){
+                    setUserId(22);
+                } else {
+                    setUserId(JSON.parse(id));
+                }
+                 
+            } catch(error) {
+                console.log("An error occured retrieving current user");
+                setUserId(22);
+            }
+        }       
+        retrieveId();
     }, []);
-  
+
+    useEffect(function loadFavPicto(){
+        if (firstRender) {
+            setFirstRender(false);
+        } else {
+            UserService.getUserFavPicto(userId).then((response) => {
+                setFavPicto(response.data);
+            }).catch((err) => {
+                console.log("Failed to get fav images: " + err);
+            }); 
+        }
+    }, [userId]);
+
     // For debug only
     /*
     useEffect(function updatePictoArray(){

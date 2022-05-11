@@ -14,7 +14,6 @@ Pictogram.getAll = (result) => {
             result(error, null);
             return;
         }
-        //console.log("pictograms: ", res);
         result(null, res);
     });
 

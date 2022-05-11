@@ -1,7 +1,6 @@
 const Educator = require("../models/educatorModel.js");
 const JWT = require("../utils/authenticationServices.js");
 const bcrypt = require("bcrypt");
-const { generateJWT } = require("../utils/authenticationServices.js");
 
 const hashPassword = (password) => {
     return bcrypt.hash(password, 10);
@@ -82,8 +81,8 @@ exports.login = (req, res) => {
             } else {
                 console.log(data);
                 if (await bcrypt.compare(req.body.password, data.password)){
-                    const accessToken = JWT.generateJWT(data.id, data.email);
-                    res.send({auth_token: accessToken});
+                    const accessToken = JWT.generateJWT({id: data.id, email: data.email});
+                    res.cookie("auth_token", accessToken).send({auth_token: accessToken});
                 } else {
                     res.status(500).send({
                         message: `Password is not correct: ${req.body.email}`
@@ -94,3 +93,51 @@ exports.login = (req, res) => {
     }
 };
 
+exports.getCurrent = (req, res) => {
+    try {
+        const payload = JWT.getPayload(req.cookies.auth_token);
+        res.send({id: payload.id});
+    } catch (e) {
+        res.status(500).send({message: `Could not find access token: ${e}`})
+    }
+};
+
+exports.addUser = (req, res) => {
+    if (!req.body.idEducator || !req.body.idUser){
+        res.status(400).send({
+            message: `Values are missing`
+        });
+    } else {
+        const educatorUser = {
+            idEducator: req.body.idEducator,
+            idUser: req.body.idUser
+        }
+        Educator.addUser(educatorUser, (error, data) => {
+            if (error) {
+                res.status(500).send({
+                    message: error.message || `An error occured while adding user to educator`
+                });
+            } else {
+                res.send(data);
+            }
+        });
+    }
+}
+
+exports.getUsersByEducator = (req, res) => {
+    Educator.getUsersByEducator(req.params.id, (error, data) => {
+        if (error) {
+            if(error.kind === "not_found"){
+                res.status(404).send({
+                    message: `Couldn't find users of educator with id: ${req.params.id}`
+                });
+            } else {
+                res.status(500).send({
+                    message: `An error occured retrieving users of educator with id: ${req.params.id}`
+                });
+            }
+        } else {
+            res.send(data);
+        }
+    });
+};
