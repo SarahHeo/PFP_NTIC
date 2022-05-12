@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, TouchableOpacity, FlatList, Image, Alert, Platform } from 'react-native';
+import { View, TouchableOpacity, FlatList, Image } from 'react-native';
 
 import PictogramService from '../services/PictogramService.jsx';
 import UserService from '../services/UserService.jsx';
 import Pictogram from "../components/Pictogram.jsx";
+import Popup from "../components/Popup.jsx";
 
 import * as Speech from 'expo-speech';
 
@@ -66,37 +67,24 @@ function Home() {
     });
 
     let getDeleteFavPictoDialog = useCallback((picto) => {
-        Platform.OS === 'web' ?
-            webAlert("Supprimer", "Supprimer ce pictogramme des favoris ?", picto)
-            :
-            Alert.alert(
-                "Supprimer",
-                "Supprimer ce pictogramme des favoris ?",
-                [
-                    {
-                        text: "Annuler",
-                        style: "cancel"
-                    },
-                    { 
-                        text: "OK",
-                        onPress: () => deleteFavPicto(picto)
-                    }
-                ]
-            );
+        Popup(true, "Supprimer", "Supprimer ce pictogramme des favoris ?",
+            [
+                {
+                    text: "Annuler",
+                    style: "cancel"
+                },
+                { 
+                    text: "OK",
+                    onPress: () => deleteFavPicto(picto)
+                }
+            ])
     });
-
-    let webAlert = (title, description, picto) => {
-        const result = window.confirm([title, description].filter(Boolean).join('\n'))
-        if (result) {
-            deleteFavPicto(picto)
-        }
-    }
 
     let deleteFavPicto = function(picto) {
         setFavPicto(oldArray => [...oldArray.filter(item => item !== picto)]);
         setFavPictoId(oldArray => [...oldArray.filter(item => item !== picto.id)]);
         UserService.deleteFavPicto(22, picto.id).then((response) => {
-            alert("Pictogramme supprimé des favoris !");
+            Popup(false, "Pictogramme supprimé des favoris !");
         }).catch((err) => {
            console.error("Failed to delete picto from fav: " + err);
         });
@@ -109,7 +97,7 @@ function Home() {
 
     let handleAddSentenceToFav = function(){
         if (pictoArray.length < 2) {
-            alert("Sélectionnez au moins 2 pictogrammes pour mettre la phrase en favori !")
+            Popup(false, "Sélectionnez au moins 2 pictogrammes pour mettre la phrase en favori !")
             return;
         }
         addSentenceToFav();
@@ -131,7 +119,7 @@ function Home() {
 
     let addSentenceToFav = function() {
         UserService.addFavSentence(22, pictoArray).then((response) => {
-            alert("Phrase ajoutée aux favoris !");
+            Popup(false, "Phrase ajoutée aux favoris !");
         }).catch((err) => {
            console.error("Failed to add sentence to fav: " + err);
         });
@@ -150,7 +138,7 @@ function Home() {
         setFavPicto(oldArray => [...oldArray, picto]);
         setFavPictoId(oldArray => [...oldArray, picto.id]);
         UserService.addFavPicto(22, picto).then((response) => {
-            alert("Pictogramme ajouté aux favoris !");
+            Popup(false, "Pictogramme ajouté aux favoris !");
         }).catch((err) => {
            console.error("Failed to add picto to fav: " + err);
         });
