@@ -29,15 +29,6 @@ function Home() {
     // useEffect = after every render
     // 2nd argument: "You can tell React to skip applying an effect if certain values haven’t changed between re-renders"
     // if [], only called the first time
-
-    useEffect(function loadAllPicto(){
-        PictogramService.getPictograms().then((response) => {
-            setAllPicto(response.data);
-        }).catch((err) => {
-            console.log("Failed to get all picto: " + err);
-        });
-    }, []);
-
     useEffect(() =>{
         const retrieveId = async () => {
             try {
@@ -63,14 +54,25 @@ function Home() {
         } else {
             UserService.getUserFavPicto(userId).then((response) => {
                 setFavPicto(response.data);
+                const favPictoIdList = [];
+                for (let i=0; i<response.data.length; i++) {
+                    favPictoIdList.push(response.data[i].id);
+                }
+                setFavPictoId(favPictoIdList);
             }).catch((err) => {
                 console.log("Failed to get fav images: " + err);
-            }); 
+            });
         }
-    }, [userId, isAddingToFav, favPicto]);
+    }, [userId]);
 
-    
-  
+    useEffect(function loadAllPicto(){
+        PictogramService.getPictograms().then((response) => {
+            setAllPicto(response.data);
+        }).catch((err) => {
+            console.log("Failed to get all picto: " + err);
+        });
+    }, [isAddingToFav, favPicto]);
+
     // For debug only
     /*
     useEffect(function updatePictoArray(){
