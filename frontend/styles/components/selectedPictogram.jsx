@@ -7,5 +7,6 @@ export default StyleSheet.create({
         margin : 2,
         height: 62,
         width: 62,
+        minWidth: 62
     }
 })

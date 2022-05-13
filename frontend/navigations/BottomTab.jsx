@@ -39,7 +39,7 @@ function Tabs() {
                             options={{
                                 tabBarLabel: "FAVORIS",
                                 tabBarIcon: ({focused, color, size}) => (
-                                    <Image source={require('../images/FavIcon2.png')}
+                                    <Image source={require('../images/fav.png')}
                                            style={[style.icon, {tintColor: color}]}/>
                                 ),
                                 unmountOnBlur: true

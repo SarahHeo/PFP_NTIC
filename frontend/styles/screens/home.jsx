@@ -1,14 +1,13 @@
 import { StyleSheet } from 'react-native';
-import globalStyle from '../components/global.jsx';
 import variables from '../utils/variables.jsx';
 
 const style =  StyleSheet.create({
     
     /** Main containers **/
         topContainer: {
-            flex: 0.20,
+            flex: 0.1,
             flexDirection: 'row',
-            minHeight: 50
+            minHeight: 100
         },
         
         botContainer: {
@@ -25,12 +24,38 @@ const style =  StyleSheet.create({
             flexDirection: 'row',
             marginTop: 10,
             justifyContent: 'flex-start',
+            alignItems: "center",
             borderColor: variables.color.veryLight,
             borderWidth: 2,
             borderRadius: 60,
             paddingLeft: 30,
             paddingRight: 30,
             padding: 10
+        },
+
+        buttonsContainer:{
+            flex: 0.2,
+            flexDirection: 'row',
+            alignItems: 'center',
+            minWidth: 150
+        },
+
+        favButtonContainer:{
+            alignItems: 'center'
+        },
+
+        button: {
+            //border: "1px solid black",
+            flex: 0.33,
+            margin: 5,
+            height: "100%",
+            maxHeight: 80
+        },
+
+        favButton: {
+            margin: 5,
+            height: 80,
+            width: 80
         },
 
     /** Bot **/
@@ -54,8 +79,16 @@ const style =  StyleSheet.create({
             borderColor: variables.color.veryLight,
             borderWidth: 2,
             borderRadius: 30,
-            padding: 15
-        }
+            padding: 15,
+        },
+
+        pictoList: {
+            //flex: 1,
+            justifyContent: 'space-evenly'
+        },
+
+    /* */
+
 });
 
 export default style;
