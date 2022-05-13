@@ -136,7 +136,11 @@ function Home() {
     }
 
     let addPictoToArray = function(picto) {
-        setPictoArray(oldArray => [...oldArray, picto]);
+        if (pictoArray.length >= 10) {  // Number max to change?
+            Popup(false, "Nombre maximal de pictogrammes atteints (10) !");
+        } else {
+            setPictoArray(oldArray => [...oldArray, picto]);
+        }
     }
 
     let removeLastPicto = function() {
