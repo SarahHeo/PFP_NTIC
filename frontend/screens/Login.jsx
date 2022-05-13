@@ -28,30 +28,28 @@ function Login({navigation}) {
     }
 
     let successLoginCallback = async function(data){
-        console.log(data);
         await setToken(data.auth_token);
-
         navigation.navigate('MainApp', { screen: 'Home' });
     }
 
     return (
         <View style={styles.main_container}>
             <Form
-            title="Log In"
+            title="Connexion"
             style={styles.form}
             action={AuthenticationService.login}
             afterSubmit={handleResult}
-            buttonText="Log in"
+            buttonText="Se connecter"
             fields={{
                 email: {
-                    label: 'Email',
+                    label: 'Adresse Email',
                     validators: [validateContent, validateEmail],
                     inputProps: {
                     keyboardType: 'email-address',
                     },
                 },
                 password: {
-                    label: 'Password',
+                    label: 'Mot de passe',
                     validators: [validateContent, validatePassword],
                     inputProps: {
                     secureTextEntry: true,
@@ -60,7 +58,7 @@ function Login({navigation}) {
             }}
             />
             <Text></Text>
-            <Button title="Register instead" onPress={() => navigation.navigate('Register')}/>
+            <Button title="S'inscrire" onPress={() => navigation.navigate('Register')}/>
         </View>
         
     );

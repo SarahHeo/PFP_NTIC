@@ -5,7 +5,7 @@ export default StyleSheet.create({
         margin: 20
     },
     title: {
-        fontSize: 40,
+        fontSize: 25,
         marginBottom: 20,
         textAlign: 'center'
     },

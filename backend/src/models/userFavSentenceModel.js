@@ -17,12 +17,7 @@ userFavSentence.getByUserId = (userId, result) => {
             result(error, null);
             return;
         }
-        if (res.length) {
-            result(null, res);
-            return;
-        }
-        // Could not find favorite sentence with the user id
-        result({ kind: "not_found" }, null);
+        result(null, res);
     });
 };
 

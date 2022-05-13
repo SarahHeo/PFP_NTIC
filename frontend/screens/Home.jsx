@@ -10,32 +10,60 @@ import * as Speech from 'expo-speech';
 
 import style from '../styles/screens/home.jsx';
 import globalStyle from '../styles/components/global.jsx';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 function Home() {
 
     const [allPicto, setAllPicto] = useState([]);
+    // Without first render, the favorite pictograms would be loaded before the user id is even retrieved from the async storage,
+    // thus always being empty 
+    const [firstRender, setFirstRender] = useState(true);
     const [pictoArray, setPictoArray] = useState([]);
     const [favPicto, setFavPicto] = useState([]);
+    const [userId, setUserId] = useState();
     const [favPictoId, setFavPictoId] = useState([]);
     const [isAddingToFav, setIsAddingToFav] = useState(false);
 
     // useEffect = after every render
     // 2nd argument: "You can tell React to skip applying an effect if certain values haven’t changed between re-renders"
     // if [], only called the first time
-    useEffect(function loadFavPicto(){
-        // !!!!!!!!!!!!!!!!!!!! hardcoded user id !!!!!!!!!!!!!!!!!!!!
-        UserService.getUserFavPicto(22).then((response) => {
-            setFavPicto(response.data);
-            const favPictoIdList = [];
-            for (let i=0; i<response.data.length; i++) {
-                favPictoIdList.push(response.data[i].id);
+    useEffect(() =>{
+        const retrieveId = async () => {
+            try {
+                const id = await AsyncStorage.getItem("@user_id");
+                console.log(`Retrieved id: ${id}`);
+                if (id === null){
+                    setUserId(22);
+                } else {
+                    setUserId(JSON.parse(id));
+                }
+                 
+            } catch(error) {
+                console.log("An error occured retrieving current user");
+                setUserId(22);
             }
-            setFavPictoId(favPictoIdList);
-        }).catch((err) => {
-            console.log("Failed to get fav images: " + err);
-        });
+        }       
+        retrieveId();
     }, []);
+
+    useEffect(function loadFavPicto(){
+        if (firstRender) {
+            setFirstRender(false);
+        } else {
+            UserService.getUserFavPicto(userId).then((response) => {
+                setFavPicto(response.data);
+                const favPictoIdList = [];
+                for (let i=0; i<response.data.length; i++) {
+                    favPictoIdList.push(response.data[i].id);
+                }
+                setFavPictoId(favPictoIdList);
+            }).catch((err) => {
+                console.log("Failed to get fav images: " + err);
+            });
+        }
+    }, [userId]);
 
     useEffect(function loadAllPicto(){
         PictogramService.getPictograms().then((response) => {
@@ -44,7 +72,7 @@ function Home() {
             console.log("Failed to get all picto: " + err);
         });
     }, [isAddingToFav, favPicto]);
-  
+
     // For debug only
     /*
     useEffect(function updatePictoArray(){
@@ -83,7 +111,7 @@ function Home() {
     let deleteFavPicto = function(picto) {
         setFavPicto(oldArray => [...oldArray.filter(item => item !== picto)]);
         setFavPictoId(oldArray => [...oldArray.filter(item => item !== picto.id)]);
-        UserService.deleteFavPicto(22, picto.id).then((response) => {
+        UserService.deleteFavPicto(userId, picto.id).then((response) => {
             Popup(false, "Pictogramme supprimé des favoris !");
         }).catch((err) => {
            console.error("Failed to delete picto from fav: " + err);
@@ -122,7 +150,7 @@ function Home() {
     }
 
     let addSentenceToFav = function() {
-        UserService.addFavSentence(22, pictoArray).then((response) => {
+        UserService.addFavSentence(userId, pictoArray).then((response) => {
             Popup(false, "Phrase ajoutée aux favoris !");
         }).catch((err) => {
            console.error("Failed to add sentence to fav: " + err);
@@ -141,7 +169,7 @@ function Home() {
     let addPictoToFav = function(picto) {
         setFavPicto(oldArray => [...oldArray, picto]);
         setFavPictoId(oldArray => [...oldArray, picto.id]);
-        UserService.addFavPicto(22, picto).then((response) => {
+        UserService.addFavPicto(userId, picto).then((response) => {
             Popup(false, "Pictogramme ajouté aux favoris !");
         }).catch((err) => {
            console.error("Failed to add picto to fav: " + err);

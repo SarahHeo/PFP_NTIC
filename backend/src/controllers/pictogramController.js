@@ -1,4 +1,5 @@
 const Pictogram = require("../models/pictogramModel.js");
+const imgbbUploader = require("imgbb-uploader");
 
 // GET Requests
 
@@ -54,6 +55,31 @@ exports.add = (req, res) => {
             res.send(data);
         }
     });
+};
+
+exports.addBase64 = (req, res) => {
+    if (Object.keys(req.body).length === 0){
+        res.status(400).send({
+            message: `Can't create a new pictogram out of an empty request body`
+        });
+    }
+    imgbbUploader({apiKey: "d628a8c4425a2a7fb8662c9d76f2bbf9", base64string: req.body.url})
+    .then((response) => {
+        const pictogram = new Pictogram({
+            name: req.body.name,
+            url: response.display_url
+        });
+        Pictogram.add(pictogram, (error, data) => {
+        if (error) {
+            res.status(500).send({
+                message: error.message || `An error occured while creating the new pictogram`
+            });
+        } else {
+            res.send(data);
+        }
+    });
+    })
+    .catch((error) => console.log(error));
 };
 
 // DELETE Requests
