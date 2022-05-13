@@ -3,12 +3,15 @@ import {View, TouchableOpacity, FlatList, Image } from 'react-native';
 
 import PictogramService from '../services/PictogramService.jsx';
 import UserService from '../services/UserService.jsx';
+import AlgoService from '../services/AlgoService.jsx';
 import Pictogram from "../components/Pictogram.jsx";
+
 
 import * as Speech from 'expo-speech';
 
 import style from '../styles/screens/home.jsx';
 import globalStyle from '../styles/components/global.jsx';
+import { predict } from '../../backend/src/models/algoModel.js';
 
 
 function Home() {
@@ -58,6 +61,7 @@ function Home() {
     // useCallBack : "memoïsation", va garder en mémoire les return selon les inputs, opti (2eme argu = les dépendances)
     let selectPictoCallback = useCallback((picto) => {
         addPictoToArray(picto);
+        AlgoService.predict(picto.name.toLowerCase()).then((response) => console.log(response.data));
     });
 
     let selectFavPictoCallback = useCallback((picto) => {

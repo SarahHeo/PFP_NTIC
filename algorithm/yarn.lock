@@ -185,9 +185,9 @@
   dependencies:
     "tslib" "^2.0.3"
 
-"word2vec@^1.1.5":
-  "integrity" "sha512-J/aXhDu+8cwhTQMD1lESuQo2eBpXMDU7e8gEr6hM6Fh7hnyAF3H12Nxao5r7X+tkox6PM4Tq0AXQ/S5Y3ExPzg=="
-  "resolved" "https://registry.npmjs.org/word2vec/-/word2vec-1.1.5.tgz"
+"word2vec-win@git+https://github.com/Astropilot/node-word2vec-win.git":
+  "integrity" "sha512-HAsKZtNW1j1KkCtHgEoNKnHS3ReL4Lmhpx7xZHHOJ9jsf1UmKiso74BHGtOEcv/nWZsy+5os4XXwzNYKnex+4w=="
+  "resolved" "git+ssh://git@github.com/Astropilot/node-word2vec-win.git#e18cba32aaba194b7bf150e369ed54e783d1234e"
   "version" "1.1.5"
   dependencies:
     "change-case" "^4.1.2"
