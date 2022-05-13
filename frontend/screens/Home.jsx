@@ -29,19 +29,6 @@ function Home() {
     // useEffect = after every render
     // 2nd argument: "You can tell React to skip applying an effect if certain values haven’t changed between re-renders"
     // if [], only called the first time
-    useEffect(function loadFavPicto(){
-        // !!!!!!!!!!!!!!!!!!!! hardcoded user id !!!!!!!!!!!!!!!!!!!!
-        UserService.getUserFavPicto(22).then((response) => {
-            setFavPicto(response.data);
-            const favPictoIdList = [];
-            for (let i=0; i<response.data.length; i++) {
-                favPictoIdList.push(response.data[i].id);
-            }
-            setFavPictoId(favPictoIdList);
-        }).catch((err) => {
-            console.log("Failed to get fav images: " + err);
-        });
-    }, []);
 
     useEffect(function loadAllPicto(){
         PictogramService.getPictograms().then((response) => {
@@ -122,7 +109,7 @@ function Home() {
     let deleteFavPicto = function(picto) {
         setFavPicto(oldArray => [...oldArray.filter(item => item !== picto)]);
         setFavPictoId(oldArray => [...oldArray.filter(item => item !== picto.id)]);
-        UserService.deleteFavPicto(22, picto.id).then((response) => {
+        UserService.deleteFavPicto(userId, picto.id).then((response) => {
             Popup(false, "Pictogramme supprimé des favoris !");
         }).catch((err) => {
            console.error("Failed to delete picto from fav: " + err);
@@ -157,7 +144,7 @@ function Home() {
     }
 
     let addSentenceToFav = function() {
-        UserService.addFavSentence(22, pictoArray).then((response) => {
+        UserService.addFavSentence(userId, pictoArray).then((response) => {
             Popup(false, "Phrase ajoutée aux favoris !");
         }).catch((err) => {
            console.error("Failed to add sentence to fav: " + err);
@@ -176,7 +163,7 @@ function Home() {
     let addPictoToFav = function(picto) {
         setFavPicto(oldArray => [...oldArray, picto]);
         setFavPictoId(oldArray => [...oldArray, picto.id]);
-        UserService.addFavPicto(22, picto).then((response) => {
+        UserService.addFavPicto(userId, picto).then((response) => {
             Popup(false, "Pictogramme ajouté aux favoris !");
         }).catch((err) => {
            console.error("Failed to add picto to fav: " + err);

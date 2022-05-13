@@ -82,7 +82,7 @@ function Favorites() {
     };
 
     let handleRemoveFavSentence = function(idSentence){
-        UserService.deleteFavSentence(22, idSentence).then((response) => {
+        UserService.deleteFavSentence(userId, idSentence).then((response) => {
             removeSentenceFromDisplay(idSentence);
             Popup(false, "Phrase supprimée des favoris !");
         }).catch((err) => {
