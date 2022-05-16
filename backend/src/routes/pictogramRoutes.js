@@ -5,7 +5,8 @@ module.exports = app => {
 
     router.get("/", pictogram.getAll);         // Retrieve all pictograms
     router.get("/:id", pictogram.getById);     // Retrieve pictogram with given ID
-    router.post("/", pictogram.add);           // Add a new pictogram to the SQL table
+    router.post("/", pictogram.add);           // Add a new pictogram to the SQL table using URL
+    router.post("/photo", pictogram.addBase64);           // Add a new pictogram to the SQL table using image
     router.delete("/:id", pictogram.delete);   // Delete the pictogram with given ID from the SQL table
     
     app.use('/pictograms', router);

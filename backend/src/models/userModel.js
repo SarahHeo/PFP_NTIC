@@ -1,8 +1,22 @@
 const database = require("../database/database.js");
 
 const User = function(user) {
-    
+    this.Name = user.Name;
+    this.FirstName = user.FirstName;
+    this.DateOfBirth = user.DateOfBirth;
+    this.Gender = user.Gender;
 }
+
+User.getAll = (result) => {
+    database.query(`SELECT * FROM User`, (error, res) =>{
+        if (error){
+            console.log("error: ", error);
+            result(error, null);
+            return;
+        }
+        result(null, res);
+    });
+};
 
 User.getFavPicto = (id, result) => {
     var query = `SELECT * FROM Pictogram WHERE id IN (SELECT idPictogram FROM User_FavPicto WHERE idUser = ?)`
@@ -12,14 +26,21 @@ User.getFavPicto = (id, result) => {
             result(error, null);
             return;
         }
-        if (res.length) {
-            result(null, res);
-            return;
-        }
-        // Could not find favorite pictogram with the user id
-        result({ kind: "not_found" }, null);
+        result(null, res);
     });
 
+};
+
+User.add = (newUser, result) => {
+    database.query(`INSERT INTO User SET ?`, newUser, (error, res) =>{
+        if (error){
+            console.log("error: ", error);
+            result(error, null);
+            return;
+        }
+        console.log("created user: ", { id: res.insertId, ...newUser });
+        result(null, { id: res.insertId, ...newUser });
+    });
 };
 
 

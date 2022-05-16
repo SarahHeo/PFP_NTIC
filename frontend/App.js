@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image } from "react-native";
+import { StyleSheet, Platform, StatusBar } from "react-native";
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -13,7 +13,12 @@ import PictoUpload from './screens/PictoUpload.jsx';
 function App() {
     const Stack = createStackNavigator();
     return (
-        <SafeAreaProvider>
+        <SafeAreaProvider style={{
+                flex: 1,
+                backgroundColor: "white",
+                paddingTop: Platform.OS === "android" ? 25 : 0
+              
+        }}>
             <NavigationContainer>
                 <Stack.Navigator initialRouteName={"LogIn"} screenOptions={{ headerShown: false, gestureEnabled: false}}>
                     <Stack.Screen name="LogIn" component={LogIn}/>

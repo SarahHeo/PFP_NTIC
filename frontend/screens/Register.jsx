@@ -22,29 +22,29 @@ function Register({navigation}) {
     return (
         <View style={styles.main_container}>
             <Form
-            title="Register"
+            title="Inscription"
             style={styles.form}
             action={AuthenticationService.register}
             afterSubmit={handleResult}
-            buttonText="Register"
+            buttonText="S'inscrire"
             fields={{
                 name: {
-                    label: 'Name',
+                    label: 'Nom',
                     validators: [validateContent],
                 },
                 firstName: {
-                    label: 'First Name',
+                    label: 'Prénom',
                     validators: [validateContent],
                 },
                 email: {
-                    label: 'Email',
+                    label: 'Adresse Email',
                     validators: [validateContent, validateEmail],
                     inputProps: {
                     keyboardType: 'email-address',
                     },
                 },
                 password: {
-                    label: 'Password',
+                    label: 'Mot de passe',
                     validators: [validateContent, validatePassword],
                     inputProps: {
                     secureTextEntry: true,
@@ -53,7 +53,7 @@ function Register({navigation}) {
             }}
             />
             <Text></Text>
-            <Button  title = "Log in instead" onPress={() => navigation.navigate('LogIn')}/>
+            <Button  title = "Se connecter" onPress={() => navigation.navigate('LogIn')}/>
         </View>
     );
 }

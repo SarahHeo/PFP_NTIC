@@ -2,12 +2,11 @@ import { StyleSheet } from 'react-native';
  
 export default StyleSheet.create({
     container: {
-        flex: 1,
-        height:'100%',
+        height:'90%',
         width:'100%'
     },
     image: {
-        flex:0.8
+        flex:1
     }, 
     buttonContainer: {
         flex: 1,

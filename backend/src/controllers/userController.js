@@ -19,7 +19,44 @@ exports.getFavPicto = (req, res) => {
     });
 };
 
+exports.getAll = (req, res) => {
+    User.getAll((error, data) => {
+        if (error) {
+            res.status(500).send({
+                message:
+                    error.message || `An error occured while retrieving pictograms`
+            });
+        } else {
+            res.send(data);
+        }
+    });
+};
+
 // POST Requests
+
+exports.add = (req, res) => {
+    if (Object.keys(req.body).length === 0){
+        res.status(400).send({
+            message: `Can't create a new user out of an empty request body`
+        });
+    }
+    const user = new User({
+        Name: req.body.Name,
+        FirstName: req.body.FirstName,
+        DateOfBirth: req.body.DateOfBirth,
+        Gender: req.body.Gender
+    });
+    User.add(user, (error, data) => {
+        if (error) {
+            res.status(500).send({
+                message: error.message || `An error occured while creating the new pictogram`
+            });
+        } else {
+            res.send(data);
+        }
+    });
+};
+
 // ???? à supp ?
 /*exports.getFavPicto = (req, res) => {
     User.getFavPicto(req.params.id, (error, data) => {

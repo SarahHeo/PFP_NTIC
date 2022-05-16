@@ -5,7 +5,7 @@ const style =  StyleSheet.create({
     
     /** Main containers **/
         topContainer: {
-            flex: 0.2,
+            flex: 0.1,
             flexDirection: 'row',
             minHeight: 100
         },

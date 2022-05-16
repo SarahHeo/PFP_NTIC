@@ -4,6 +4,8 @@ module.exports = app => {
     var router = require("express").Router();
 
     router.post("/email", educator.getByEmail);
+    router.post("/user", educator.addUser);
+    router.get("/:id/user", educator.getUsersByEducator); 
 
     app.use('/educator', router);
     //app.use('/educator', AuthMiddleware.mustBeAuthenticated, router);

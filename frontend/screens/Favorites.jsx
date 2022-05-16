@@ -1,28 +1,53 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, ImageBackground, FlatList, Image, ScrollView} from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, Image, ScrollView} from 'react-native';
 import * as Speech from 'expo-speech';
 
 import Pictogram from "../components/Pictogram.jsx";
+import Popup from "../components/Popup.jsx";
 import UserService from '../services/UserService.jsx';
-import styles from '../styles/screens/favorites.jsx';
 import style from '../styles/screens/favorites.jsx';
 import globalStyle from '../styles/components/global.jsx';
-
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // for now, need to refresh the page to see the updates
 function Favorites() {
 
     const [allFavSentences, setAllFavSentences] = useState([]);
+    const [firstRender, setFirstRender] = useState(true);
+    const [userId, setUserId] = useState();
+
+    useEffect(() =>{
+        const retrieveId = async () => {
+            try {
+                const id = await AsyncStorage.getItem("@user_id");
+                console.log(`Retrieved id: ${id}`);
+                if (id === null){
+                    setUserId(22);
+                } else {
+                    setUserId(JSON.parse(id));
+                }
+                 
+            } catch(error) {
+                console.log("An error occured retrieving current user");
+                setUserId(22);
+            }
+        }       
+        retrieveId();
+    }, []);
 
     useEffect(function loadFavSentences(){
-        // !!!!!!!!!!!!!!!!!!!! hardcoded user id !!!!!!!!!!!!!!!!!!!!
-        UserService.getFavSentences(22).then((response) => {
-            recreateSentences(response.data);
-        }).catch((err) => {
-            console.error("Failed to get fav sentences: " + err);
-        });
-    }, []);
+        if (firstRender) {
+            setFirstRender(false);
+        } else {
+            UserService.getFavSentences(userId).then((response) => {
+                if (response.data.length !== 0){
+                    recreateSentences(response.data);
+                }
+            }).catch((err) => {
+                console.error("Failed to get fav sentences: " + err);
+            });
+        }
+    }, [userId]);
 
     let recreateSentences = function(data){
         var favSentences = [];
@@ -42,9 +67,24 @@ function Favorites() {
         setAllFavSentences(favSentences);
     }
 
+    let getDeleteFavSentenceDialog = function(idSentence) {
+        Popup(true, "Supprimer", "Supprimer cette phrase des favoris ?",
+            [
+                {
+                    text: "Annuler",
+                    style: "cancel"
+                },
+                { 
+                    text: "OK",
+                    onPress: () => handleRemoveFavSentence(idSentence)
+                }
+            ])
+    };
+
     let handleRemoveFavSentence = function(idSentence){
-        UserService.deleteFavSentence(22, idSentence).then((response) => {
+        UserService.deleteFavSentence(userId, idSentence).then((response) => {
             removeSentenceFromDisplay(idSentence);
+            Popup(false, "Phrase supprimée des favoris !");
         }).catch((err) => {
            console.error("Failed to add sentence to fav: " + err);
         });  
@@ -94,7 +134,7 @@ function Favorites() {
                             <TouchableOpacity style={[globalStyle.readButton, style.button]} onPress={() => {handleReadSentence(sentence)}}>
                                 <Image source={require('../images/Sound.png')} style={globalStyle.buttonImage}/>
                             </TouchableOpacity>
-                            <TouchableOpacity style={[globalStyle.deleteButton, style.button]} onPress={() => {handleRemoveFavSentence(sentence[0].idSentence)}}>
+                            <TouchableOpacity style={[globalStyle.deleteButton, style.button]} onPress={() => {getDeleteFavSentenceDialog(sentence[0].idSentence)}}>
                                 <Image source={require('../images/delete.png')} style={globalStyle.deleteImage}/>
                             </TouchableOpacity>
                         </View>

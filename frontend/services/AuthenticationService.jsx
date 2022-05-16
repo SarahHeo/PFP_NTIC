@@ -1,16 +1,21 @@
 const axios = require("axios");
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const AUTHENTICATION_BASE_URL = 'http://localhost:8080/authentication';
+const AUTHENTICATION_BASE_URL = 'http://192.168.0.9:8080/authentication';
 
 class AuthenticationService {
+
+    getCurrent(){
+        return axios.get(AUTHENTICATION_BASE_URL + "/");
+    }
+
     register(data){
         return axios.post(AUTHENTICATION_BASE_URL + "/register", data);
     }
 
     login(data){
         return axios.post(AUTHENTICATION_BASE_URL + "/login", data);
-    }
+    }    
 }
 
 export const getToken = async () => {
