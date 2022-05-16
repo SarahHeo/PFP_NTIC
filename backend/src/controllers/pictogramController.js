@@ -1,4 +1,5 @@
 const Pictogram = require("../models/pictogramModel.js");
+const path = require('path');
 
 // GET Requests
 
@@ -55,6 +56,63 @@ exports.add = (req, res) => {
         }
     });
 };
+
+
+exports.upload = async(req, res, err) => {
+    const files = req.files;
+    var errorOccured = false;
+    var resultData = [];
+
+    for (var i = 0; i < files.length; i++){
+        var file = files[i];
+        if (!file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) {
+            res.send({ msg: 'Only image files (jpg, jpeg, png) are allowed!'});
+        }
+    }
+
+    const lauchQueries = async _ => {
+        for (var i = 0; i < files.length; i++){
+            var file = files[i];
+
+            var name = path.parse(file.originalname).name;
+            // remove number at the beginning (in case of pattern "1- blablabla")
+            name = name.substring(name.indexOf("-") + 1).trim();
+
+            var url = file.filename;
+
+            const pictogram = new Pictogram({
+                name: name,
+                idCategory: 0,
+                url: url
+            });
+    
+            await Pictogram.add(pictogram, (err, data) => {
+                if (err) {
+                    errorOccured = true;
+                } else {
+                    resultData.push(data);
+                }
+            });
+
+            if (errorOccured)
+                break;
+        }
+    }
+
+    await lauchQueries();
+
+    if (errorOccured){
+        res.status(500).send({
+            msg: error.message || `An error occured while uploading pictogram`
+        });
+    } else {
+        res.send({
+            data: resultData,
+            msg: "Picto uploaded!"
+        });
+    }
+};
+
 
 // DELETE Requests
 

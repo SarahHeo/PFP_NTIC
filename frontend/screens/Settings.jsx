@@ -1,14 +1,17 @@
 import React from 'react';
-import { Text, TextInput, TouchableOpacity, View} from 'react-native';
+import { Text, TextInput, TouchableOpacity, View, Button } from 'react-native';
 import styles from '../styles/screens/settings.jsx';
 import globalStyle from '../styles/components/global.jsx';
 
-function Settings() {
+function Settings({navigation}) {
 
     return (
         <View style={styles.main_container}>
             <View style={globalStyle.mainTitleContainer}>
                 <Text style={globalStyle.mainTitle}>Veuillez vous connecter pour accéder aux réglages</Text>
+            </View>
+            <View>
+                <Button title="File upload" onPress={() => navigation.navigate('PictoUpload')}/>
             </View>
             <View style={styles.container}>
                 <View style={styles.phrase_container}>
