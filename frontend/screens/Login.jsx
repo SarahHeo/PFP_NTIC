@@ -29,7 +29,7 @@ function Login({navigation}) {
 
     let successLoginCallback = async function(data){
         await setToken(data.auth_token);
-        navigation.navigate('MainApp', { screen: 'Home' });
+        navigation.navigate('MainApp', { screen: 'Users' });
     }
 
     return (

@@ -14,20 +14,18 @@ function Users({navigation}){
     const [educatorId, setEducatorId] = useState('');
     const [usersOfEducator, setUsersOfEducator] = useState([]);
     const [usersLeft, setUsersLeft] = useState([]);
-    const [users, setUsers] = useState([]);
 
     useEffect(() => {
 
         AuthenticationService.getCurrent().then((response) => {
             setEducatorId(response.data.id);
-            EducatorService.getUsersByEducator(response.data.id).then((response) => {
-                setUsersOfEducator(response.data);
-                console.log("Users of educator:", response.data);
+            
+            EducatorService.getUsersByEducator(response.data.id).then((educatorUsers) => {
+                setUsersOfEducator(educatorUsers.data);
+                console.log("Users of educator:", educatorUsers.data);
 
                 UserService.getUsers().then((users) => {
-                    setUsers(users.data);
-                    setUsersLeft(users.data.filter(user => !response.data.map(user => user.Id).includes(user.Id)));
-                    console.log("Users:", response.data);
+                    setUsersLeft(users.data.filter(user => !educatorUsers.data.map(user => user.Id).includes(user.Id)));
                 }).catch((err) => {
                     console.log("Failed to get current educator: " + err);
                 });
@@ -37,11 +35,7 @@ function Users({navigation}){
             })
         }).catch((err) => {
             console.log("Failed to get current educator: " + err);
-        });
-
-        
-
-        
+        });     
 
     }, []);
 
@@ -60,7 +54,7 @@ function Users({navigation}){
         if (result.data) {
             console.log(result.data)
         } else if (result.status === 401) {
-            throw new Error('Invalid login.');
+            throw new Error('Invalid data.');
         } else {
             throw new Error('Something went wrong.');
         }

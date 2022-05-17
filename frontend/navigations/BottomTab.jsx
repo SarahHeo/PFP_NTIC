@@ -1,16 +1,20 @@
 import React from 'react'
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import { View, Text, Image} from "react-native";
+import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import Home from "../screens/Home.jsx";
 import Favorites from "../screens/Favorites.jsx";
 import Settings from "../screens/Settings.jsx";
-import CustomChoice from "../screens/CustomChoice.jsx"
+import CustomChoice from "../screens/CustomChoice.jsx" 
+import Logout from "../screens/Logout.jsx"
+import Users from '../screens/Users.jsx';
+
 
 import style from '../styles/components/navBar.jsx';
 import globalStyle from '../styles/components/global.jsx';
-import Users from '../screens/Users.jsx';
+
 
 const Tab = createBottomTabNavigator();
+
 
 function Tabs() {
     return(
@@ -20,8 +24,8 @@ function Tabs() {
                                             tabBarLabelStyle: style.label,
                                             tabBarLabelPosition: "below-icon",
                                             tabBarStyle: style.bar,
-                                            headerShown: false
-                                            /*tabBarItemStyle: {}*/}}>
+                                            headerShown: false}}>
+                                                
                 <Tab.Screen name="Home"
                             component={Home}
                             options={{
@@ -69,12 +73,12 @@ function Tabs() {
                             }}
                 />
 
-                <Tab.Screen name="Settings"
-                            component={Settings}
+                <Tab.Screen name="Logout"
+                            component={Logout}
                             options={{
-                                tabBarLabel: "RÉGLAGES",
+                                tabBarLabel: "DECO",
                                 tabBarIcon: ({focused, color, size}) => (
-                                    <Image source={require('../images/Settings.png')}
+                                    <Image source={require('../images/logOut.png')}
                                            style={[style.icon, {tintColor: color}]}/>
                                 )
                             }}
@@ -83,5 +87,16 @@ function Tabs() {
     )
 };
 
+/*
+,
+                                tabBarButton: (props) => (
+                                    <TouchableOpacity 
+                                        {...props}
+                                        onPress={()=>console.log("Hello")}
+                                        >
+                                        <Image source={require('../images/logOut.png')}
+                                        style={[style.icon, {tintColor: props.color}]}/>
+                                    </TouchableOpacity>
+                                )*/
 
 export default Tabs;

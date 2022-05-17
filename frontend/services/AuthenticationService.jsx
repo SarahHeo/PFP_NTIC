@@ -5,8 +5,10 @@ const AUTHENTICATION_BASE_URL = 'http://192.168.0.9:8080/authentication';
 
 class AuthenticationService {
 
-    getCurrent(){
-        return axios.get(AUTHENTICATION_BASE_URL + "/");
+    async getCurrent(){
+        return axios.get(AUTHENTICATION_BASE_URL + "/", {headers: {
+            'Authorization': await getToken()
+          }});
     }
 
     register(data){
@@ -32,6 +34,14 @@ export const getToken = async () => {
 export const setToken = async (token) => {
     try {
         await AsyncStorage.setItem('@auth_token', token);
+    } catch (e) {
+        return null;
+    }
+}
+
+export const deleteToken = async () => {
+    try {
+        await AsyncStorage.removeItem('@auth_token');
     } catch (e) {
         return null;
     }
