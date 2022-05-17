@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1
--- Généré le : lun. 21 juin 2021 à 00:05
--- Version du serveur :  10.4.19-MariaDB
--- Version de PHP : 8.0.6
+-- Hôte : 127.0.0.1:3306
+-- Généré le : sam. 19 mars 2022 à 19:58
+-- Version du serveur : 5.7.36
+-- Version de PHP : 7.4.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,85 +24,59 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `categorie`
+-- Structure de la table `educator`
 --
 
-CREATE TABLE `categorie` (
-  `IDcategorie` int(11) NOT NULL,
-  `Nom` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `medecin`
---
-
-CREATE TABLE `medecin` (
-  `IDmedecin` int(11) NOT NULL,
-  `NomMedecin` varchar(255) NOT NULL,
-  `PrenomMedecin` varchar(255) NOT NULL,
-  `Email` varchar(255) NOT NULL,
-  `MotDePasse` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+DROP TABLE IF EXISTS `educator`;
+CREATE TABLE IF NOT EXISTS `educator` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `firstName` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `medecin`
+-- Déchargement des données de la table `educator`
 --
 
-INSERT INTO `medecin` (`IDmedecin`, `NomMedecin`, `PrenomMedecin`, `Email`, `MotDePasse`) VALUES
+INSERT INTO `educator` (`id`, `name`, `firstName`, `email`, `password`) VALUES
 (22, 'Dupont', 'Jean', 'Jean@gmail.com', '*69E04464BC0A7BEA62070D6C8E465A3E0AC4FBAC');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `medecin_patient`
+-- Structure de la table `educator_user`
 --
 
-CREATE TABLE `medecin_patient` (
-  `IDmedecin` int(11) NOT NULL,
-  `IDpatient` int(11) NOT NULL
+DROP TABLE IF EXISTS `educator_user`;
+CREATE TABLE IF NOT EXISTS `educator_user` (
+  `idEducator` int(11) NOT NULL,
+  `idUser` int(11) NOT NULL,
+  KEY `idUser` (`idUser`) USING BTREE,
+  KEY `idEducator` (`idEducator`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `patient`
+-- Structure de la table `pictogram`
 --
 
-CREATE TABLE `patient` (
-  `IDpatient` int(11) NOT NULL,
-  `NomPatient` varchar(255) NOT NULL,
-  `PrenomPatient` varchar(255) NOT NULL,
-  `Age` int(3) NOT NULL,
-  `Sexe` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+DROP TABLE IF EXISTS `pictogram`;
+CREATE TABLE IF NOT EXISTS `pictogram` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `patient`
+-- Déchargement des données de la table `pictogram`
 --
 
-INSERT INTO `patient` (`IDpatient`, `NomPatient`, `PrenomPatient`, `Age`, `Sexe`) VALUES
-(21, 'A', 'A', 0, 'A'),
-(22, 'Dubois', 'Paul', 25, 'Homme');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `pictogramme`
---
-
-CREATE TABLE `pictogramme` (
-  `IDpictogramme` int(11) NOT NULL,
-  `Nom` varchar(255) NOT NULL,
-  `url` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `pictogramme`
---
-
-INSERT INTO `pictogramme` (`IDpictogramme`, `Nom`, `url`) VALUES
+INSERT INTO `pictogram` (`id`, `name`, `url`) VALUES
 (1, 'Abricot', 'https://i.ibb.co/p38m4cV/Abricots.jpg'),
 (2, 'Ananas', 'https://i.ibb.co/pdWKKg6/Ananas.jpg'),
 (3, 'Banane', 'https://i.ibb.co/GPMsXKV/Banane.jpg'),
@@ -152,111 +126,113 @@ INSERT INTO `pictogramme` (`IDpictogramme`, `Nom`, `url`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `picto_favoris`
+-- Structure de la table `user`
 --
 
-CREATE TABLE `picto_favoris` (
-  `IDfavoris` int(11) NOT NULL,
-  `Nom` varchar(255) NOT NULL,
-  `url` varchar(255) NOT NULL
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE IF NOT EXISTS `user` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(255) NOT NULL,
+  `FirstName` varchar(255) NOT NULL,
+  `DateOfBirth` int(3) NOT NULL,
+  `Gender` varchar(255) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `user`
+--
+
+INSERT INTO `user` (`Id`, `Name`, `FirstName`, `DateOfBirth`, `Gender`) VALUES
+(21, 'A', 'A', 0, 'A'),
+(22, 'Dubois', 'Paul', 25, 'Homme');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `user_favpicto`
+--
+
+DROP TABLE IF EXISTS `user_favpicto`;
+CREATE TABLE IF NOT EXISTS `user_favpicto` (
+  `idUser` int(11) NOT NULL,
+  `idPictogram` int(11) NOT NULL,
+  KEY `idUser` (`idUser`) USING BTREE,
+  KEY `idPictogram` (`idPictogram`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `picto_favoris`
+-- Déchargement des données de la table `user_favpicto`
 --
 
-INSERT INTO `picto_favoris` (`IDfavoris`, `Nom`, `url`) VALUES
-(1, 'Oui', 'https://i.ibb.co/DDYjtcg/100-Oui-t-te-en-mouvement.jpg'),
-(2, 'Non', 'https://i.ibb.co/vZxVC1r/98-Non-t-te-en-mouvement.jpg'),
-(3, 'Bonjour', 'https://i.ibb.co/CM6M5VM/344-Bonjour.jpg'),
-(4, 'S\'il te plaît', 'https://i.ibb.co/VTscdvr/346-S-il-te-pla-t.jpg'),
-(5, 'Merci', 'https://i.ibb.co/Dg6rxFw/347-Merci.jpg');
+INSERT INTO `user_favpicto` (`idUser`, `idPictogram`) VALUES
+(22, 4),
+(22, 8),
+(22, 11),
+(22, 22),
+(22, 43),
+(22, 18),
+(22, 20),
+(22, 48),
+(22, 39),
+(22, 57),
+(21, 15),
+(21, 6);
+
+-- --------------------------------------------------------
 
 --
--- Index pour les tables déchargées
+-- Structure de la table `user_favsentence`
 --
 
---
--- Index pour la table `categorie`
---
-ALTER TABLE `categorie`
-  ADD PRIMARY KEY (`IDcategorie`);
+DROP TABLE IF EXISTS `user_favsentence`;
+CREATE TABLE IF NOT EXISTS `user_favsentence` (
+  `id` int(11) NOT NULL,
+  `idUser` int(11) NOT NULL,
+  `position` int(11) NOT NULL,
+  `idPictogram` int(11) NOT NULL,
+  PRIMARY KEY (`id`,`idUser`,`position`),
+  KEY `idUser` (`idUser`),
+  KEY `idPictogram` (`idPictogram`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Index pour la table `medecin`
---
-ALTER TABLE `medecin`
-  ADD PRIMARY KEY (`IDmedecin`);
-
---
--- Index pour la table `medecin_patient`
---
-ALTER TABLE `medecin_patient`
-  ADD KEY `IDmedecin` (`IDmedecin`),
-  ADD KEY `IDpatient` (`IDpatient`);
-
---
--- Index pour la table `patient`
---
-ALTER TABLE `patient`
-  ADD PRIMARY KEY (`IDpatient`);
-
---
--- Index pour la table `pictogramme`
---
-ALTER TABLE `pictogramme`
-  ADD PRIMARY KEY (`IDpictogramme`);
-
---
--- Index pour la table `picto_favoris`
---
-ALTER TABLE `picto_favoris`
-  ADD PRIMARY KEY (`IDfavoris`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
+-- Déchargement des données de la table `user_favsentence`
 --
 
---
--- AUTO_INCREMENT pour la table `categorie`
---
-ALTER TABLE `categorie`
-  MODIFY `IDcategorie` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT pour la table `medecin`
---
-ALTER TABLE `medecin`
-  MODIFY `IDmedecin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
-
---
--- AUTO_INCREMENT pour la table `patient`
---
-ALTER TABLE `patient`
-  MODIFY `IDpatient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
-
---
--- AUTO_INCREMENT pour la table `pictogramme`
---
-ALTER TABLE `pictogramme`
-  MODIFY `IDpictogramme` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
-
---
--- AUTO_INCREMENT pour la table `picto_favoris`
---
-ALTER TABLE `picto_favoris`
-  MODIFY `IDfavoris` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+INSERT INTO `user_favsentence` (`id`, `idUser`, `position`, `idPictogram`) VALUES
+(4, 22, 0, 5),
+(8, 22, 0, 12),
+(8, 22, 1, 13),
+(4, 22, 1, 14),
+(2, 22, 0, 20),
+(6, 22, 0, 20),
+(6, 22, 1, 29);
 
 --
 -- Contraintes pour les tables déchargées
 --
 
 --
--- Contraintes pour la table `medecin_patient`
+-- Contraintes pour la table `educator_user`
 --
-ALTER TABLE `medecin_patient`
-  ADD CONSTRAINT `medecin_patient_ibfk_1` FOREIGN KEY (`IDmedecin`) REFERENCES `medecin` (`IDmedecin`),
-  ADD CONSTRAINT `medecin_patient_ibfk_2` FOREIGN KEY (`IDpatient`) REFERENCES `patient` (`IDpatient`);
+ALTER TABLE `educator_user`
+  ADD CONSTRAINT `educator_user_ibfk_1` FOREIGN KEY (`idEducator`) REFERENCES `educator` (`id`),
+  ADD CONSTRAINT `educator_user_ibfk_2` FOREIGN KEY (`idUser`) REFERENCES `user` (`Id`);
+
+--
+-- Contraintes pour la table `user_favpicto`
+--
+ALTER TABLE `user_favpicto`
+  ADD CONSTRAINT `user_favpicto_ibfk_1` FOREIGN KEY (`idPictogram`) REFERENCES `pictogram` (`id`),
+  ADD CONSTRAINT `user_favpicto_ibfk_2` FOREIGN KEY (`idUser`) REFERENCES `user` (`Id`);
+
+--
+-- Contraintes pour la table `user_favsentence`
+--
+ALTER TABLE `user_favsentence`
+  ADD CONSTRAINT `user_favsentence_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `user` (`Id`),
+  ADD CONSTRAINT `user_favsentence_ibfk_2` FOREIGN KEY (`idPictogram`) REFERENCES `pictogram` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
