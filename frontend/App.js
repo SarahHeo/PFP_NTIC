@@ -8,7 +8,7 @@ import { createAppContainer } from 'react-navigation';
 import LogIn from './screens/Login.jsx';
 import MainApp from './components/MainApp.jsx';
 import Register from './screens/Register.jsx';
-
+import PictoUpload from './screens/PictoUpload.jsx';
 
 function App() {
     const Stack = createStackNavigator();
@@ -24,6 +24,7 @@ function App() {
                     <Stack.Screen name="LogIn" component={LogIn}/>
                     <Stack.Screen name="MainApp" component={MainApp}/>
                     <Stack.Screen name="Register" component={Register}/>
+                    <Stack.Screen name="PictoUpload" component={PictoUpload}/>
                 </Stack.Navigator>
             </NavigationContainer>
         </SafeAreaProvider>
