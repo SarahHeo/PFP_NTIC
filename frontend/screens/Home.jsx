@@ -6,8 +6,6 @@ import UserService from '../services/UserService.jsx';
 import Pictogram from "../components/Pictogram.jsx";
 import Popup from "../components/Popup.jsx";
 
-import vectors from '../assets/vectors.txt';
-
 import * as Speech from 'expo-speech';
 
 import style from '../styles/screens/home.jsx';
@@ -67,14 +65,6 @@ function Home() {
             console.log("Failed to get all picto: " + err);
         });
     }, [isAddingToFav, favPicto]);
-
-    useEffect(() => {
-        fetch(vectors)
-        .then(r => r.text())
-        .then(text => {
-            console.log('text decoded:', text);
-        });
-    }, []);
 
     // For debug only
     /*
