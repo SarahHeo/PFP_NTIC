@@ -13,7 +13,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 function Favorites() {
 
     const [allFavSentences, setAllFavSentences] = useState([]);
-    const [firstRender, setFirstRender] = useState(true);
     const [userId, setUserId] = useState();
 
     useEffect(() =>{
@@ -36,17 +35,13 @@ function Favorites() {
     }, []);
 
     useEffect(function loadFavSentences(){
-        if (firstRender) {
-            setFirstRender(false);
-        } else {
-            UserService.getFavSentences(userId).then((response) => {
-                if (response.data.length !== 0){
-                    recreateSentences(response.data);
-                }
-            }).catch((err) => {
-                console.error("Failed to get fav sentences: " + err);
-            });
-        }
+        UserService.getFavSentences(userId).then((response) => {
+            if (response.data.length !== 0){
+                recreateSentences(response.data);
+            }
+        }).catch((err) => {
+            console.error("Failed to get fav sentences: " + err);
+        });
     }, [userId]);
 
     let recreateSentences = function(data){

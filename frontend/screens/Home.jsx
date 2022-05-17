@@ -17,9 +17,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 function Home() {
 
     const [allPicto, setAllPicto] = useState([]);
-    // Without first render, the favorite pictograms would be loaded before the user id is even retrieved from the async storage,
-    // thus always being empty 
-    const [firstRender, setFirstRender] = useState(true);
     const [pictoArray, setPictoArray] = useState([]);
     const [favPicto, setFavPicto] = useState([]);
     const [userId, setUserId] = useState();
@@ -49,20 +46,16 @@ function Home() {
     }, []);
 
     useEffect(function loadFavPicto(){
-        if (firstRender) {
-            setFirstRender(false);
-        } else {
-            UserService.getUserFavPicto(userId).then((response) => {
-                setFavPicto(response.data);
-                const favPictoIdList = [];
-                for (let i=0; i<response.data.length; i++) {
-                    favPictoIdList.push(response.data[i].id);
-                }
-                setFavPictoId(favPictoIdList);
-            }).catch((err) => {
-                console.log("Failed to get fav images: " + err);
-            });
-        }
+        UserService.getUserFavPicto(userId).then((response) => {
+            setFavPicto(response.data);
+            const favPictoIdList = [];
+            for (let i=0; i<response.data.length; i++) {
+                favPictoIdList.push(response.data[i].id);
+            }
+            setFavPictoId(favPictoIdList);
+        }).catch((err) => {
+            console.log("Failed to get fav images: " + err);
+        });
     }, [userId]);
 
     useEffect(function loadAllPicto(){
