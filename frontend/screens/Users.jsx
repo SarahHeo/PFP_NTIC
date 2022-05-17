@@ -20,6 +20,7 @@ function Users({navigation}){
 
         AuthenticationService.getCurrent().then((response) => {
             setEducatorId(response.data.id);
+            
             EducatorService.getUsersByEducator(response.data.id).then((response) => {
                 setUsersOfEducator(response.data);
                 console.log("Users of educator:", response.data);
@@ -38,10 +39,6 @@ function Users({navigation}){
         }).catch((err) => {
             console.log("Failed to get current educator: " + err);
         });
-
-        
-
-        
 
     }, []);
 
@@ -118,7 +115,7 @@ function Users({navigation}){
                     />
                 </View>
             </Modal>
-            <View style = {styles.listContainer}>
+            <View>
                 <Text style = {styles.title}>Liste des patients</Text>
                 {usersOfEducator.map(user =>
                         <View 
@@ -132,7 +129,7 @@ function Users({navigation}){
                     )                
                 }
             </View>
-            <View style={styles.pickerContainer}>
+            <View>
                 {usersLeft.length !== 0 &&
                 <View>
                     <Picker
@@ -145,7 +142,7 @@ function Users({navigation}){
                                 key={user.Id}
                                 value={user.Id}
                             />
-                        )   
+                        )
                     }
                     </Picker>
                     <Button title="Prendre en charge le patient" onPress={addUserToEducator}/>
