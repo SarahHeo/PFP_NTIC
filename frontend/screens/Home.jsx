@@ -20,6 +20,7 @@ function Home() {
     const [pictoArray, setPictoArray] = useState([]);
     const [favPicto, setFavPicto] = useState([]);
     const [favPictoId, setFavPictoId] = useState([]);
+    const [predictPicto, setPredictPicto] = useState([]);
     const [isAddingToFav, setIsAddingToFav] = useState(false);
 
     // useEffect = after every render
@@ -45,7 +46,7 @@ function Home() {
         }).catch((err) => {
             console.log("Failed to get all picto: " + err);
         });
-    }, [isAddingToFav, favPicto]);
+    }, [isAddingToFav, favPicto, predictPicto]);
   
     // For debug only
     /*
@@ -61,7 +62,7 @@ function Home() {
     // useCallBack : "memoïsation", va garder en mémoire les return selon les inputs, opti (2eme argu = les dépendances)
     let selectPictoCallback = useCallback((picto) => {
         addPictoToArray(picto);
-        AlgoService.predict(picto.name.toLowerCase()).then((response) => console.log(response.data));
+        AlgoService.predict(picto.name.toLowerCase()).then((response) => setPredictPicto(response.data));
     });
 
     let selectFavPictoCallback = useCallback((picto) => {
@@ -107,6 +108,15 @@ function Home() {
     let isInFavPicto = function(picto) {
         const isInFavPicto = favPictoId.includes(picto.id);
         return isInFavPicto;
+    };
+
+    let isInPredictPicto = function(picto) {
+        predictPicto.forEach(pictoItem => {
+            if(pictoItem.word == picto.name.toLowerCase()){
+                return true;
+            }
+        })
+        return false;
     };
 
     let handleAddPictoToFav = useCallback(() => {
@@ -186,7 +196,7 @@ function Home() {
                         data={allPicto}
                         keyExtractor={(item) => item.id.toString()}
                         renderItem={({item}) => 
-                            <Pictogram picto={item} isTouchable={true} onPressHandler={isAddingToFav ? selectFavPictoCallback : selectPictoCallback} id={"list"} isAddingToFav={isAddingToFav} canAddToFav={!isInFavPicto(item)}/>
+                            <Pictogram picto={item} isTouchable={true} onPressHandler={isAddingToFav ? selectFavPictoCallback : selectPictoCallback} id={"list"} isAddingToFav={isAddingToFav} canAddToFav={!isInFavPicto(item)}  isPredicted={isInPredictPicto(item)}/>
                         }
                     />
                 </View>

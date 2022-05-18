@@ -2,7 +2,6 @@ import { StyleSheet } from 'react-native';
 import variables from '../utils/variables';
 
 const image = {
-    borderColor: variables.color.dark,
         borderWidth: 3,
         resizeMode: 'contain',
         width: "100%",
@@ -21,6 +20,12 @@ export default StyleSheet.create({
     },
 
     image: {
+        borderColor: variables.color.dark,
+        ...image
+    },
+    imagePredict: {
+        opacity: 0.5,
+        //borderColor: "red",
         ...image
     },
     disabledImage : {
