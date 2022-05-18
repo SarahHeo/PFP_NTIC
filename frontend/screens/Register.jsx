@@ -11,7 +11,7 @@ function Register({navigation}) {
     const handleResult = async (result) => {
         if (result.data.auth_token) {
             await setToken(result.data.auth_token);
-            navigation.navigate('Home');
+            navigation.navigate('MainApp', { screen: 'Users' });
         } else if (result.status === 401) {
             throw new Error('Invalid login.');
         } else {

@@ -95,7 +95,6 @@ exports.login = (req, res) => {
 
 exports.getCurrent = (req, res) => {
     try {
-        console.log(req.headers.authorization);
         const payload = JWT.getPayload(req.headers.authorization);
         res.send({id: payload.id});
     } catch (e) {
