@@ -111,12 +111,8 @@ function Home() {
     };
 
     let isInPredictPicto = function(picto) {
-        predictPicto.forEach(pictoItem => {
-            if(pictoItem.word == picto.name.toLowerCase()){
-                return true;
-            }
-        })
-        return false;
+        const isInPredictPicto = predictPicto.map(picto => picto.word).includes(picto.name.toLowerCase());
+        return isInPredictPicto;
     };
 
     let handleAddPictoToFav = useCallback(() => {

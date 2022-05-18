@@ -24,8 +24,7 @@ export default StyleSheet.create({
         ...image
     },
     imagePredict: {
-        opacity: 0.5,
-        //borderColor: "red",
+        borderColor: "red",
         ...image
     },
     disabledImage : {
