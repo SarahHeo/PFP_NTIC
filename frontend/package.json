@@ -16,12 +16,8 @@
     "axios": "^0.26.0",
     "expo": "~41.0.1",
     "expo-camera": "~11.0.2",
-<<<<<<< HEAD
     "expo-document-picker": "~9.1.2",
     "expo-file-system": "~11.0.2",
-=======
-    "expo-cli": "^5.4.3",
->>>>>>> 0f14d54e9b7f6ec276d6202dc874752f67a40ece
     "expo-speech": "~9.1.0",
     "expo-status-bar": "~1.0.4",
     "mysql": "^2.18.1",

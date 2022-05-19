@@ -9,14 +9,14 @@ import Form from '../components/Form.jsx';
 import {validateContent } from '../validators/authenticationValidator.jsx';
 
 function Users({navigation}){
-    const [selectedValue, setSelectedValue] = useState(null);
+    const [selectedValue, setSelectedValue] = useState();
     const [modalVisible, setModalVisible] = useState(false);
     const [educatorId, setEducatorId] = useState('');
     const [usersOfEducator, setUsersOfEducator] = useState([]);
     const [usersLeft, setUsersLeft] = useState([]);
 
-    useEffect(() => {
-
+    function loadUsers(){
+        
         AuthenticationService.getCurrent().then((response) => {
             setEducatorId(response.data.id);
             
@@ -36,14 +36,25 @@ function Users({navigation}){
         }).catch((err) => {
             console.log("Failed to get current educator: " + err);
         });     
+        
+    }
 
+    useEffect(()=>{
+        loadUsers();    
     }, []);
+
+    useEffect(() => {
+        if (usersLeft.length > 0){
+            setSelectedValue(usersLeft[0].Id);
+        }
+        
+    }, [usersLeft]);
 
     const addUserToEducator = () => {
         EducatorService.addUser({
             idEducator: educatorId,
             idUser: selectedValue
-        }).then(console.log("User successfully added!"))
+        }).then(loadUsers())
         .catch((err) => {
             console.log("Failed to add user: " + err);
         });
@@ -52,7 +63,8 @@ function Users({navigation}){
     const handleResult = async (result) => {
         setModalVisible(false);
         if (result.data) {
-            console.log(result.data)
+            console.log(result.data);
+            loadUsers();
         } else if (result.status === 401) {
             throw new Error('Invalid data.');
         } else {
@@ -113,7 +125,7 @@ function Users({navigation}){
                 </View>
             </Modal>
             <View style = {styles.listContainer}>
-                <Text style = {styles.title}>Liste des patients</Text>
+                <Text style = {styles.title}>Liste des utilisateurs</Text>
                 {usersOfEducator.map(user =>
                         <View 
                             style={styles.buttonContainer}
@@ -130,8 +142,7 @@ function Users({navigation}){
                 {usersLeft.length !== 0 &&
                 <View>
                     <Picker
-                        selectedValue = {selectedValue}
-                        onValueChange = {(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                        onValueChange = {(itemValue) => {setSelectedValue(itemValue); console.log(itemValue)}}
                     >
                     {usersLeft.map(user =>
                             <Picker.Item
@@ -142,7 +153,7 @@ function Users({navigation}){
                         )   
                     }
                     </Picker>
-                    <Button title="Prendre en charge le patient" onPress={addUserToEducator}/>
+                    <Button title="Prendre en charge l'utilisateur" onPress={addUserToEducator}/>
                 </View>
                 }
                 <Button title="Créer un nouvel utilisateur" onPress={() => setModalVisible(true)}/>
