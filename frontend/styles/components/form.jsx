@@ -2,11 +2,11 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     main_container: {
-        margin: 20
+        //margin: 20
     },
     title: {
         fontSize: 25,
-        marginBottom: 20,
+        marginBottom: 5,
         textAlign: 'center'
     },
     error: {

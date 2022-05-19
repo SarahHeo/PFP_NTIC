@@ -8,7 +8,6 @@ const button = {
 }
 
 const imageButton = {
-    textAlign:'center',
     resizeMode: 'contain',
     opacity: 0.8
 }

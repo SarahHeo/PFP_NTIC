@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
     field: {
         fontSize: 15,
-        margin: 8,
+        margin: 4,
     },
     input_area: {
         borderWidth: 1,

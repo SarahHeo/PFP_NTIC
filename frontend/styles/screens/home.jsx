@@ -1,5 +1,8 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import variables from '../utils/variables.jsx';
+
+var screenHeight = Dimensions.get("screen").height;
+var screenWidth = Dimensions.get("screen").width;
 
 const style =  StyleSheet.create({
     
@@ -20,7 +23,7 @@ const style =  StyleSheet.create({
 
     /** Top **/
         selectedPictoContainer: {
-            flex: 0.8,
+            flex: 8,
             flexDirection: 'row',
             marginTop: 10,
             justifyContent: 'flex-start',
@@ -34,7 +37,7 @@ const style =  StyleSheet.create({
         },
 
         buttonsContainer:{
-            flex: 0.2,
+            flex: 2,
             flexDirection: 'row',
             alignItems: 'center',
             minWidth: 150
@@ -54,13 +57,13 @@ const style =  StyleSheet.create({
 
         favButton: {
             margin: 5,
-            height: 80,
-            width: 80
+            height: screenHeight*0.1,
+            width: screenWidth*0.06,
         },
 
     /** Bot **/
         favPictoContainer: {
-            flex: 0.11,
+            //flex: 0.11,
             //flexDirection: 'column',
             marginTop: 10,
             padding: 20,
@@ -84,7 +87,8 @@ const style =  StyleSheet.create({
 
         pictoList: {
             //flex: 1,
-            justifyContent: 'space-evenly'
+            justifyContent: 'space-evenly',
+            //flexWrap:'wrap'
         },
 
     /* */

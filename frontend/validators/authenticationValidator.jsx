@@ -1,12 +1,12 @@
 export const validateContent = (text) => {
     if (!text) {
-        return "Can't be empty.";
+        return "Ce champ est obligatoire.";
     }
 }
 
 export const validateEmail = (text) => {
     if (text && text.search('[a-zA-Z0-9]*[^@]@{1}[a-zA-Z0-9]*[.][a-zA-Z]+') === -1) {
-        return "This email is not valid.";
+        return "Cette adresse email n'est pas valide.";
     }
 }
 
@@ -14,19 +14,19 @@ export const validatePassword = (text) => {
     let error = '';
 
     if (text && text.search('[a-z]') === -1) {
-        error += 'At least 1 lowercase letter is required.\n'
+        error += 'Au moins 1 minuscule est requis.\n'
     }
 
     if (text && text.search('[A-Z]') === -1) {
-        error += 'At least 1 uppercase letter is required.\n'
+        error += 'Au moins 1 majuscule est requis.\n'
     }
 
     if (text && text.search('[0-9]') === -1) {
-        error += 'At least 1 number is required.\n'
+        error += 'Au moins 1 chiffre est requis.\n'
     }
 
     if (text && text.length < 8) {
-        error += 'Minimal length is 8.\n';
+        error += 'La longueur minimale est de 8.\n';
     }
 
     return error;

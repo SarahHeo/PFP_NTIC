@@ -160,7 +160,7 @@ function predict(word, number_neighbors=5){
     });
 }
 
-String.prototype.sansAccent =function() {
+String.prototype.sansAccent = function() {
     var accent = [
         /[\300-\306]/g, /[\340-\346]/g, // A, a
         /[\310-\313]/g, /[\350-\353]/g, // E, e

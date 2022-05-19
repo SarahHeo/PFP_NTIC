@@ -202,7 +202,7 @@ function Home() {
             <View style={style.topContainer}>
                 <View style={style.selectedPictoContainer}>
                     <FlatList
-                        numColumns={14}
+                        numColumns={10}
                         data={pictoArray}
                         keyExtractor={(item) => item.id.toString()}
                         renderItem={({item}) => <Pictogram picto={item} isTouchable={false} id={"selected"}/>}/>
@@ -224,7 +224,6 @@ function Home() {
             <View style={style.botContainer}>
                 <View style={[style.favPictoContainer, {}]}>
                     <FlatList
-                        //numColumns={12}
                         data={favPicto}
                         ListFooterComponent={footer}
                         keyExtractor={(item) => item.id.toString()}
