@@ -83,7 +83,10 @@ function Home() {
     // useCallBack : "memoïsation", va garder en mémoire les return selon les inputs, opti (2eme argu = les dépendances)
     let selectPictoCallback = useCallback((picto) => {
         addPictoToArray(picto);
-        AlgoService.predict(picto.name.toLowerCase()).then((response) => setPredictPicto(response.data));
+        AlgoService.predict(picto.name.toLowerCase()).then((response) => setPredictPicto(response.data))
+        .catch((err) => {
+            console.log("Failed to predict picto: " + err);
+        });
     });
 
     let selectFavPictoCallback = useCallback((picto) => {

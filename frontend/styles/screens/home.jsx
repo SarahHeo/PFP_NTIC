@@ -8,24 +8,24 @@ const style =  StyleSheet.create({
     
     /** Main containers **/
         topContainer: {
-            flex: 0.1,
+            flex: 2,
             flexDirection: 'row',
-            minHeight: 100
+            //minHeight: 100
         },
         
         botContainer: {
-            flex: 1,
+            flex: 8,
             flexDirection: 'row',
-            marginTop: 10,
-            marginBottom: 110,
-            minHeight: 100
+            //marginTop: 10,
+            marginBottom: screenHeight *0.16,
+            //minHeight: 100
         },
 
     /** Top **/
         selectedPictoContainer: {
             flex: 8,
             flexDirection: 'row',
-            marginTop: 10,
+            //marginTop: 10,
             justifyContent: 'flex-start',
             alignItems: "center",
             borderColor: variables.color.veryLight,
@@ -33,7 +33,7 @@ const style =  StyleSheet.create({
             borderRadius: 60,
             paddingLeft: 30,
             paddingRight: 30,
-            padding: 10
+            //padding: 10
         },
 
         buttonsContainer:{
@@ -49,7 +49,7 @@ const style =  StyleSheet.create({
 
         button: {
             //border: "1px solid black",
-            flex: 0.33,
+            flex: 1,
             margin: 5,
             height: "100%",
             maxHeight: 80
@@ -68,7 +68,7 @@ const style =  StyleSheet.create({
             marginTop: 10,
             padding: 20,
             //justifyContent: 'center',
-            alignItems: 'center',
+            //alignItems: 'center',
             borderColor: variables.color.veryLight,
             borderWidth: 2,
             borderRadius: 50
