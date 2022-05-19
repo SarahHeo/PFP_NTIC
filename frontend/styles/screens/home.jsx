@@ -26,7 +26,7 @@ const style =  StyleSheet.create({
             flex: 8,
             flexDirection: 'row',
             //marginTop: 10,
-            justifyContent: 'flex-start',
+            justifyContent: 'space-between',
             alignItems: "center",
             borderColor: variables.color.veryLight,
             borderWidth: 2,

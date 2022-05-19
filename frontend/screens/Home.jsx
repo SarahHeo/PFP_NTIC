@@ -108,6 +108,20 @@ function Home() {
             ])
     });
 
+    let getClearSentenceDialog = useCallback(() => {
+        Popup(true, "Supprimer", "Supprimer la phrase actuelle ?",
+            [
+                {
+                    text: "Annuler",
+                    style: "cancel"
+                },
+                { 
+                    text: "OK",
+                    onPress: () => setPictoArray([])
+                }
+            ])
+    });
+
     let deleteFavPicto = function(picto) {
         setFavPicto(oldArray => [...oldArray.filter(item => item !== picto)]);
         setFavPictoId(oldArray => [...oldArray.filter(item => item !== picto.id)]);
@@ -214,7 +228,7 @@ function Home() {
                     <TouchableOpacity style={[globalStyle.readButton, style.button]} onPress={() => {handleReadSentence()}}>
                         <Image source={require('../images/Sound.png')} style={globalStyle.buttonImage}/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[globalStyle.deleteButton, style.button]} onPress={() => {handleRemovePicto()}}>
+                    <TouchableOpacity style={[globalStyle.deleteButton, style.button]} onPress={() => {handleRemovePicto()}} onLongPress={getClearSentenceDialog}>
                         <Image source={require('../images/delete.png')} style={globalStyle.deleteImage}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={[globalStyle.favButton, style.button]} onPress={() => {handleAddSentenceToFav()}}>

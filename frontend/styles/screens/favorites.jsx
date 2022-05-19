@@ -15,13 +15,16 @@ const style = StyleSheet.create({
         borderColor: variables.color.veryLight,
         borderWidth: 2,
         borderRadius: 35,
-        //minHeight: 120,
-        marginTop: 10,
-        marginBottom: 10,
-        paddingLeft: 25,
-        paddingRight: 25,
+        minHeight: 120,
+        marginVertical: 10,
+        paddingHorizontal: 25,
         //justifyContent: 'center',
         alignItems: 'center',
+        justifyContent: 'space-between',
+        flexDirection: 'row'
+    },
+
+    buttonContainer: {
         flexDirection: 'row'
     },
 
