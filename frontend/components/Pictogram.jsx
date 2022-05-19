@@ -14,6 +14,7 @@ function Pictogram(props) {
     const id = props.id;
     const isAddingToFav = props.isAddingToFav;
     const canAddToFav = props.canAddToFav;
+    const isPredicted = props.isPredicted;
 
     var style;
 
@@ -51,7 +52,7 @@ function Pictogram(props) {
         return (
             <TouchableOpacity style={[pictoStyle.mainContainer, style.mainContainer]} disabled={!isTouchable}
                             onPress={() => props.onPressHandler(picto)}>
-                <Image source={{uri: picto.url}} style={pictoStyle.image}/>
+                <Image source={{uri: picto.url}} style={isPredicted ? pictoStyle.imagePredict : pictoStyle.image}/>
             </TouchableOpacity>
         )
     }

@@ -20,6 +20,8 @@
     "imgbb-uploader": "^1.3.5",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "readline": "^1.3.0",
+    "word2vec-win": "github:Astropilot/node-word2vec-win"
   }
 }
