@@ -14,6 +14,7 @@ import style from '../styles/screens/home.jsx';
 import globalStyle from '../styles/components/global.jsx';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import { clearWord } from '../utils/clearWord.jsx';
 
 
 function Home() {
@@ -83,10 +84,9 @@ function Home() {
     // useCallBack : "memoïsation", va garder en mémoire les return selon les inputs, opti (2eme argu = les dépendances)
     let selectPictoCallback = useCallback((picto) => {
         addPictoToArray(picto);
-        AlgoService.predict(picto.name.toLowerCase()).then((response) => setPredictPicto(response.data))
-        .catch((err) => {
-            console.log("Failed to predict picto: " + err);
-        });
+        AlgoService.predict(clearWord(picto.name))
+        .then((response) => setPredictPicto(response.data.splice(1,response.data.length)))
+            .catch((err) => console.log("Failed to predict picto: " + err));
     });
 
     let selectFavPictoCallback = useCallback((picto) => {
@@ -163,12 +163,12 @@ function Home() {
     };
 
     let isInPredictPicto = function(picto) {
-        const isInPredictPicto = predictPicto.map(picto => picto.word).includes(picto.name.toLowerCase());
+        const isInPredictPicto = predictPicto.map(picto => picto.word).includes(clearWord(picto.name));
         return isInPredictPicto;
     };
 
     let handleAddPictoToFav = useCallback(() => {
-        setIsAddingToFav(true);
+        setIsAddingToFav(!isAddingToFav);
     });
 
     let addPictoToFav = function(picto) {
