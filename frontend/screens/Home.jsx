@@ -117,7 +117,7 @@ function Home() {
                 },
                 { 
                     text: "OK",
-                    onPress: () => setPictoArray([])
+                    onPress: () => { setPictoArray([]); setPredictPicto([]); }
                 }
             ])
     });
@@ -161,6 +161,7 @@ function Home() {
 
     let removeLastPicto = function() {
         setPictoArray(oldArray => [...oldArray.slice(0, oldArray.length - 1)]);
+        setPredictPicto([]);
     }
 
     let addSentenceToFav = function() {
