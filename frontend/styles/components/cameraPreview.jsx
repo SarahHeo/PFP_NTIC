@@ -2,8 +2,8 @@ import { StyleSheet } from 'react-native';
  
 export default StyleSheet.create({
     container: {
-        height:'90%',
-        width:'100%'
+        height: '85%',
+        width: '50%',
     },
     image: {
         flex:1
