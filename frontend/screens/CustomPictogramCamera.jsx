@@ -89,7 +89,7 @@ function CustomPictogramCamera() {
     return (
         <View>
         {isCameraOn ? (
-            <View>
+            <View style={styles.cameraContainer}>
                 {previewVisible && pictogramImage ? (
                     <CameraPreview photo={pictogramImage} onRetake={retakePhoto} onSave={savePhoto}/>
                 ) : (

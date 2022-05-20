@@ -5,11 +5,13 @@ export default StyleSheet.create({
         flex: 1,  
     },
     cameraContainer:{
-        flex: 1,
-        width: '100%'
+        flexDirection:'row',
+        height:'85%',
+        justifyContent:'center'
     },
     camera: {
-        height: '90%'  
+        height: '85%',
+        width: '50%',
     },
     buttonContainer: {
         flex: 1,
@@ -44,8 +46,8 @@ export default StyleSheet.create({
         padding: 8
     }, 
     image: {
-        width:100,
-        height:100,
+        width:'30%',
+        height:'50%',
         alignSelf:'center'
-    }
+    } 
 });
