@@ -51,7 +51,7 @@ function Pictogram(props) {
         return (
             <TouchableOpacity style={[pictoStyle.mainContainer, style.mainContainer]} disabled={!isTouchable}
                             onPress={() => props.onPressHandler(picto)}>
-                <Image source={{uri: picto.url}} style={pictoStyle.image}/>
+                <Image source={{uri: "http://localhost:8080/" + picto.url}} style={pictoStyle.image}/>
             </TouchableOpacity>
         )
     }

@@ -9,6 +9,9 @@ import style from '../styles/screens/favorites.jsx';
 import globalStyle from '../styles/components/global.jsx';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import soundIcon from '../images/sound.png';
+import deleteIcon from '../images/delete.png';
+
 // for now, need to refresh the page to see the updates
 function Favorites() {
 
@@ -126,10 +129,10 @@ function Favorites() {
                                 }
                             />
                             <TouchableOpacity style={[globalStyle.readButton, style.button]} onPress={() => {handleReadSentence(sentence)}}>
-                                <Image source={require('../images/Sound.png')} style={globalStyle.buttonImage}/>
+                                <Image source={soundIcon} style={globalStyle.buttonImage}/>
                             </TouchableOpacity>
                             <TouchableOpacity style={[globalStyle.deleteButton, style.button]} onPress={() => {getDeleteFavSentenceDialog(sentence[0].idSentence)}}>
-                                <Image source={require('../images/delete.png')} style={globalStyle.deleteImage}/>
+                                <Image source={deleteIcon} style={globalStyle.deleteImage}/>
                             </TouchableOpacity>
                         </View>
                     )
