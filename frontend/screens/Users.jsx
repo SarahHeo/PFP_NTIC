@@ -142,7 +142,8 @@ function Users({navigation}){
                 {usersLeft.length !== 0 &&
                 <View>
                     <Picker
-                        onValueChange = {(itemValue) => {setSelectedValue(itemValue); console.log(itemValue)}}
+                        selectedValue = {selectedValue}
+                        onValueChange = {(itemValue) => {setSelectedValue(itemValue)}}
                     >
                     {usersLeft.map(user =>
                             <Picker.Item
