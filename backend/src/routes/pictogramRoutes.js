@@ -8,7 +8,8 @@ module.exports = app => {
     router.post("/", pictogram.add);           // Add a new pictogram to the SQL table using URL
     router.post("/photo", pictogram.addBase64);           // Add a new pictogram to the SQL table using image
     router.delete("/:id", pictogram.delete);   // Delete the pictogram with given ID from the SQL table
-    
+    router.get("/category/:idCategory", pictogram.getByCategory);   
+
     app.use('/pictograms', router);
     //app.use('/pictograms', AuthMiddleware.mustBeAuthenticated, router);
 }

@@ -13,7 +13,10 @@ const styleVariables = {
 
         // navbar
         pink: "#ea4ba9",
-        inactive: "#5e5e5e"
+        inactive: "#5e5e5e",
+
+        //
+        yellow: "#ffda08"
     }
 };
 

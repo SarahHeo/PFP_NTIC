@@ -29,6 +29,7 @@ require("./routes/educatorRoutes.js")(app);
 require("./routes/authenticationRoutes.js")(app);
 require("./routes/algoRoutes.js")(app);
 require("./routes/pictoUploadRoutes.js")(app);
+require("./routes/categoryRoutes.js")(app);
 
 const PORT = process.env.PORT || 8080;
 

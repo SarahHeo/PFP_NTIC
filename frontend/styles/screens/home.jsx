@@ -43,8 +43,12 @@ const style =  StyleSheet.create({
             minWidth: 150
         },
 
-        favButtonContainer:{
+        addButtonContainer:{
             alignItems: 'center'
+        },
+
+        backButtonContainer:{
+            //alignItems: 'center'
         },
 
         button: {
@@ -59,6 +63,12 @@ const style =  StyleSheet.create({
             margin: 5,
             height: screenHeight*0.1,
             width: screenWidth*0.06,
+        },
+
+        returnButton: {
+            margin: 5,
+            height: 80,
+            width: 80
         },
 
     /** Bot **/

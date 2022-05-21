@@ -5,7 +5,8 @@ import pictoStyle from '../styles/components/pictogram.jsx';
 import listPictoStyle from '../styles/components/listPictogram.jsx';
 import favPictoStyle from '../styles/components/favPictogram.jsx';
 import selectedPictoStyle from '../styles/components/selectedPictogram.jsx';
-import favScreenPictogram from '../styles/components/favScreenPictogram.jsx';
+import favScreenPictoStyle from '../styles/components/favScreenPictogram.jsx';
+import categoriesPictoStyle from '../styles/components/categoriesPicto.jsx';
 
 function Pictogram(props) {
 
@@ -22,6 +23,9 @@ function Pictogram(props) {
         case "list":
             style = listPictoStyle;
             break;
+        case "categories":
+            style = categoriesPictoStyle;
+            break;
         case "fav":
             style = favPictoStyle;
             break;
@@ -29,7 +33,7 @@ function Pictogram(props) {
             style = selectedPictoStyle;
             break;
         case "favScreen":
-            style = favScreenPictogram;
+            style = favScreenPictoStyle;
             break;
         default:
             style = listPictoStyle;
@@ -45,7 +49,7 @@ function Pictogram(props) {
         return (
             <TouchableOpacity style={[pictoStyle.mainContainer, style.mainContainer]} disabled={!isTouchable}
                             onPress={() => props.onPressHandler(picto)} onLongPress={() => props.onLongPress(picto)}>
-                <Image source={{uri: "http://localhost:8080/" + picto.url}} style={pictoStyle.image}/>
+                <Image source={{uri: "http://localhost:8080/" + picto.url}} style={[pictoStyle.image, style.image]}/>
             </TouchableOpacity>
         )
     } else {

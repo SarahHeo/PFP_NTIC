@@ -34,6 +34,11 @@ export default StyleSheet.create({
         ...button
     },
 
+    returnButton: {
+        backgroundColor: '#3b7ff5',
+        ...button
+    },
+
     buttonImage: {
         width: "60%",
         height: "60%",
