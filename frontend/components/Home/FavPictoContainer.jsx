@@ -41,7 +41,7 @@ function FavPictoContainer(props) {
 
     const footer = () => {
         return (
-            <View style={style.favButtonContainer}>
+            <View style={style.addButtonContainer}>
                 <TouchableOpacity style={[globalStyle.addFavButton, style.favButton]} onPress={() => handleAddPictoToFav()}>
                     <Image source={addIcon} style={globalStyle.buttonImage}/>
                 </TouchableOpacity>

@@ -35,6 +35,17 @@ Pictogram.getById = (id, result) => {
         // Could not find Pictogram with the id
         result({ kind: "not_found" }, null);
     });
+};
+
+Pictogram.getByCategory = (idCategory, result) => {
+    database.query(`SELECT * FROM Pictogram WHERE idCategory = ?`, idCategory, (error, res) =>{
+        if (error){
+            console.log("error: ", error);
+            result(error, null);
+            return;
+        }
+        result(null, res);
+    });
 
 };
 

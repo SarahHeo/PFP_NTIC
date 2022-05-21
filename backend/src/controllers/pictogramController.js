@@ -35,6 +35,24 @@ exports.getById = (req, res) => {
     });
 };
 
+exports.getByCategory = (req, res) => {
+    Pictogram.getByCategory(req.params.idCategory, (error, data) => {
+        if (error) {
+            if(error.kind === "not_found"){
+                res.status(404).send({
+                    message: `Couldn't find picto from category: ${req.params.idCategory}`
+                });
+            } else {
+                res.status(500).send({
+                    message: `An error occured retrieving picto from category: ${req.params.idCategory}`
+                });
+            }
+        } else {
+            res.send(data);
+        }
+    });
+};
+
 // POST Requests
 
 exports.add = (req, res) => {

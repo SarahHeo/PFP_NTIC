@@ -40,8 +40,12 @@ const style =  StyleSheet.create({
             minWidth: 150
         },
 
-        favButtonContainer:{
+        addButtonContainer:{
             alignItems: 'center'
+        },
+
+        backButtonContainer:{
+            //alignItems: 'center'
         },
 
         button: {
@@ -53,6 +57,12 @@ const style =  StyleSheet.create({
         },
 
         favButton: {
+            margin: 5,
+            height: 80,
+            width: 80
+        },
+
+        returnButton: {
             margin: 5,
             height: 80,
             width: 80
