@@ -2,12 +2,12 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, TouchableOpacity, FlatList, Image } from 'react-native';
 
 import UserService from '../services/UserService.jsx';
+import AlgoService from '../services/AlgoService.jsx';
 import Popup from "../components/Popup.jsx";
 import PictoContainer from "../components/Home/PictoContainer.jsx";
 import FavPictoContainer from "../components/Home/FavPictoContainer.jsx";
 import SelectedPictoContainer from "../components/Home/SelectedPictoContainer.jsx";
 import ButtonsContainer from "../components/Home/ButtonsContainer.jsx";
-
 
 import * as Speech from 'expo-speech';
 
@@ -92,7 +92,7 @@ function Home() {
     }
 
     let handleAddPictoToFav = useCallback(() => {
-        setIsAddingToFav(true);
+        setIsAddingToFav(!isAddingToFav);
     });
 
 
@@ -146,6 +146,8 @@ function Home() {
                 </SelectedPictoContainer>
                 <ButtonsContainer handleReadSentence={handleReadSentence}
                                   handleRemovePicto={handleRemovePicto}
+                                  setSelectedPictoArray={setSelectedPictoArray}
+                                  setPredictPicto={setPredictPicto}
                                   handleAddSentenceToFav={handleAddSentenceToFav}>
                 </ButtonsContainer>
                 
@@ -158,7 +160,7 @@ function Home() {
                                    onDeleteFavPicto={onDeleteFavPicto}
                                    handleAddPictoToFav={handleAddPictoToFav}>
                 </FavPictoContainer>
-                <PictoContainer favPictoId={favPictoId} isAddingToFav={isAddingToFav} userId={userId}
+                <PictoContainer favPicto={favPicto} predictPicto={predictPicto} favPictoId={favPictoId} isAddingToFav={isAddingToFav} userId={userId}
                                 selectPictoCallback={selectPictoCallback}
                                 onAddPictoToFav={onAddPictoToFav}>
                 </PictoContainer>

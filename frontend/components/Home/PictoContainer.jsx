@@ -6,10 +6,9 @@ import UserService from '../../services/UserService.jsx';
 import Pictogram from "../Pictogram.jsx";
 import Popup from "../Popup.jsx";
 
+import { clearWord } from "../../utils/clearWord.jsx"
+
 import style from '../../styles/screens/home.jsx';
-
-
-
 
 function PictoContainer(props) {
 
@@ -20,6 +19,8 @@ function PictoContainer(props) {
     const selectPictoCallback = props.selectPictoCallback;
     const onAddPictoToFav = props.onAddPictoToFav;
     const userId = props.userId;
+    const favPicto = props.favPicto;
+    const predictPicto = props.predictPicto;
 
     useEffect(function loadAllPicto(){
         PictogramService.getPictograms().then((response) => {
@@ -27,7 +28,7 @@ function PictoContainer(props) {
         }).catch((err) => {
             console.log("Failed to get all picto: " + err);
         });
-    }, []);
+    }, [isAddingToFav, favPicto, predictPicto]);
 
     let selectFavPictoCallback = useCallback((picto) => {
         addPictoToFav(picto);
@@ -47,6 +48,11 @@ function PictoContainer(props) {
         return isInFavPicto;
     };
 
+    let isInPredictPicto = function(picto) {
+        const isInPredictPicto = predictPicto.map(picto => picto.word).includes(clearWord(picto.name));
+        return isInPredictPicto;
+    };
+
     return (
         <View style={style.pictoContainer}>
             <FlatList
@@ -58,8 +64,11 @@ function PictoContainer(props) {
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({item}) => 
                     <Pictogram picto={item} isTouchable={true} 
-                               onPressHandler={isAddingToFav ? selectFavPictoCallback : selectPictoCallback} 
-                               id={"list"} isAddingToFav={isAddingToFav} canAddToFav={!isInFavPicto(item)}/>
+                                onPressHandler={isAddingToFav ? selectFavPictoCallback : selectPictoCallback} 
+                                id={"list"} 
+                                isAddingToFav={isAddingToFav} 
+                                canAddToFav={!isInFavPicto(item)}
+                                isPredicted={isInPredictPicto(item)}/>
                 }
             />
         </View>

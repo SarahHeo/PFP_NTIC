@@ -133,12 +133,14 @@ function Favorites() {
                                     <Pictogram picto={item} isTouchable={false} id={"favScreen"}/>
                                 }
                             />
-                            <TouchableOpacity style={[globalStyle.readButton, style.button]} onPress={() => {handleReadSentence(sentence)}}>
-                                <Image source={soundIcon} style={globalStyle.buttonImage}/>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={[globalStyle.deleteButton, style.button]} onPress={() => {getDeleteFavSentenceDialog(sentence[0].idSentence)}}>
-                                <Image source={deleteIcon} style={globalStyle.deleteImage}/>
-                            </TouchableOpacity>
+                            <View style={style.buttonContainer}>
+                                <TouchableOpacity style={[globalStyle.readButton, style.button]} onPress={() => {handleReadSentence(item)}}>
+                                    <Image source={require('../images/Sound.png')} style={globalStyle.buttonImage}/>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={[globalStyle.deleteButton, style.button]} onPress={() => {getDeleteFavSentenceDialog(item[0].idSentence)}}>
+                                    <Image source={require('../images/delete.png')} style={globalStyle.deleteImage}/>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     }/>
                 }
