@@ -2,6 +2,7 @@ const database = require("../database/database.js");
 
 const Pictogram = function(pictogram) {
     this.name = pictogram.name;
+    this.idCategory = pictogram.idCategory;
     this.url = pictogram.url;
 }
 
@@ -38,18 +39,22 @@ Pictogram.getById = (id, result) => {
 };
 
 // INSERT SQL Queries
-
 Pictogram.add = (newPictogram, result) => {
-    database.query(`INSERT INTO Pictogram SET ?`, newPictogram, (error, res) =>{
-        if (error){
-            console.log("error: ", error);
-            result(error, null);
-            return;
-        }
-        console.log("created pictogram: ", { id: res.insertId, ...newPictogram });
-        result(null, { id: res.insertId, ...newPictogram });
-    });
+    return new Promise((resolve, reject) => {
+        database.query(`INSERT INTO Pictogram SET ?`, newPictogram, (error, res) =>{
+            if (error){
+                console.log("error: ", error);
+                result(error, null);
+                reject();
+                return;
+            }
+            console.log("created pictogram: ", { id: res.insertId, ...newPictogram });
+            result(null, { id: res.insertId, ...newPictogram });
+            resolve();
+        });
+    })
 };
+
 
 // DELETE SQL Queries
 

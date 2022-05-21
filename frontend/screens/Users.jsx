@@ -138,7 +138,7 @@ function Users({navigation}){
                     )                
                 }
             </View>
-            <View style={styles.pickerContainer}>
+            <View>
                 {usersLeft.length !== 0 &&
                 <View>
                     <Picker
@@ -151,7 +151,7 @@ function Users({navigation}){
                                 key={user.Id}
                                 value={user.Id}
                             />
-                        )   
+                        )
                     }
                     </Picker>
                     <Button title="Prendre en charge l'utilisateur" onPress={addUserToEducator}/>

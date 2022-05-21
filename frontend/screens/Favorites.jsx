@@ -9,6 +9,9 @@ import style from '../styles/screens/favorites.jsx';
 import globalStyle from '../styles/components/global.jsx';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import soundIcon from '../images/sound.png';
+import deleteIcon from '../images/delete.png';
+
 // for now, need to refresh the page to see the updates
 function Favorites() {
 
@@ -25,7 +28,6 @@ function Favorites() {
                 } else {
                     setUserId(JSON.parse(id));
                 }
-                 
             } catch(error) {
                 console.log("An error occured retrieving current user");
                 setUserId(22);
@@ -131,14 +133,12 @@ function Favorites() {
                                     <Pictogram picto={item} isTouchable={false} id={"favScreen"}/>
                                 }
                             />
-                            <View style={style.buttonContainer}>
-                                <TouchableOpacity style={[globalStyle.readButton, style.button]} onPress={() => {handleReadSentence(item)}}>
-                                    <Image source={require('../images/Sound.png')} style={globalStyle.buttonImage}/>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={[globalStyle.deleteButton, style.button]} onPress={() => {getDeleteFavSentenceDialog(item[0].idSentence)}}>
-                                    <Image source={require('../images/delete.png')} style={globalStyle.deleteImage}/>
-                                </TouchableOpacity>
-                            </View>
+                            <TouchableOpacity style={[globalStyle.readButton, style.button]} onPress={() => {handleReadSentence(sentence)}}>
+                                <Image source={soundIcon} style={globalStyle.buttonImage}/>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={[globalStyle.deleteButton, style.button]} onPress={() => {getDeleteFavSentenceDialog(sentence[0].idSentence)}}>
+                                <Image source={deleteIcon} style={globalStyle.deleteImage}/>
+                            </TouchableOpacity>
                         </View>
                     }/>
                 }
