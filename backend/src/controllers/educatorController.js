@@ -82,7 +82,7 @@ exports.login = (req, res) => {
                 console.log(data);
                 if (await bcrypt.compare(req.body.password, data.password)){
                     const accessToken = JWT.generateJWT({id: data.id, email: data.email});
-                    res.cookie("auth_token", accessToken).send({auth_token: accessToken});
+                    res.send({auth_token: accessToken});
                 } else {
                     res.status(500).send({
                         message: `Password is not correct: ${req.body.email}`
@@ -95,7 +95,7 @@ exports.login = (req, res) => {
 
 exports.getCurrent = (req, res) => {
     try {
-        const payload = JWT.getPayload(req.cookies.auth_token);
+        const payload = JWT.getPayload(req.headers.authorization);
         res.send({id: payload.id});
     } catch (e) {
         res.status(500).send({message: `Could not find access token: ${e}`})

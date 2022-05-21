@@ -1,18 +1,20 @@
-import { StyleSheet } from 'react-native';
-import { widthPercentageToDP } from 'react-native-responsive-screen';
+import { StyleSheet, Dimensions } from 'react-native';
 import variables from '../utils/variables';
+
+var screenHeight = Dimensions.get("screen").height;
+var screenWidth = Dimensions.get("screen").width;
 
 export default StyleSheet.create({
 
     label: {
-        fontSize: 20
+        fontSize: screenHeight * 0.024
     },
 
     icon: {
-        width: 50,
-        height: 50,
-        margin: 50,
-        marginTop: 50
+        width: screenHeight * 0.07,
+        height: screenHeight * 0.07,
+        //margin: 50,
+        //marginTop: 50
         //resizeMode: 'contain'
     },
 
@@ -21,7 +23,7 @@ export default StyleSheet.create({
         bottom: 10,
         left: 20,
         right: 20,
-        height: 80,
+        height: screenHeight *0.12,
         backgroundColor: variables.color.light2,
         borderRadius: 60,
         borderColor: variables.color.dark1,

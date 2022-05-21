@@ -1,6 +1,9 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import globalStyle from '../components/global.jsx';
 import variables from '../utils/variables.jsx';
+
+var screenHeight = Dimensions.get("screen").height;
+var screenWidth = Dimensions.get("screen").width;
 
 const style = StyleSheet.create({
 
@@ -16,18 +19,21 @@ const style = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 35,
         //minHeight: 120,
-        marginTop: 10,
-        marginBottom: 10,
-        paddingLeft: 25,
-        paddingRight: 25,
+        marginVertical: 10,
+        paddingHorizontal: 25,
         //justifyContent: 'center',
         alignItems: 'center',
+        justifyContent: 'space-between',
+        flexDirection: 'row'
+    },
+
+    buttonContainer: {
         flexDirection: 'row'
     },
 
     button: {
-        height: 65, 
-        width: 65,
+        height: screenHeight * 0.06,
+        width:  screenHeight * 0.06,
         marginLeft: 10
     },
 

@@ -1,12 +1,14 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+var screenHeight = Dimensions.get("screen").height;
+var screenWidth = Dimensions.get("screen").width;
 
 export default StyleSheet.create({
 
     mainContainer : {
-        flex: 0.07,
+        //flex: 0.07,
         margin : 2,
-        height: 62,
-        width: 62,
-        minWidth: 62
+        height: screenHeight*0.075,
+        width: screenWidth*0.048,
     }
 })

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, FlatList, Image, ScrollView} from 'react-native';
+import { View, Text, Hello, TouchableOpacity, FlatList, Image } from 'react-native';
 import * as Speech from 'expo-speech';
 
 import Pictogram from "../components/Pictogram.jsx";
@@ -62,6 +62,7 @@ function Favorites() {
         favSentences.push(currentSentence);
 
         setAllFavSentences(favSentences);
+        console.log(favSentences)
     }
 
     let getDeleteFavSentenceDialog = function(idSentence) {
@@ -110,34 +111,40 @@ function Favorites() {
             <View style={globalStyle.mainTitleContainer}>
                 <Text style={globalStyle.mainTitle}>Phrases enregistrées</Text>
             </View>
-            <ScrollView style={style.container}>
+            <View style={style.container}>
                 {allFavSentences.length == 0 &&
                     <View style={style.messageContainer}>
                         <Text style={style.message}>Aucune phrase n'a encore été ajoutée en favori !</Text>
                     </View>
                 }
-                {allFavSentences.length != 0 && allFavSentences.map(sentence => {
-                    return (
-                        <View style={style.sentenceContainer} key={sentence[0].idSentence.toString()}>
+                {allFavSentences.length != 0 &&
+                    <FlatList 
+                    //contentContainerStyle={style.sentenceContainer}
+                    data={allFavSentences} 
+                    keyExtractor={(item) => item[0].idSentence.toString()}
+                    renderItem={({item})=> 
+                        <View style={style.sentenceContainer}>
                             <FlatList
                                 //contentContainerStyle={style.test}
-                                numColumns={14}
-                                data={sentence}
+                                numColumns={10}
+                                data={item}
                                 keyExtractor={(item) => item.idPicto.toString()}
                                 renderItem={({item}) => 
                                     <Pictogram picto={item} isTouchable={false} id={"favScreen"}/>
                                 }
                             />
-                            <TouchableOpacity style={[globalStyle.readButton, style.button]} onPress={() => {handleReadSentence(sentence)}}>
-                                <Image source={soundIcon} style={globalStyle.buttonImage}/>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={[globalStyle.deleteButton, style.button]} onPress={() => {getDeleteFavSentenceDialog(sentence[0].idSentence)}}>
-                                <Image source={deleteIcon} style={globalStyle.deleteImage}/>
-                            </TouchableOpacity>
+                            <View style={style.buttonContainer}>
+                                <TouchableOpacity style={[globalStyle.readButton, style.button]} onPress={() => {handleReadSentence(item)}}>
+                                    <Image source={require('../images/Sound.png')} style={globalStyle.buttonImage}/>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={[globalStyle.deleteButton, style.button]} onPress={() => {getDeleteFavSentenceDialog(item[0].idSentence)}}>
+                                    <Image source={require('../images/delete.png')} style={globalStyle.deleteImage}/>
+                                </TouchableOpacity>
+                            </View>
                         </View>
-                    )
-                })}
-            </ScrollView>
+                    }/>
+                }
+            </View>
         </View>
     )
 }

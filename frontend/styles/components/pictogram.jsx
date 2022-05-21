@@ -21,6 +21,11 @@ export default StyleSheet.create({
     },
 
     image: {
+        borderColor: variables.color.dark,
+        ...image
+    },
+    imagePredict: {
+        borderColor: "yellow",
         ...image
     },
     

@@ -7,6 +7,8 @@ import UserService from '../../services/UserService.jsx';
 import Pictogram from "../Pictogram.jsx";
 import Popup from "../Popup.jsx";
 
+import { clearWord } from "../../utils/clearWord.jsx"
+
 import style from '../../styles/screens/home.jsx';
 import globalStyle from '../../styles/components/global.jsx';
 import backIcon from "../../images/back.png";
@@ -23,6 +25,8 @@ function PictoContainer(props) {
     const selectPictoCallback = props.selectPictoCallback;
     const onAddPictoToFav = props.onAddPictoToFav;
     const userId = props.userId;
+    const favPicto = props.favPicto;
+    const predictPicto = props.predictPicto;
 
     /*useEffect(function loadAllPicto(){
         PictogramService.getPictograms().then((response) => {
@@ -30,7 +34,7 @@ function PictoContainer(props) {
         }).catch((err) => {
             console.log("Failed to get all picto: " + err);
         });
-    }, []);*/
+    }, [isAddingToFav, favPicto, predictPicto]);*/
 
     useEffect(function loadAllCategories(){
         CategoryService.getCategories().then((response) => {
@@ -58,6 +62,11 @@ function PictoContainer(props) {
         return isInFavPicto;
     };
 
+    let isInPredictPicto = function(picto) {
+        const isInPredictPicto = predictPicto.map(picto => picto.word).includes(clearWord(picto.name));
+        return isInPredictPicto;
+    }
+    
     let openPictoList = function(category){
         setIsCategoryOpened(true);
 

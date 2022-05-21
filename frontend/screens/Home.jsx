@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, TouchableOpacity, FlatList, Image } from 'react-native';
 
 import UserService from '../services/UserService.jsx';
+import AlgoService from '../services/AlgoService.jsx';
 import Popup from "../components/Popup.jsx";
 import PictoContainer from "../components/Home/PictoContainer.jsx";
 import FavPictoContainer from "../components/Home/FavPictoContainer.jsx";
@@ -14,6 +15,7 @@ import style from '../styles/screens/home.jsx';
 import globalStyle from '../styles/components/global.jsx';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import { clearWord } from '../utils/clearWord.jsx';
 
 
 function Home() {
@@ -22,6 +24,7 @@ function Home() {
     const [favPicto, setFavPicto] = useState([]);
     const [userId, setUserId] = useState();
     const [favPictoId, setFavPictoId] = useState([]);
+    const [predictPicto, setPredictPicto] = useState([]);
     const [isAddingToFav, setIsAddingToFav] = useState(false);
 
     // useEffect = after every render
@@ -46,10 +49,12 @@ function Home() {
         retrieveId();
     }, []);
 
-
     // useCallBack : "memoïsation", va garder en mémoire les return selon les inputs, opti (2eme argu = les dépendances)
     let selectPictoCallback = useCallback((picto) => {
         addPictoToArray(picto);
+        AlgoService.predict(clearWord(picto.name))
+        .then((response) => setPredictPicto(response.data.splice(1,response.data.length)))
+            .catch((err) => console.log("Failed to predict picto: " + err));
     });
 
     let addPictoToArray = function(picto) {
@@ -87,7 +92,7 @@ function Home() {
     }
 
     let handleAddPictoToFav = useCallback(() => {
-        setIsAddingToFav(true);
+        setIsAddingToFav(!isAddingToFav);
     });
 
 
@@ -141,6 +146,8 @@ function Home() {
                 </SelectedPictoContainer>
                 <ButtonsContainer handleReadSentence={handleReadSentence}
                                   handleRemovePicto={handleRemovePicto}
+                                  setSelectedPictoArray={setSelectedPictoArray}
+                                  setPredictPicto={setPredictPicto}
                                   handleAddSentenceToFav={handleAddSentenceToFav}>
                 </ButtonsContainer>
                 
@@ -153,7 +160,7 @@ function Home() {
                                    onDeleteFavPicto={onDeleteFavPicto}
                                    handleAddPictoToFav={handleAddPictoToFav}>
                 </FavPictoContainer>
-                <PictoContainer favPictoId={favPictoId} isAddingToFav={isAddingToFav} userId={userId}
+                <PictoContainer favPicto={favPicto} predictPicto={predictPicto} favPictoId={favPictoId} isAddingToFav={isAddingToFav} userId={userId}
                                 selectPictoCallback={selectPictoCallback}
                                 onAddPictoToFav={onAddPictoToFav}>
                 </PictoContainer>

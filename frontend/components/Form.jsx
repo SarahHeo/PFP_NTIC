@@ -49,7 +49,7 @@ const Form = ({ title, fields, buttonText, action, afterSubmit }) => {
             const result = await action(values);
             await afterSubmit(result);
         } catch(e) {
-            setErrorMessage(`An error has occured ${e.message}`);
+            setErrorMessage(`Une erreur s'est produite ${e.message}`);
         }        
     };
 
