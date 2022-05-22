@@ -21,7 +21,6 @@ function PictoContainer(props) {
     const [pictoOfCategory, setPictoOfCategory] = useState([]);
 
     const isAddingToFav = props.isAddingToFav;
-    const favPictoId = props.favPictoId;
     const selectPictoCallback = props.selectPictoCallback;
     const onAddPictoToFav = props.onAddPictoToFav;
     const userId = props.userId;
@@ -58,7 +57,7 @@ function PictoContainer(props) {
     }
 
     let isInFavPicto = function(picto) {
-        const isInFavPicto = favPictoId.includes(picto.id);
+        const isInFavPicto = favPicto.map(favPictoItem => favPictoItem.id).includes(picto.id);
         return isInFavPicto;
     };
 
@@ -115,7 +114,7 @@ function PictoContainer(props) {
                     data={pictoOfCategory}
                     ListHeaderComponent={returnButton}
                     ListHeaderComponentStyle={{}}
-                    extraData={[favPictoId, isAddingToFav]} // to rerender when thoses variables change
+                    extraData={[favPicto, isAddingToFav]}
                     keyExtractor={(item) => item.id.toString()}
                     renderItem={({item}) => 
                         <Pictogram picto={item} isTouchable={true} 

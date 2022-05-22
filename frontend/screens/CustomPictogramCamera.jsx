@@ -98,12 +98,12 @@ function CustomPictogramCamera() {
                         <TouchableOpacity
                             style={styles.button}
                             onPress={flipCamera}>
-                            <ImageBackground style={styles.icon} source={require('../images/FlipCamera.png')}/>
+                            <ImageBackground style={styles.icon} source={require('../images/flipCamera.png')}/>
                         </TouchableOpacity>
                         <TouchableOpacity 
                             style={styles.button}
                             onPress={takePicture}>
-                            <ImageBackground style={styles.icon} source={require('../images/Camera.png')}/>
+                            <ImageBackground style={styles.icon} source={require('../images/camera.png')}/>
                         </TouchableOpacity>
                     </View>
                 </Camera>

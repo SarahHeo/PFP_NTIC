@@ -4,7 +4,7 @@ import { View, TouchableOpacity, FlatList, Image } from 'react-native';
 import UserService from '../../services/UserService.jsx';
 import Pictogram from "../Pictogram.jsx";
 import Popup from "../Popup.jsx";
-import addIcon from "../../images/AddIcon.png";
+import addIcon from "../../images/addIcon.png";
 
 import style from '../../styles/screens/home.jsx';
 import globalStyle from '../../styles/components/global.jsx';
