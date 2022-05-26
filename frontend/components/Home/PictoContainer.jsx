@@ -6,7 +6,7 @@ import CategoryService from '../../services/CategoryService.jsx';
 import UserService from '../../services/UserService.jsx';
 import Pictogram from "../Pictogram.jsx";
 import Popup from "../Popup.jsx";
-import PopupCustom from "../PopupCustom.jsx";
+//import PopupCustom from "../PopupCustom.jsx";
 
 
 import { clearWord } from "../../utils/clearWord.jsx"
