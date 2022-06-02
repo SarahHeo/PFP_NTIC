@@ -77,6 +77,30 @@ exports.add = (req, res) => {
 };
 
 
+exports.uploadSingle = async(req, res, err) => {
+    const file = req.file;
+
+    if (!file.filename.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) {
+        res.status(400).send({ message: 'Only image files (jpg, jpeg, png) are allowed!'});
+    }
+
+    const pictogram = new Pictogram({
+        name: file.originalname,
+        idCategory: 0,
+        url: file.filename
+    });
+
+    Pictogram.add(pictogram, (err, data) => {
+        if (err) {
+            res.status(500).send({
+                message: error.message || `An error occured while uploading pictogram`
+            });
+        } else {
+            res.send(data);
+        }
+    });
+};
+
 exports.upload = async(req, res, err) => {
     const files = req.files;
     var errorOccured = false;
@@ -89,7 +113,7 @@ exports.upload = async(req, res, err) => {
         }
     }
 
-    const lauchQueries = async _ => {
+    const launchQueries = async _ => {
         for (var i = 0; i < files.length; i++){
             var file = files[i];
 
@@ -118,7 +142,7 @@ exports.upload = async(req, res, err) => {
         }
     }
 
-    await lauchQueries();
+    await launchQueries();
 
     if (errorOccured){
         res.status(500).send({
@@ -131,7 +155,6 @@ exports.upload = async(req, res, err) => {
         });
     }
 };
-
 
 exports.addBase64 = (req, res) => {
     if (Object.keys(req.body).length === 0){

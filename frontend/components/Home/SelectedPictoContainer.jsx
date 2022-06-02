@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, TouchableOpacity, FlatList, Image } from 'react-native';
 
-import PictogramService from '../../services/PictogramService.jsx';
-import UserService from '../../services/UserService.jsx';
 import Pictogram from "../Pictogram.jsx";
 
 import style from '../../styles/screens/home.jsx';

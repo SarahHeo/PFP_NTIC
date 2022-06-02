@@ -7,14 +7,6 @@ import * as FileSystem from 'expo-file-system';
 import styles from '../styles/screens/customPictogram.jsx';
 import { TextInput } from 'react-native-gesture-handler';
 
-/*
-{capturedImage != null ? (
-<Text>{capturedImage.uri}</Text>
-) : (
-<Text></Text>
-)}
-
-*/
 
 function CustomPictogramCamera() {
 
@@ -98,12 +90,12 @@ function CustomPictogramCamera() {
                         <TouchableOpacity
                             style={styles.button}
                             onPress={flipCamera}>
-                            <ImageBackground style={styles.icon} source={require('../images/FlipCamera.png')}/>
+                            <ImageBackground style={styles.icon} source={require('../images/flipCamera.png')}/>
                         </TouchableOpacity>
                         <TouchableOpacity 
                             style={styles.button}
                             onPress={takePicture}>
-                            <ImageBackground style={styles.icon} source={require('../images/Camera.png')}/>
+                            <ImageBackground style={styles.icon} source={require('../images/camera.png')}/>
                         </TouchableOpacity>
                     </View>
                 </Camera>

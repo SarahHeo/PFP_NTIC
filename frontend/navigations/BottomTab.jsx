@@ -31,7 +31,7 @@ function Tabs() {
                             options={{
                                 tabBarLabel: "ACCUEIL",
                                 tabBarIcon: ({focused, color, size}) => (
-                                    <Image source={require('../images/HomeIcon.png')}
+                                    <Image source={require('../images/homeIcon.png')}
                                            style={[style.icon, {tintColor: color}]}/>
                                 ),
                                 unmountOnBlur: true
@@ -53,9 +53,9 @@ function Tabs() {
                 <Tab.Screen name="CustomPictograms"
                             component={CustomChoice}
                             options={{
-                                tabBarLabel: "PERS.",
+                                tabBarLabel: "PERSONNALISATION",
                                 tabBarIcon: ({focused, color, size}) => (
-                                    <Image source={require('../images/Custom.png')}
+                                    <Image source={require('../images/custom.png')}
                                            style={[style.icon, {tintColor: color}]}/>
                                 )
                             }}
@@ -76,7 +76,7 @@ function Tabs() {
                 <Tab.Screen name="Logout"
                             component={Logout}
                             options={{
-                                tabBarLabel: "DECO",
+                                tabBarLabel: "DECONNEXION",
                                 tabBarIcon: ({focused, color, size}) => (
                                     <Image source={require('../images/logOut.png')}
                                            style={[style.icon, {tintColor: color}]}/>
