@@ -42,14 +42,14 @@ function Pictogram(props) {
     if (isTouchable && isAddingToFav && !canAddToFav) {
         return (
             <TouchableOpacity style={[pictoStyle.mainContainer, style.mainContainer]} disabled={true}>
-                <Image source={{uri: "http://localhost:8080/" + picto.url}} style={pictoStyle.disabledImage}/>
+                <Image source={{uri: "http://192.168.0.9:8080/" + picto.url}} style={pictoStyle.disabledImage}/>
             </TouchableOpacity>
         )
     } else if(id=="fav"){
         return (
             <TouchableOpacity style={[pictoStyle.mainContainer, style.mainContainer]} disabled={!isTouchable}
                             onPress={() => props.onPressHandler(picto)} onLongPress={() => props.onLongPress(picto)}>
-                <Image source={{uri: "http://localhost:8080/" + picto.url}} style={[pictoStyle.image, style.image]}/>
+                <Image source={{uri: "http://192.168.0.9:8080/" + picto.url}} style={[pictoStyle.image, style.image]}/>
             </TouchableOpacity>
         )
     } else {

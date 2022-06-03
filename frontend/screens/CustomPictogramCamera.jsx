@@ -2,19 +2,10 @@ import React, { useState, useRef } from 'react';
 import { View, TouchableOpacity, ImageBackground, Button, Image, Text } from 'react-native';
 import { Camera } from 'expo-camera';
 import CameraPreview from '../components/CameraPreview.jsx';
-import PictogramService from '../services/PictogramService.jsx';
-import * as FileSystem from 'expo-file-system';
+import UploadService from '../services/UploadService.jsx';
 import styles from '../styles/screens/customPictogram.jsx';
 import { TextInput } from 'react-native-gesture-handler';
 
-/*
-{capturedImage != null ? (
-<Text>{capturedImage.uri}</Text>
-) : (
-<Text></Text>
-)}
-
-*/
 
 function CustomPictogramCamera() {
 
@@ -74,16 +65,15 @@ function CustomPictogramCamera() {
     //Form
 
     const submit = async () => {
-        const base64 = await FileSystem.readAsStringAsync(pictogramImage.uri, { encoding: 'base64' });
-        PictogramService.addCustomPictogramImage({
-            name: pictogramName,
-            url: base64
-        }).then(()=>
-            {
-                setPictogramImage(null);
-                setPictogramName(null);
-            }
-        );
+        const data = new FormData();
+            data.append('image', {
+                uri : pictogramImage.uri,
+                type: 'image/jpeg',
+                name: pictogramName
+            });
+        UploadService.upload(data)
+        setPictogramImage(null);
+        setPictogramName(null);
     }
   
     return (

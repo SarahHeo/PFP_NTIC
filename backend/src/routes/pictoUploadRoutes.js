@@ -30,6 +30,9 @@ module.exports = app => {
     });
 
     router.post("/", upload.array('images'), pictoController.upload); // 'images' = input name in the form
+    //router.post("/single", upload.single('image'), pictoController.uploadSingle); // 'images' = input name in the form
+
+    router.post('/single', upload.single('image'), pictoController.uploadSingle);
     
     app.use('/upload', router);
 }   
