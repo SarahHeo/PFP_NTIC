@@ -6,6 +6,8 @@ import CategoryService from '../../services/CategoryService.jsx';
 import UserService from '../../services/UserService.jsx';
 import Pictogram from "../Pictogram.jsx";
 import Popup from "../Popup.jsx";
+//import PopupCustom from "../PopupCustom.jsx";
+
 
 import { clearWord } from "../../utils/clearWord.jsx"
 
@@ -21,7 +23,6 @@ function PictoContainer(props) {
     const [pictoOfCategory, setPictoOfCategory] = useState([]);
 
     const isAddingToFav = props.isAddingToFav;
-    const favPictoId = props.favPictoId;
     const selectPictoCallback = props.selectPictoCallback;
     const onAddPictoToFav = props.onAddPictoToFav;
     const userId = props.userId;
@@ -52,13 +53,14 @@ function PictoContainer(props) {
         UserService.addFavPicto(userId, picto).then((response) => {
             onAddPictoToFav(picto);
             Popup(false, "Pictogramme ajouté aux favoris !");
+            //PopupCustom();
         }).catch((err) => {
            console.error("Failed to add picto to fav: " + err);
         });
     }
 
     let isInFavPicto = function(picto) {
-        const isInFavPicto = favPictoId.includes(picto.id);
+        const isInFavPicto = favPicto.map(favPictoItem => favPictoItem.id).includes(picto.id);
         return isInFavPicto;
     };
 
@@ -115,13 +117,15 @@ function PictoContainer(props) {
                     data={pictoOfCategory}
                     ListHeaderComponent={returnButton}
                     ListHeaderComponentStyle={{}}
-                    extraData={[favPictoId, isAddingToFav]} // to rerender when thoses variables change
+                    extraData={[favPicto, isAddingToFav]}
                     keyExtractor={(item) => item.id.toString()}
                     renderItem={({item}) => 
                         <Pictogram picto={item} isTouchable={true} 
                                 onPressHandler={isAddingToFav ? selectFavPictoCallback : selectPictoCallback} 
-                                id={"list"} isAddingToFav={isAddingToFav} canAddToFav={!isInFavPicto(item)}/>
+                                id={"list"} isAddingToFav={isAddingToFav} canAddToFav={!isInFavPicto(item)} isPredicted={isInPredictPicto(item)}/>
                     }
+
+                    
                 />
             }
             

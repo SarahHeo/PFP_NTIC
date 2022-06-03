@@ -2,7 +2,6 @@ import { StyleSheet } from 'react-native';
 import variables from '../utils/variables';
 
 const image = {
-    borderColor: variables.color.dark,
     borderWidth: 3,
     resizeMode: 'contain',
     width: "100%",

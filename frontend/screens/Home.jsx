@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, TouchableOpacity, FlatList, Image } from 'react-native';
+import { View } from 'react-native';
 
 import UserService from '../services/UserService.jsx';
 import AlgoService from '../services/AlgoService.jsx';
@@ -23,7 +23,6 @@ function Home() {
     const [selectedPictoArray, setSelectedPictoArray] = useState([]);
     const [favPicto, setFavPicto] = useState([]);
     const [userId, setUserId] = useState();
-    const [favPictoId, setFavPictoId] = useState([]);
     const [predictPicto, setPredictPicto] = useState([]);
     const [isAddingToFav, setIsAddingToFav] = useState(false);
 
@@ -67,22 +66,15 @@ function Home() {
 
     let getFavPictoCallback = function(data){
         setFavPicto(data);
-        const favPictoIdList = [];
-        for (let i=0; i<data.length; i++) {
-            favPictoIdList.push(data[i].id);
-        }
-        setFavPictoId(favPictoIdList);
     };
 
     let onAddPictoToFav = function(picto){
         setFavPicto(oldArray => [...oldArray, picto]);
-        setFavPictoId(oldArray => [...oldArray, picto.id]);
         setIsAddingToFav(false);
     }
 
     let onDeleteFavPicto = function(picto) {
         setFavPicto(oldArray => [...oldArray.filter(item => item !== picto)]);
-        setFavPictoId(oldArray => [...oldArray.filter(item => item !== picto.id)]);
 
         UserService.deleteFavPicto(userId, picto.id).then((response) => {
             Popup(false, "Pictogramme supprimé des favoris !");
@@ -160,7 +152,7 @@ function Home() {
                                    onDeleteFavPicto={onDeleteFavPicto}
                                    handleAddPictoToFav={handleAddPictoToFav}>
                 </FavPictoContainer>
-                <PictoContainer favPicto={favPicto} predictPicto={predictPicto} favPictoId={favPictoId} isAddingToFav={isAddingToFav} userId={userId}
+                <PictoContainer favPicto={favPicto} predictPicto={predictPicto} isAddingToFav={isAddingToFav} userId={userId}
                                 selectPictoCallback={selectPictoCallback}
                                 onAddPictoToFav={onAddPictoToFav}>
                 </PictoContainer>

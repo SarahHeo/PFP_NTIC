@@ -1,9 +1,8 @@
 import React from 'react'
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { Image } from "react-native";
 import Home from "../screens/Home.jsx";
 import Favorites from "../screens/Favorites.jsx";
-import Settings from "../screens/Settings.jsx";
 import CustomChoice from "../screens/CustomChoice.jsx" 
 import Logout from "../screens/Logout.jsx"
 import Users from '../screens/Users.jsx';
