@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-const EDUCATOR_BASE_URL = 'http://localhost:8080/educator';
+const EDUCATOR_BASE_URL = 'http://192.168.0.9:8080/educator';
 
 class EducatorService {
 
