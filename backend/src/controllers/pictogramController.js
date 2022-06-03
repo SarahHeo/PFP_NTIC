@@ -86,7 +86,7 @@ exports.uploadSingle = async(req, res, err) => {
 
     const pictogram = new Pictogram({
         name: file.originalname,
-        idCategory: 0,
+        idCategory: 19,
         url: file.filename
     });
 
@@ -96,7 +96,7 @@ exports.uploadSingle = async(req, res, err) => {
                 message: error.message || `An error occured while uploading pictogram`
             });
         } else {
-            res.send(data);
+            res.send({ data: data, msg: "Successful"});
         }
     });
 };

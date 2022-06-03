@@ -1,7 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, TouchableOpacity, ImageBackground, Button, Image, Text } from 'react-native';
-import PictogramService from '../services/PictogramService.jsx';
-import * as FileSystem from 'expo-file-system';
+import { View, Button, Image, Text } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
 import styles from '../styles/screens/customPictogram.jsx';
 import { TextInput } from 'react-native-gesture-handler';
@@ -17,6 +15,7 @@ function CustomPictogramPicker() {
             const response = await DocumentPicker.getDocumentAsync({
                 type: 'image/*'
             });
+            console.log(response);
             setPictogramImage(response);
         } catch (error) {
             console.log(error);
@@ -35,6 +34,8 @@ function CustomPictogramPicker() {
                 name: pictogramName
             });
             UploadService.upload(data);
+            setPictogramImage(null);
+            setPictogramName(null);
         }
     }
 

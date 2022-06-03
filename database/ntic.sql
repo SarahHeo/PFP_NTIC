@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : sam. 21 mai 2022 à 16:05
+-- Généré le : ven. 03 juin 2022 à 08:12
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `category` (
   `name` varchar(50) NOT NULL,
   `url` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `category`
@@ -58,7 +58,8 @@ INSERT INTO `category` (`id`, `name`, `url`) VALUES
 (15, 'Jouets', '494-_Jouets-1652737362209.jpeg'),
 (16, 'Objets', '510-_Livres-1652737362663.jpeg'),
 (17, 'Transports', '545-_Voiture-1652737364124.jpeg'),
-(18, 'Santé', '165-_Prendre_la_temperature-1652737351030.jpeg');
+(18, 'Santé', '165-_Prendre_la_temperature-1652737351030.jpeg'),
+(19, 'Personnalisé', 'custom.png');
 
 -- --------------------------------------------------------
 
@@ -74,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `educator` (
   `email` varchar(255) NOT NULL,
   `password` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `educator`
@@ -82,7 +83,8 @@ CREATE TABLE IF NOT EXISTS `educator` (
 
 INSERT INTO `educator` (`id`, `name`, `firstName`, `email`, `password`) VALUES
 (22, 'Dupont', 'Jean', 'Jean@gmail.com', '*69E04464BC0A7BEA62070D6C8E465A3E0AC4FBAC'),
-(23, 'Sarah', 'HEOUAINE', 'sarah@test.fr', '$2b$10$9rcXhL5o0GmR4WgWCOkGauCoqEVzLfzM.fBVrld.ty5Nr/8Djh0Bu');
+(23, 'Sarah', 'HEOUAINE', 'sarah@test.fr', '$2b$10$9rcXhL5o0GmR4WgWCOkGauCoqEVzLfzM.fBVrld.ty5Nr/8Djh0Bu'),
+(24, 'Lamy', 'David', 'david@lamy.fr', '$2b$10$qJqVanFIDv4mXZO5JVxyPe17CIrsQqw8tsvTewoVo0kbNgZTBdwbG');
 
 -- --------------------------------------------------------
 
@@ -112,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `pictogram` (
   `url` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idCaterogy` (`idCategory`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1291 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1313 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `pictogram`
@@ -746,7 +748,9 @@ INSERT INTO `user_favpicto` (`idUser`, `idPictogram`) VALUES
 (22, 1201),
 (22, 1180),
 (22, 1149),
-(22, 1075);
+(22, 1075),
+(21, 731),
+(21, 733);
 
 -- --------------------------------------------------------
 

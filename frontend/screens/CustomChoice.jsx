@@ -8,16 +8,19 @@ import CustomPictogramPicker from './CustomPictogramPicker.jsx';
 
 function CustomChoice() {
 
-    const [selectedTab, setSelectedTab] = useState(0);
+    const [selectedTab, setSelectedTab] = useState(1);
+
+    // <Button title="Via une URL" onPress={() => setSelectedTab(0)}/>
+    // {selectedTab == 0 && <CustomPictogramURL/>}
 
     return (
         <View style = {{marginHorizontal:30, marginTop: 30}}>
-            <Button title="Via une URL" onPress={() => setSelectedTab(0)}/>
+            
             <Button title="Via une nouvelle photo" onPress={() => setSelectedTab(1)}/>
             <Button title="Via une photo déjà existante" onPress={() => setSelectedTab(2)}/>
 
             <View>
-                {selectedTab == 0 && <CustomPictogramURL/>}
+                
                 {selectedTab == 1 && <CustomPictogramCamera/>}
                 {selectedTab == 2 && <CustomPictogramPicker/>}
             </View>
