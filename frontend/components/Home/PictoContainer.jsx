@@ -39,7 +39,13 @@ function PictoContainer(props) {
 
     useEffect(function loadAllCategories(){
         CategoryService.getCategories().then((response) => {
-            setCategories(response.data);
+            const categoriesWithoutCat0 = response.data.slice();
+            for (var i = 0; i < categoriesWithoutCat0.length; i++){
+                if (categoriesWithoutCat0[i].id == 0){
+                    categoriesWithoutCat0.splice(i, 1);
+                }
+            }
+            setCategories(categoriesWithoutCat0);
         }).catch((err) => {
             console.log("Failed to get all picto: " + err);
         });
@@ -103,8 +109,8 @@ function PictoContainer(props) {
                     data={categories}
                     keyExtractor={(item) => item.id.toString()}
                     renderItem={({item}) => 
-                        <Pictogram picto={item} id={"categories"} isTouchable={true} 
-                                   onPressHandler={() => openPictoList(item)}/>
+                            <Pictogram picto={item} id={"categories"} isTouchable={true} 
+                                       onPressHandler={() => openPictoList(item)}/>
                     }
                 />
             }
