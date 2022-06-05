@@ -1,5 +1,3 @@
-import { Alert, Platform } from 'react-native'
-
 /***
  * withConfirmation: true if popup needs confirmation
  * title: popup's title
@@ -8,15 +6,9 @@ import { Alert, Platform } from 'react-native'
  */
 const Popup = (withConfirmation, title, description, buttons) => {
     if (withConfirmation) {
-        Platform.OS === 'web' ?
         webPopupConfirmation(title, description, buttons)
-        :
-        Alert.alert(title, description, buttons);
     } else {
-        Platform.OS === 'web' ?
         alert(title)
-        :
-        Alert.alert(title);
     }
 }
 

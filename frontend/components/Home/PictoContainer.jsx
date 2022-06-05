@@ -5,9 +5,6 @@ import PictogramService from '../../services/PictogramService.jsx';
 import CategoryService from '../../services/CategoryService.jsx';
 import UserService from '../../services/UserService.jsx';
 import Pictogram from "../Pictogram.jsx";
-import Popup from "../Popup.jsx";
-//import PopupCustom from "../PopupCustom.jsx";
-
 
 import { clearWord } from "../../utils/clearWord.jsx"
 
@@ -28,6 +25,8 @@ function PictoContainer(props) {
     const userId = props.userId;
     const favPicto = props.favPicto;
     const predictPicto = props.predictPicto;
+    const setIsModalVisible = props.setIsModalVisible;
+    const setPopupId = props.setPopupId;
 
     /*useEffect(function loadAllPicto(){
         PictogramService.getPictograms().then((response) => {
@@ -58,8 +57,8 @@ function PictoContainer(props) {
     let addPictoToFav = function(picto) {
         UserService.addFavPicto(userId, picto).then((response) => {
             onAddPictoToFav(picto);
-            Popup(false, "Pictogramme ajouté aux favoris !");
-            //PopupCustom();
+            setIsModalVisible(true);
+            setPopupId("done");
         }).catch((err) => {
            console.error("Failed to add picto to fav: " + err);
         });
