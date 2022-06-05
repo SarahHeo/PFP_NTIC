@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { View, TouchableOpacity, FlatList, Image } from 'react-native';
+import React, { useEffect, useCallback } from 'react';
+import { View, TouchableOpacity, FlatList, Image, Platform } from 'react-native';
 
 import UserService from '../../services/UserService.jsx';
 import Pictogram from "../Pictogram.jsx";
@@ -19,6 +19,11 @@ function FavPictoContainer(props) {
     const onDeleteFavPicto = props.onDeleteFavPicto;
     const handleAddPictoToFav = props.handleAddPictoToFav;
 
+    const setIsModalVisible = props.setIsModalVisible;
+    const setPopupId = props.setPopupId;
+    const setConfirmPopupAction = props.setConfirmPopupAction;
+    const setDeleteFavPicto = props.setDeleteFavPicto;
+
     useEffect(function loadFavPicto(){
         UserService.getUserFavPicto(userId).then((response) => {
             getFavPictoCallback(response.data);
@@ -28,15 +33,22 @@ function FavPictoContainer(props) {
     }, [userId]);
 
     let getDeleteFavPictoDialog = useCallback((picto) => {
-        Popup(true, "Supprimer", "Supprimer ce pictogramme des favoris ?", [
-            {
-                text: "Annuler",
-                style: "cancel"
-            },{ 
-                text: "OK",
-                onPress: () => onDeleteFavPicto(picto)
-            }
-        ])
+        setDeleteFavPicto(picto);
+        if(Platform.OS === 'web') {
+            Popup(true, "Supprimer", "Supprimer ce pictogramme des favoris ?", [
+                {
+                    text: "Annuler",
+                    style: "cancel"
+                },{ 
+                    text: "OK",
+                    onPress: () => onDeleteFavPicto()
+                }
+            ])
+        } else {
+            setIsModalVisible(true);
+            setPopupId("delete");
+            setConfirmPopupAction(() => onDeleteFavPicto);
+        }
     });
 
     const footer = () => {

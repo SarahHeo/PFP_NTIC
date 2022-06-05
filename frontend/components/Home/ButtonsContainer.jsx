@@ -1,8 +1,7 @@
 import React, { useCallback } from 'react';
-import { View, TouchableOpacity, Image } from 'react-native';
+import { View, TouchableOpacity, Image, Platform } from 'react-native';
 
 import Popup from "../Popup.jsx";
-
 import soundIcon from '../../images/sound.png';
 import deleteIcon from '../../images/delete.png';
 import favIcon from '../../images/fav.png';
@@ -18,9 +17,13 @@ function ButtonsContainer(props) {
     const setPredictPicto = props.setPredictPicto;
     const setSelectedPictoArray = props.setSelectedPictoArray;
     const handleAddSentenceToFav = props.handleAddSentenceToFav;
+    const setIsModalVisible = props.setIsModalVisible;
+    const setPopupId = props.setPopupId;
+    const setConfirmPopupAction = props.setConfirmPopupAction;
 
     let getClearSentenceDialog = useCallback(() => {
-        Popup(true, "Supprimer", "Supprimer la phrase actuelle ?",
+        if(Platform.OS === 'web') {
+            Popup(true, "Supprimer", "Supprimer la phrase actuelle ?",
             [
                 {
                     text: "Annuler",
@@ -28,10 +31,21 @@ function ButtonsContainer(props) {
                 },
                 { 
                     text: "OK",
-                    onPress: () => {setSelectedPictoArray([]); setPredictPicto([]);}
+                    onPress: () => setEmptyArrays()
                 }
             ])
+        } else {
+            setIsModalVisible(true);
+            setPopupId("delete");
+            setConfirmPopupAction(() => setEmptyArrays);
+        }
     });
+
+    let setEmptyArrays = function(){
+        setSelectedPictoArray([]);
+        setPredictPicto([]);
+    }
+
 
     return (
         <View style={style.buttonsContainer}>

@@ -29,6 +29,11 @@ export default StyleSheet.create({
         ...button
     },
 
+    confirmButton: {
+        backgroundColor: '#10D634',
+        ...button
+    },
+
     addFavButton: {
         backgroundColor: '#1675FF',
         ...button

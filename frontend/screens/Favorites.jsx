@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, TouchableOpacity, FlatList, Image } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, Image, Platform } from 'react-native';
 import * as Speech from 'expo-speech';
 
 import Pictogram from "../components/Pictogram.jsx";
+import ModalPopup from "../components/ModalPopup.jsx";
 import Popup from "../components/Popup.jsx";
 import UserService from '../services/UserService.jsx';
 import style from '../styles/screens/favorites.jsx';
@@ -21,6 +22,11 @@ function Favorites() {
     const [allFavSentences, setAllFavSentences] = useState([]);
     const [favPicto, setFavPicto] = useState([]);
     const [userId, setUserId] = useState();
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [popupId, setPopupId] = useState();
+    const [confirmPopupAction, setConfirmPopupAction] = useState(() => {});
+    var deleteSentenceId;
+    var deleteFavPicto;
 
     useEffect(() =>{
         const retrieveId = async () => {
@@ -78,7 +84,9 @@ function Favorites() {
     }
 
     let getDeleteFavSentenceDialog = function(idSentence) {
-        Popup(true, "Supprimer", "Supprimer cette phrase des favoris ?",
+        deleteSentenceId = idSentence;
+        if(Platform.OS === 'web') {
+            Popup(true, "Supprimer", "Supprimer cette phrase des favoris ?",
             [
                 {
                     text: "Annuler",
@@ -86,38 +94,52 @@ function Favorites() {
                 },
                 { 
                     text: "OK",
-                    onPress: () => handleRemoveFavSentence(idSentence)
+                    onPress: () => handleRemoveFavSentence()
                 }
             ])
+        } else {
+            setIsModalVisible(true);
+            setPopupId("delete");
+            setConfirmPopupAction(() => handleRemoveFavSentence);
+        }
     };
 
     let getDeleteFavPictoDialog = function(picto) {
-        Popup(true, "Supprimer", "Supprimer ce pictogramme des favoris ?", [
-            {
-                text: "Annuler",
-                style: "cancel"
-            },
-            { 
-                text: "OK",
-                onPress: () => handleRemoveFavPicto(picto)
-            }
-        ])
+        deleteFavPicto = picto;
+        if(Platform.OS === 'web') {
+            Popup(true, "Supprimer", "Supprimer ce pictogramme des favoris ?", [
+                {
+                    text: "Annuler",
+                    style: "cancel"
+                },
+                { 
+                    text: "OK",
+                    onPress: () => handleRemoveFavPicto()
+                }
+            ])
+        } else {
+            setIsModalVisible(true);
+            setPopupId("delete");
+            setConfirmPopupAction(() => handleRemoveFavPicto);
+        }
     };
 
-    let handleRemoveFavSentence = function(idSentence){
-        UserService.deleteFavSentence(userId, idSentence).then((response) => {
-            removeSentenceFromDisplay(idSentence);
-            Popup(false, "Phrase supprimée des favoris !");
+    let handleRemoveFavSentence = function(){
+        UserService.deleteFavSentence(userId, deleteSentenceId).then((response) => {
+            removeSentenceFromDisplay(deleteSentenceId);
+            setIsModalVisible(true);
+            setPopupId("done");
         }).catch((err) => {
-           console.error("Failed to add sentence to fav: " + err);
+           console.error("Failed to delete sentence " + deleteSentenceId + " from fav: " + err);
         });  
     }
 
-    let handleRemoveFavPicto = function(picto) {
-        setFavPicto(oldArray => [...oldArray.filter(item => item !== picto)]);
+    let handleRemoveFavPicto = function() {
+        setFavPicto(oldArray => [...oldArray.filter(item => item !== deleteFavPicto)]);
 
-        UserService.deleteFavPicto(userId, picto.id).then((response) => {
-            Popup(false, "Pictogramme supprimé des favoris !");
+        UserService.deleteFavPicto(userId, deleteFavPicto.id).then((response) => {
+            setIsModalVisible(true);
+            setPopupId("done");
         }).catch((err) => {
            console.error("Failed to delete picto from fav: " + err);
         });
@@ -227,6 +249,12 @@ function Favorites() {
                         }
                     </View>
                 </View>
+            }
+
+            {Platform.OS !== 'web' ?
+                <ModalPopup visible={isModalVisible} setIsModalVisible={setIsModalVisible} id={popupId} confirmAction={confirmPopupAction}></ModalPopup>
+                :
+                null
             }
         </View>
     )
