@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-const PICTOGRAM_BASE_URL = 'http://192.168.0.9:8080/pictograms';
+const PICTOGRAM_BASE_URL = 'http://localhost:8080/pictograms';
 
 class PictogramService {
     getPictograms(){

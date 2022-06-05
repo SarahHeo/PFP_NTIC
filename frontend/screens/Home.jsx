@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View } from 'react-native';
+import { View, Platform } from 'react-native';
 
 import UserService from '../services/UserService.jsx';
 import AlgoService from '../services/AlgoService.jsx';
-import Popup from "../components/Popup.jsx";
+import ModalPopup from "../components/ModalPopup.jsx";
 import PictoContainer from "../components/Home/PictoContainer.jsx";
 import FavPictoContainer from "../components/Home/FavPictoContainer.jsx";
 import SelectedPictoContainer from "../components/Home/SelectedPictoContainer.jsx";
@@ -25,6 +25,10 @@ function Home() {
     const [userId, setUserId] = useState();
     const [predictPicto, setPredictPicto] = useState([]);
     const [isAddingToFav, setIsAddingToFav] = useState(false);
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [popupId, setPopupId] = useState();
+    const [confirmPopupAction, setConfirmPopupAction] = useState(() => {});
+    var deleteFavPicto;
 
     // useEffect = after every render
     // 2nd argument: "You can tell React to skip applying an effect if certain values haven’t changed between re-renders"
@@ -57,8 +61,9 @@ function Home() {
     });
 
     let addPictoToArray = function(picto) {
-        if (selectedPictoArray.length >= 10) {  // Number max to change?
-            Popup(false, "Nombre maximal de pictogrammes atteints (10) !");
+        if (selectedPictoArray.length >= 10) {  // Picto max limited to 10
+            setIsModalVisible(true);
+            setPopupId("forbidden");
         } else {
             setSelectedPictoArray(oldArray => [...oldArray, picto]);
         }
@@ -73,11 +78,12 @@ function Home() {
         setIsAddingToFav(false);
     }
 
-    let onDeleteFavPicto = function(picto) {
-        setFavPicto(oldArray => [...oldArray.filter(item => item !== picto)]);
+    let onDeleteFavPicto = function() {
+        setFavPicto(oldArray => [...oldArray.filter(item => item !== deleteFavPicto)]);
 
-        UserService.deleteFavPicto(userId, picto.id).then((response) => {
-            Popup(false, "Pictogramme supprimé des favoris !");
+        UserService.deleteFavPicto(userId, deleteFavPicto.id).then((response) => {
+            setIsModalVisible(true);
+            setPopupId("done");
         }).catch((err) => {
            console.error("Failed to delete picto from fav: " + err);
         });
@@ -86,6 +92,10 @@ function Home() {
     let handleAddPictoToFav = useCallback(() => {
         setIsAddingToFav(!isAddingToFav);
     });
+
+    let setDeleteFavPicto = function(picto){
+        deleteFavPicto = picto;
+    };
 
 
     // Buttons actions
@@ -97,6 +107,7 @@ function Home() {
 
     let handleRemovePicto = function(){
         removeLastPicto();
+        setPredictPicto([]);
         stopReading();
     }
 
@@ -106,7 +117,8 @@ function Home() {
 
     let handleAddSentenceToFav = function(){
         if (selectedPictoArray.length < 2) {
-            Popup(false, "Sélectionnez au moins 2 pictogrammes pour mettre la phrase en favori !")
+            setIsModalVisible(true);
+            setPopupId("forbidden");
             return;
         }
         addSentenceToFav();
@@ -114,7 +126,8 @@ function Home() {
 
     let addSentenceToFav = function() {
         UserService.addFavSentence(userId, selectedPictoArray).then((response) => {
-            Popup(false, "Phrase ajoutée aux favoris !");
+            setIsModalVisible(true);
+            setPopupId("done");
         }).catch((err) => {
            console.error("Failed to add sentence to fav: " + err);
         });
@@ -140,21 +153,29 @@ function Home() {
                                   handleRemovePicto={handleRemovePicto}
                                   setSelectedPictoArray={setSelectedPictoArray}
                                   setPredictPicto={setPredictPicto}
-                                  handleAddSentenceToFav={handleAddSentenceToFav}>
+                                  handleAddSentenceToFav={handleAddSentenceToFav}
+                                  setIsModalVisible={setIsModalVisible} setPopupId={setPopupId} setConfirmPopupAction={setConfirmPopupAction}>
                 </ButtonsContainer>
                 
             </View>
 
+            {Platform.OS !== 'web' ?
+                <ModalPopup visible={isModalVisible} setIsModalVisible={setIsModalVisible} id={popupId} confirmAction={confirmPopupAction}></ModalPopup>
+                :
+                null
+            }
             <View style={style.botContainer}>
                 <FavPictoContainer favPicto={favPicto} isAddingToFav={isAddingToFav} userId={userId}
                                    getFavPictoCallback={getFavPictoCallback}
                                    selectPictoCallback={selectPictoCallback}
                                    onDeleteFavPicto={onDeleteFavPicto}
-                                   handleAddPictoToFav={handleAddPictoToFav}>
+                                   handleAddPictoToFav={handleAddPictoToFav}
+                                   setIsModalVisible={setIsModalVisible} setPopupId={setPopupId} setConfirmPopupAction={setConfirmPopupAction} setDeleteFavPicto={setDeleteFavPicto}>
                 </FavPictoContainer>
                 <PictoContainer favPicto={favPicto} predictPicto={predictPicto} isAddingToFav={isAddingToFav} userId={userId}
                                 selectPictoCallback={selectPictoCallback}
-                                onAddPictoToFav={onAddPictoToFav}>
+                                onAddPictoToFav={onAddPictoToFav}
+                                setIsModalVisible={setIsModalVisible} setPopupId={setPopupId}>
                 </PictoContainer>
             </View>
         </View>
