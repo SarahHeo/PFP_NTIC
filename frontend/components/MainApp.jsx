@@ -5,11 +5,14 @@ import Tabs from "../navigations/BottomTab.jsx";
 
 import globalStyle from '../styles/components/global.jsx';
 
-function MainApp() {
+function MainApp({route}) {
+
+    const isAdmin = route.params.isAdmin;
+
     return (
        /* <View style={globalStyle.body}>*/
             //<View style={globalStyle.mainContainer}>
-                <Tabs/>
+                <Tabs isAdmin={isAdmin}/>
             //</View>
         /*</View>*/
     );

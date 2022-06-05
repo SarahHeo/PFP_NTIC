@@ -11,7 +11,7 @@ function Logout({navigation}) {
 
     useEffect(() => {
         disconnect();
-        navigation.navigate("LogIn");
+        navigation.navigate("Users");
     },[])
 
     return (

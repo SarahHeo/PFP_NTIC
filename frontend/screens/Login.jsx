@@ -29,7 +29,7 @@ function Login({navigation}) {
 
     let successLoginCallback = async function(data){
         await setToken(data.auth_token);
-        navigation.navigate('MainApp', { screen: 'Users' });
+        navigation.navigate('MainApp', { screen: 'Users', isAdmin: true });
     }
 
     return (
@@ -59,6 +59,7 @@ function Login({navigation}) {
             />
             <Text></Text>
             <Button title="S'inscrire" onPress={() => navigation.navigate('Register')}/>
+            <Button title="Se connecter en tant qu'utilisateur" onPress={() => navigation.navigate('Users')}/>
         </View>
         
     );

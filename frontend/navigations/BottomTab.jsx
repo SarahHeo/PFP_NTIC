@@ -15,7 +15,10 @@ import globalStyle from '../styles/components/global.jsx';
 const Tab = createBottomTabNavigator();
 
 
-function Tabs() {
+function Tabs(props) {
+    
+    const isAdmin = props.isAdmin;
+
     return(
             <Tab.Navigator initialRouteName={"Home"}
                            screenOptions={{ tabBarActiveTintColor: globalStyle.color.pink,
@@ -60,8 +63,11 @@ function Tabs() {
                             }}
                 />
 
+                {isAdmin &&
+                
                 <Tab.Screen name="Users"
-                            component={Users}
+                            component = {Users}
+                            initialParams = {{ isLogged:true}}
                             options={{
                                 tabBarLabel: "UTILISATEURS",
                                 tabBarIcon: ({focused, color, size}) => (
@@ -71,6 +77,8 @@ function Tabs() {
                                 unmountOnBlur: true
                             }}
                 />
+
+                }
 
                 <Tab.Screen name="Logout"
                             component={Logout}

@@ -11,7 +11,7 @@ function Register({navigation}) {
     const handleResult = async (result) => {
         if (result.data.auth_token) {
             await setToken(result.data.auth_token);
-            navigation.navigate('MainApp', { screen: 'Users' });
+            navigation.navigate('MainApp', { screen: 'Users', isAdmin: true });
         } else if (result.status === 401) {
             throw new Error('Invalid login.');
         } else {
@@ -54,6 +54,7 @@ function Register({navigation}) {
             />
             <Text></Text>
             <Button  title = "Se connecter" onPress={() => navigation.navigate('LogIn')}/>
+            <Button title="Se connecter en tant qu'utilisateur" onPress={() => navigation.navigate('Users')}/>
         </View>
     );
 }
