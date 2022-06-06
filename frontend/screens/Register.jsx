@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import AuthenticationService, { setToken } from '../services/AuthenticationService';
 import Form from '../components/Form.jsx';
 import {validateContent,  
@@ -52,9 +52,15 @@ function Register({navigation}) {
                 },
             }}
             />
-            <Text></Text>
-            <Button title = "Se connecter" onPress={() => navigation.navigate('LogIn')}/>
-            <Button title="Se connecter en tant qu'utilisateur" onPress={() => navigation.navigate('Users')}/>
+
+            <View style={styles.buttonsContainer}>
+                <TouchableOpacity style={styles.signinButton} onPress={() => navigation.navigate('LogIn')}>
+                    <Text style={styles.buttonText}>{"Se connecter"}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.userButton} onPress={() => navigation.navigate('Users')}>
+                    <Text style={styles.buttonText}>{"Se connecter en tant qu'utilisateur"}</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 }

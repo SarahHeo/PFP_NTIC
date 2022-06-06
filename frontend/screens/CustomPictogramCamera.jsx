@@ -112,8 +112,14 @@ function CustomPictogramCamera() {
                     source={{uri: pictogramImage && pictogramImage.uri}}
                     style={styles.image}
                 />}
-                <Button onPress={startCamera} title="Prendre une photo"></Button>
-                <Button onPress={submit} title="Créer le pictogramme"></Button>
+                <View style={styles.buttonsChoiceContainer}>
+                    <TouchableOpacity style={styles.choiceButton} onPress={startCamera}>
+                        <Text style={styles.buttonText}>{"Prendre une photo"}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.createButton} onPress={submit}>
+                        <Text style={styles.buttonText}>{"Créer le pictogramme"}</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         )}
         </View>

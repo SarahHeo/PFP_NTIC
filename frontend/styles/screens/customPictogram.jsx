@@ -1,8 +1,14 @@
 import { StyleSheet } from 'react-native';
- 
+
+const button = {
+    alignItems:'center',
+    alignSelf: 'center',
+    borderRadius: 30,
+}
+
 export default StyleSheet.create({
     container: {
-        flex: 1,  
+        flex: 1
     },
     cameraContainer:{
         flexDirection:'row',
@@ -12,6 +18,36 @@ export default StyleSheet.create({
     camera: {
         height: '85%',
         width: '50%',
+    },
+    buttonsChoiceContainer: {
+        margin: 30,
+        alignItems:'center',
+    },
+    choiceButton: {
+        ...button,
+        width: '20%',
+        margin: 5,
+        backgroundColor: '#1675FF',
+        width: '40%',
+    },
+    choiceButtonSelected: {
+        ...button,
+        width: '20%',
+        margin: 5,
+        backgroundColor: '#1675FF',
+        width: '40%',
+        opacity: 0.2
+    },
+    createButton: {
+        ...button,
+        backgroundColor: '#F0B0D6',
+        width: '30%',
+        margin: 10
+    },
+    buttonText: {
+        fontSize: 25,
+        padding: 8,
+        color: 'white',
     },
     buttonContainer: {
         flex: 1,
@@ -38,12 +74,16 @@ export default StyleSheet.create({
         height: '100%',
     },
     field: {
-        fontSize: 15,
+        fontSize: 20,
         margin: 8,
+        color: 'white',
+        fontWeight: 'bold'
     },
     input_area: {
         borderWidth: 1,
-        padding: 8
+        padding: 8,
+        backgroundColor: 'white',
+        borderRadius: 10
     }, 
     image: {
         width:'30%',

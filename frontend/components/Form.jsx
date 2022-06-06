@@ -1,5 +1,5 @@
 import React, { useState} from 'react';
-import { Text, View, Button } from 'react-native';
+import { Text, View, TouchableOpacity, Button } from 'react-native';
 import { hasValidationError, validateFields } from '../validators/authenticationValidator.jsx';
 import Field from '../components/Field.jsx';
 import styles from '../styles/components/form.jsx';
@@ -71,7 +71,9 @@ const Form = ({ title, fields, buttonText, action, afterSubmit }) => {
                 );
             })}
 
-            <Button title={buttonText} onPress={submit}/>
+            <TouchableOpacity style={styles.loginButton} onPress={submit}>
+                <Text style={styles.buttonText}>{buttonText}</Text>
+            </TouchableOpacity>
         </View>
     );
 };
