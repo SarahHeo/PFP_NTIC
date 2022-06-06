@@ -9,8 +9,7 @@ import Form from '../components/Form.jsx';
 import {validateContent } from '../validators/authenticationValidator.jsx';
 import { FlatList } from "react-native-gesture-handler";
 import PermissionButton from "../components/PermissionButton.jsx";
-
-
+import { useIsFocused } from '@react-navigation/native';
 
 function Users({route, navigation}){
     const [selectedValue, setSelectedValue] = useState();
@@ -20,6 +19,7 @@ function Users({route, navigation}){
     const [usersLeft, setUsersLeft] = useState([]);
     const [users, setUsers] = useState([]);
     const [refreshPermissions, setRefreshPermissions] = useState(false);
+    const isFocused = useIsFocused();
 
     const isLogged = route.params.isLogged;
 
@@ -54,8 +54,15 @@ function Users({route, navigation}){
     }
 
     useEffect(()=>{
-        loadUsers();    
-    }, []);
+        loadUsers();
+        
+        // So the useEffect gets called when we go back to the screen using the StackNavigator
+        if(isFocused){ 
+            getInitialData();
+        }
+    }, [isFocused]);
+
+    const getInitialData = async () => {};
 
     useEffect(() => {
         if (usersLeft.length > 0 && isLogged){
@@ -108,6 +115,8 @@ function Users({route, navigation}){
                 await AsyncStorage.setItem('@can_delete_fav_picto', JSON.stringify(user.CanDeleteFavPicto));
                 await AsyncStorage.setItem('@can_delete_fav_sentence', JSON.stringify(user.CanDeleteFavSentence));
                 console.log("Storing id: " + await AsyncStorage.getItem('@user_id'));
+                console.log("Storing CanDeleteFavPicto: " + await AsyncStorage.getItem('@can_delete_fav_picto'));
+                console.log("Storing CanDeleteFavPicto: " + await AsyncStorage.getItem('@can_delete_fav_sentence'));
                 navigation.navigate("MainApp", { screen: 'Home', isAdmin:false });
             } catch (e) {
                 return null;
