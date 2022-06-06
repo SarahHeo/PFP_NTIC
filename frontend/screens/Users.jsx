@@ -8,9 +8,9 @@ import EducatorService from "../services/EducatorService.jsx";
 import Form from '../components/Form.jsx';
 import {validateContent } from '../validators/authenticationValidator.jsx';
 import { FlatList } from "react-native-gesture-handler";
+import PermissionButton from "../components/PermissionButton.jsx";
 
-import singlePictogramIcon from '../images/singlePictogram.png';
-import multiplePictogramIcon from '../images/multiplePictogram.png';
+
 
 function Users({route, navigation}){
     const [selectedValue, setSelectedValue] = useState();
@@ -19,6 +19,7 @@ function Users({route, navigation}){
     const [usersOfEducator, setUsersOfEducator] = useState([]);
     const [usersLeft, setUsersLeft] = useState([]);
     const [users, setUsers] = useState([]);
+    const [refreshPermissions, setRefreshPermissions] = useState(false);
 
     const isLogged = route.params.isLogged;
 
@@ -87,13 +88,14 @@ function Users({route, navigation}){
     const handlePermissionChange = (permission, user) => {
         if (permission === 'pictogram'){
             user.CanDeleteFavPicto = !user.CanDeleteFavPicto;
-            const value = !user.CanDeleteFavPicto ? 1 : 0;
+            const value = user.CanDeleteFavPicto ? 1 : 0;
             UserService.updateCanDeleteFavPicto(user.Id, value);
         } else if (permission === 'sentence') { 
             user.CanDeleteFavSentence = !user.CanDeleteFavSentence;
-            const value = !user.CanDeleteFavSentence ? 1 : 0;
+            const value = user.CanDeleteFavSentence ? 1 : 0;
             UserService.updateCanDeleteFavSentence(user.Id, value);
         }
+        setRefreshPermissions(!refreshPermissions);
     }
 
     const setUser = async (user) => {
@@ -192,7 +194,7 @@ function Users({route, navigation}){
                     <FlatList
                         data={usersOfEducator}
                         keyExtractor={(item) => item.Id.toString()}
-                        extraData={usersOfEducator}
+                        extraData={refreshPermissions}
                         renderItem={({item})=>
                             <View style={styles.userItem}>
                                     <TouchableOpacity 
@@ -202,37 +204,9 @@ function Users({route, navigation}){
                                         <Text>{item.FirstName} {item.Name}</Text>
                                     </TouchableOpacity>
 
-                                    {item.CanDeleteFavPicto ? 
-                                    <TouchableOpacity 
-                                        style={styles.enabledButton}
-                                        onPress={()=>handlePermissionChange('pictogram', item)}
-                                    >
-                                        <Image style={styles.buttonImage} source={singlePictogramIcon}/>
-                                    </TouchableOpacity> :
+                                    <PermissionButton isEnabled={item.CanDeleteFavPicto} handlePress={()=>handlePermissionChange('pictogram', item)} type={'pictogram'}/>
+                                    <PermissionButton isEnabled={item.CanDeleteFavSentence} handlePress={()=>handlePermissionChange('sentence', item)} type={'sentence'}/>
 
-                                    <TouchableOpacity 
-                                        style={styles.disabledButton}
-                                        onPress={()=>handlePermissionChange('pictogram', item)}
-                                    >
-                                        <Image style={styles.buttonImage} source={singlePictogramIcon}/>
-                                    </TouchableOpacity>
-                                    }
-
-                                    {item.CanDeleteFavSentence ? 
-                                    <TouchableOpacity 
-                                        style={styles.enabledButton}
-                                        onPress={()=>handlePermissionChange('sentence', item)}
-                                    >
-                                        <Image style={styles.buttonImage} source={multiplePictogramIcon}/>
-                                    </TouchableOpacity> :
-
-                                    <TouchableOpacity 
-                                        style={styles.disabledButton}
-                                        onPress={()=>handlePermissionChange('sentence', item)}
-                                    >
-                                        <Image style={styles.buttonImage} source={multiplePictogramIcon}/>
-                                    </TouchableOpacity>
-                                    }
                             </View>
                         }              
                     />

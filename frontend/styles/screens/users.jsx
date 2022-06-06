@@ -38,31 +38,6 @@ export default StyleSheet.create({
         flexDirection: 'row'
     },
 
-    enabledButton:{
-        backgroundColor: '#92eb34',
-        justifyContent: 'center',
-        alignItems:'center',
-        flex: 1,
-        borderRadius: 300,
-        elevation: 10,
-        marginHorizontal: 10,
-    },
-
-    disabledButton: {
-        backgroundColor: '#eb4934',
-        justifyContent: 'center',
-        alignItems:'center',
-        flex: 1,
-        borderRadius: 300,
-        elevation: 10,
-        marginHorizontal: 10,
-    },
-
-    buttonImage: {
-        width:60,
-        height:60
-    },
-
     userButton:{
         flex: 8,
         padding: 10,
