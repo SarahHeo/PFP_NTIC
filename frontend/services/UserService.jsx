@@ -1,6 +1,7 @@
 const axios = require("axios");
+import devURL from "../utils/developmentURL.jsx";
 
-const USER_BASE_URL = 'http://localhost:8080/user';
+const USER_BASE_URL = `${devURL}/user`;
 
 class UserService {
 

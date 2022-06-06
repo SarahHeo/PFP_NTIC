@@ -1,4 +1,7 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions} from 'react-native';
+
+var screenHeight = Dimensions.get("screen").height;
+var screenWidth = Dimensions.get("screen").width;
 
 const button = {
     alignItems:'center',
@@ -13,14 +16,14 @@ export default StyleSheet.create({
     main_container: {
         flex: 1,
         paddingHorizontal: 20,
-        paddingTop: 50,
+        paddingTop: 30,
         backgroundColor: '#2a9d8F',
     },
     form:{
-        marginBottom: 20   
+        marginBottom: 10 
     },
     buttonsContainer: {
-        margin: 50,
+        margin: 10,
         alignItems:'center',
     },
     signinButton: {
@@ -32,7 +35,7 @@ export default StyleSheet.create({
         backgroundColor: '#1675FF',
     },
     buttonText: {
-        fontSize: 25,
+        fontSize: screenHeight * 0.023,
         padding: 10,
         color: 'white',
     }

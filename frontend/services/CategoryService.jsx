@@ -1,11 +1,12 @@
 const axios = require("axios");
+import devURL from "../utils/developmentURL";
 
-const PICTOGRAM_BASE_URL = 'http://localhost:8080/category';
+const CATEGORY_BASE_URL = `${devURL}/category`;
 
 class CategoryService {
 
     getCategories(){
-        return axios.get(PICTOGRAM_BASE_URL);
+        return axios.get(CATEGORY_BASE_URL);
     }
 
 }

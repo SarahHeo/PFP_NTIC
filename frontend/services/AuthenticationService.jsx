@@ -1,7 +1,8 @@
 const axios = require("axios");
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import devURL from "../utils/developmentURL";
 
-const AUTHENTICATION_BASE_URL = 'http://localhost:8080/authentication';
+const AUTHENTICATION_BASE_URL = `${devURL}/authentication`;
 
 class AuthenticationService {
 

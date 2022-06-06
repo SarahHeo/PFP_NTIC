@@ -39,19 +39,6 @@ function CustomPictogramPicker() {
         }
     }
 
-    /*const submit = async () => {
-        const base64 = await FileSystem.readAsStringAsync(pictogramImage.uri, { encoding: 'base64' });
-        PictogramService.addCustomPictogramImage({
-            name: pictogramName,
-            url: base64
-        }).then(()=>
-            {
-                setPictogramImage(null);
-                setPictogramName(null);
-            }
-        );
-    }*/
-  
     return (
         <View>
             <Text style={styles.field}>

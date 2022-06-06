@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { View, Picker, Button, Text, Modal, TouchableOpacity, Image } from "react-native";
+import { View, Picker, Button, Text, Modal, TouchableOpacity, Image, Touchable } from "react-native";
 import AuthenticationService from "../services/AuthenticationService.jsx";
 import UserService from "../services/UserService.jsx";
 import styles from '../styles/screens/users.jsx';
@@ -54,8 +54,8 @@ function Users({route, navigation}){
     }
 
     useEffect(()=>{
-        loadUsers();
         
+        loadUsers();
         // So the useEffect gets called when we go back to the screen using the StackNavigator
         if(isFocused){ 
             getInitialData();
@@ -138,21 +138,26 @@ function Users({route, navigation}){
             <View style = {styles.container}>
                 <View style = {styles.listContainer}>
                     <Text style = {styles.title}>Liste des utilisateurs</Text>
-                    {users.map(user =>
-                            <View 
-                                style={styles.buttonContainer}
-                                key={user.Id} >
-                                    <Button
-                                    title={`${user.FirstName} ${user.Name}`}
-                                    onPress={() => setUser(user)}
-                                    />
-                            </View>
-                        )                
-                    }
+                    <FlatList
+                        data={users}
+                        keyExtractor={(item) => item.Id.toString()}
+                        renderItem={({item})=>
+                        <TouchableOpacity
+                            style={styles.userButtonNotLogged}
+                            key={item.Id}
+                            onPress={() => setUser(item)}>
+                            <Text style={styles.buttonText}>{item.FirstName} {item.Name}</Text>
+                        </TouchableOpacity>
+                        }
+                    />                
                 </View>
                 <View>
-                    <Button title="Se connecter en tant qu'administrateur" onPress={() => navigation.navigate('LogIn')}/>
-                    <Button title="S'inscrire en tant qu'administrateur" onPress={() => navigation.navigate('Register')}/>
+                    <TouchableOpacity style={styles.adminButton} onPress={() => navigation.navigate('LogIn')}>
+                        <Text style={styles.buttonText}>{"Se connecter en tant qu'administrateur"}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.adminButton} onPress={() => navigation.navigate('Register')}>
+                        <Text style={styles.buttonText}>{"S'inscrire en tant qu'administrateur"}</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         );
@@ -236,10 +241,14 @@ function Users({route, navigation}){
                             )
                         }
                         </Picker>
-                        <Button title="Prendre en charge l'utilisateur" onPress={addUserToEducator}/>
+                        <TouchableOpacity style={styles.adminButton} onPress={addUserToEducator}>
+                            <Text style={styles.buttonText}>{"Prendre en charge l'utilisateur"}</Text>
+                        </TouchableOpacity>
                     </View>
                     }
-                    <Button title="Créer un nouvel utilisateur" onPress={() => setModalVisible(true)}/>
+                    <TouchableOpacity style={styles.adminButton} onPress={() => setModalVisible(true)}>
+                        <Text style={styles.buttonText}>{"Créer un nouvel utilisateur"}</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         );

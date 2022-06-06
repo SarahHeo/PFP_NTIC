@@ -1,25 +1,28 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+var screenHeight = Dimensions.get("screen").height;
+var screenWidth = Dimensions.get("screen").width;
 
 export default StyleSheet.create({
     field: {
-        fontSize: 20,
-        margin: 8,
+        fontSize: screenHeight * 0.023,
         color: 'white',
         fontWeight: 'bold'
     },
 
     input_area: {
         borderWidth: 1,
-        padding: 8,
+        padding: 4,
+        paddingHorizontal: 10,
         backgroundColor: 'white',
-        borderRadius: 10
+        borderRadius: 10,
     },
 
     error: {
         color: 'red',
         fontWeight: 'bold',
         textAlign: 'center',
-        fontSize: 20,
+        fontSize: screenHeight * 0.021,
         marginBottom: 8
     }
 });

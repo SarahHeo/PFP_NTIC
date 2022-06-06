@@ -1,4 +1,7 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+var screenHeight = Dimensions.get("screen").height;
+var screenWidth = Dimensions.get("screen").width;
 
 const button = {
     alignItems:'center',
@@ -17,7 +20,7 @@ export default StyleSheet.create({
     },
     camera: {
         height: '85%',
-        width: '50%',
+        width: '60%',
     },
     buttonsChoiceContainer: {
         margin: 30,
@@ -25,14 +28,12 @@ export default StyleSheet.create({
     },
     choiceButton: {
         ...button,
-        width: '20%',
+        width: '40%',
         margin: 5,
         backgroundColor: '#1675FF',
-        width: '40%',
     },
     choiceButtonSelected: {
         ...button,
-        width: '20%',
         margin: 5,
         backgroundColor: '#1675FF',
         width: '40%',
@@ -45,7 +46,7 @@ export default StyleSheet.create({
         margin: 10
     },
     buttonText: {
-        fontSize: 25,
+        fontSize: screenHeight * 0.022,
         padding: 8,
         color: 'white',
     },
@@ -74,7 +75,7 @@ export default StyleSheet.create({
         height: '100%',
     },
     field: {
-        fontSize: 20,
+        fontSize: screenHeight * 0.023,
         margin: 8,
         color: 'white',
         fontWeight: 'bold'
@@ -86,8 +87,9 @@ export default StyleSheet.create({
         borderRadius: 10
     }, 
     image: {
-        width:'30%',
-        height:'50%',
+        marginTop: 10,
+        width:'20%',
+        height:'32%',
         alignSelf:'center'
     } 
 });

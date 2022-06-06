@@ -1,12 +1,11 @@
-import { StyleSheet } from 'react-native';
-import { color } from 'react-native-reanimated';
+import { StyleSheet, Dimensions } from 'react-native';
+
+var screenHeight = Dimensions.get("screen").height;
+var screenWidth = Dimensions.get("screen").width;
 
 export default StyleSheet.create({
-    main_container: {
-        //margin: 20
-    },
     title: {
-        fontSize: 35,
+        fontSize: screenHeight * 0.05,
         textAlign: 'center',
         color: 'white',
         fontWeight: 'bold'
@@ -24,7 +23,7 @@ export default StyleSheet.create({
         borderRadius: 30
     },
     buttonText: {
-        fontSize: 25,
+        fontSize: screenHeight * 0.023,
         padding: 10,
         paddingRight: 15,
         paddingLeft: 15,

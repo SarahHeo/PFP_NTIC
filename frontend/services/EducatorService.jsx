@@ -1,6 +1,7 @@
 const axios = require("axios");
+import devURL from "../utils/developmentURL";
 
-const EDUCATOR_BASE_URL = 'http://localhost:8080/educator';
+const EDUCATOR_BASE_URL = `${devURL}/educator`;
 
 class EducatorService {
 
