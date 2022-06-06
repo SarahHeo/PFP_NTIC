@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 03 juin 2022 à 08:12
+-- Généré le : lun. 06 juin 2022 à 18:59
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -100,6 +100,14 @@ CREATE TABLE IF NOT EXISTS `educator_user` (
   KEY `idEducator` (`idEducator`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Déchargement des données de la table `educator_user`
+--
+
+INSERT INTO `educator_user` (`idEducator`, `idUser`) VALUES
+(24, 21),
+(24, 22);
+
 -- --------------------------------------------------------
 
 --
@@ -114,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `pictogram` (
   `url` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idCaterogy` (`idCategory`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1313 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1291 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `pictogram`
@@ -695,16 +703,19 @@ CREATE TABLE IF NOT EXISTS `user` (
   `FirstName` varchar(255) NOT NULL,
   `DateOfBirth` int(3) NOT NULL,
   `Gender` varchar(255) NOT NULL,
+  `CanDeleteFavPicto` tinyint(1) NOT NULL DEFAULT '0',
+  `CanDeleteFavSentence` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`Id`, `Name`, `FirstName`, `DateOfBirth`, `Gender`) VALUES
-(21, 'A', 'A', 0, 'A'),
-(22, 'Dubois', 'Paul', 25, 'Homme');
+INSERT INTO `user` (`Id`, `Name`, `FirstName`, `DateOfBirth`, `Gender`, `CanDeleteFavPicto`, `CanDeleteFavSentence`) VALUES
+(21, 'A', 'A', 0, 'A', 0, 0),
+(22, 'Dubois', 'Paul', 25, 'Homme', 1, 1),
+(23, 'Martin', 'Dujardin', 2, 'M', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -725,7 +736,6 @@ CREATE TABLE IF NOT EXISTS `user_favpicto` (
 --
 
 INSERT INTO `user_favpicto` (`idUser`, `idPictogram`) VALUES
-(22, 732),
 (22, 741),
 (22, 742),
 (22, 734),
@@ -747,10 +757,9 @@ INSERT INTO `user_favpicto` (`idUser`, `idPictogram`) VALUES
 (22, 1078),
 (22, 1201),
 (22, 1180),
-(22, 1149),
-(22, 1075),
 (21, 731),
-(21, 733);
+(22, 864),
+(21, 916);
 
 -- --------------------------------------------------------
 
