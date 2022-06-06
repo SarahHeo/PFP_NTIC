@@ -36,8 +36,12 @@ class UserService {
         return axios.delete(USER_BASE_URL + "/" + userId + "/favsentence/" + sentenceId + "/delete");
     }
 
-    updatePermission(userId, data){
-        return axios.put(USER_BASE_URL + "/" + userId, data);
+    updateCanDeleteFavPicto(userId, permission){
+        return axios.put(USER_BASE_URL + "/" + userId + "/pictogram/" + permission);
+    }
+
+    updateCanDeleteFavSentence(userId, permission){
+        return axios.put(USER_BASE_URL + "/" + userId + "/sentence/" + permission);
     }
 
 }

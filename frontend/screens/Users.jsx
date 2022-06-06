@@ -4,7 +4,6 @@ import { View, Picker, Button, Text, Modal, TouchableOpacity, Image } from "reac
 import AuthenticationService from "../services/AuthenticationService.jsx";
 import UserService from "../services/UserService.jsx";
 import styles from '../styles/screens/users.jsx';
-import globalStyle from '../styles/components/global.jsx';
 import EducatorService from "../services/EducatorService.jsx";
 import Form from '../components/Form.jsx';
 import {validateContent } from '../validators/authenticationValidator.jsx';
@@ -88,10 +87,12 @@ function Users({route, navigation}){
     const handlePermissionChange = (permission, user) => {
         if (permission === 'pictogram'){
             user.CanDeleteFavPicto = !user.CanDeleteFavPicto;
-            console.log("CanDeleteFavPicto changed to ", user.CanDeleteFavPicto);
-        } else if (permission === 'sentence') {
+            const value = !user.CanDeleteFavPicto ? 1 : 0;
+            UserService.updateCanDeleteFavPicto(user.Id, value);
+        } else if (permission === 'sentence') { 
             user.CanDeleteFavSentence = !user.CanDeleteFavSentence;
-            console.log("CanDeleteFavSentence changed to ", user.CanDeleteFavSentence);
+            const value = !user.CanDeleteFavSentence ? 1 : 0;
+            UserService.updateCanDeleteFavSentence(user.Id, value);
         }
     }
 
@@ -264,18 +265,4 @@ function Users({route, navigation}){
 
 }
 
-/*
-{usersOfEducator.map(user =>
-    <View style={styles.userItem}
-        key={user.Id} >
-            <Button style={styles.button}
-            title={`${user.FirstName} ${user.Name}`}
-            onPress={() => setUser(user)}
-            />
-            <Text>{user.CanDeleteFavPicto}</Text>
-            <Text>{user.CanDeleteFavSentence}</Text>
-    </View>
-)                
-}
-*/
 export default Users;
