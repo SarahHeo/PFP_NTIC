@@ -10,8 +10,9 @@ module.exports = app => {
     router.delete("/:id/favpicto/:idpicto/delete/", userFavPicto.delete);
     router.get("/:id/favsentence", userFavSentence.getByUserId);                // Get fav sentences of user with given id
     router.get("/", user.getAll);
-    router.post("/", user.add);   
-    router.post("/:id/favsentence/add", userFavSentence.add);                   // Add a sentence to fav of user with given id
+    router.post("/", user.add);
+    router.put("/:id/", user.updatePermission);         
+    router.post("/:id/favsentence/add", userFavSentence.add);   // Add a sentence to fav of user with given id
     router.delete("/:id/favsentence/:idsentence/delete/", userFavSentence.delete);     
 
     app.use('/user', router);

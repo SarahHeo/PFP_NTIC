@@ -16,31 +16,37 @@ import singlePictogramIcon from '../images/singlePictogram.png';
 import multiplePictogramIcon from '../images/multiplePictogram.png';
 
 // for now, need to refresh the page to see the updates
-function Favorites() {
+function Favorites({route}) {
 
     const [currentState, setCurrentState] = useState("sentence");
     const [allFavSentences, setAllFavSentences] = useState([]);
     const [favPicto, setFavPicto] = useState([]);
-    const [userId, setUserId] = useState();
+    const [userId, setUserId] = useState(null);
+    const [canDeleteFavPicto, setCanDeleteFavPicto] = useState(0);
+    const [canDeleteFavSentence, setCanDeleteFavSentence] = useState(0);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [popupId, setPopupId] = useState();
     const [confirmPopupAction, setConfirmPopupAction] = useState(() => {});
     var deleteSentenceId;
     var deleteFavPicto;
 
+    const isAdmin = route.params.isAdmin;
+    console.log(isAdmin);
+
     useEffect(() =>{
         const retrieveId = async () => {
             try {
                 const id = await AsyncStorage.getItem("@user_id");
+                const canDeleteFavPicto = await AsyncStorage.getItem("@can_delete_fav_picto");
+                const canDeleteFavSentence = await AsyncStorage.getItem("@can_delete_fav_sentence");
                 console.log(`Retrieved id: ${id}`);
-                if (id === null){
-                    setUserId(22);
-                } else {
+                if (id !== null){
                     setUserId(JSON.parse(id));
+                    setCanDeleteFavPicto(Boolean(JSON.parse(canDeleteFavPicto)));
+                    setCanDeleteFavSentence(Boolean(JSON.parse(canDeleteFavSentence)));
                 }
             } catch(error) {
                 console.log("An error occured retrieving current user");
-                setUserId(22);
             }
         }       
         retrieveId();
@@ -168,7 +174,19 @@ function Favorites() {
 
     return (
         <View style={globalStyle.mainContainer}>
-            <View style = {style.buttonChoiceContainer}>
+            { userId === null && 
+                <View style={globalStyle.mainContainer}>
+                    <View style={globalStyle.mainTitleContainer}>
+                        <Text style={globalStyle.mainTitle}>Favoris</Text>
+                    </View>
+                    <View style={style.messageContainer}>
+                        <Text style={style.message}>Aucun utilisateur n'a été sélectionné !</Text>
+                    </View>
+                </View>
+            }
+            {userId !== null && 
+                <View style={globalStyle.mainContainer}>
+                    <View style = {style.buttonChoiceContainer}>
                 <TouchableOpacity style={style.buttonChoice} onPress={() => setCurrentState("sentence")}>
                     <Image source={multiplePictogramIcon} style={style.buttonChoiceImage}/>
                 </TouchableOpacity>
@@ -205,9 +223,11 @@ function Favorites() {
                                         <TouchableOpacity style={[globalStyle.readButton, style.button]} onPress={() => {handleReadSentence(item)}}>
                                             <Image source={soundIcon} style={globalStyle.buttonImage}/>
                                         </TouchableOpacity>
-                                        <TouchableOpacity style={[globalStyle.deleteButton, style.button]} onPress={() => {getDeleteFavSentenceDialog(item[0].idSentence)}}>
-                                            <Image source={deleteIcon} style={globalStyle.deleteImage}/>
-                                        </TouchableOpacity>
+                                        { (isAdmin || canDeleteFavSentence) &&
+                                            <TouchableOpacity style={[globalStyle.deleteButton, style.button]} onPress={() => {getDeleteFavSentenceDialog(item[0].idSentence)}}>
+                                                <Image source={deleteIcon} style={globalStyle.deleteImage}/>
+                                            </TouchableOpacity>
+                                        }  
                                     </View>
                                 </View>
                             }/>
@@ -240,9 +260,11 @@ function Favorites() {
                                         <TouchableOpacity style={[globalStyle.readButton, style.button]} onPress={() => {handleReadWord(item)}}>
                                             <Image source={soundIcon} style={globalStyle.buttonImage}/>
                                         </TouchableOpacity>
-                                        <TouchableOpacity style={[globalStyle.deleteButton, style.button]} onPress={() => {getDeleteFavPictoDialog(item)}}>
-                                            <Image source={deleteIcon} style={globalStyle.deleteImage}/>
-                                        </TouchableOpacity>
+                                        { (isAdmin || canDeleteFavPicto) &&
+                                            <TouchableOpacity style={[globalStyle.deleteButton, style.button]} onPress={() => {getDeleteFavPictoDialog(item)}}>
+                                                <Image source={deleteIcon} style={globalStyle.deleteImage}/>
+                                            </TouchableOpacity>
+                                        }
                                     </View>
                                 </View>
                             }/>
@@ -250,6 +272,9 @@ function Favorites() {
                     </View>
                 </View>
             }
+                </View>
+            }
+            
 
             {Platform.OS !== 'web' ?
                 <ModalPopup visible={isModalVisible} setIsModalVisible={setIsModalVisible} id={popupId} confirmAction={confirmPopupAction}></ModalPopup>

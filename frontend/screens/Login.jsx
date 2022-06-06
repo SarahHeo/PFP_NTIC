@@ -11,7 +11,7 @@ function Login({navigation}) {
         async function checkIfAlreadyLoggedIn() {
             const token = await getToken();
             if (token != null){
-                navigation.navigate('MainApp');
+                navigation.navigate('MainApp', { screen: 'Users', isAdmin: true });
             }
         }
         checkIfAlreadyLoggedIn();

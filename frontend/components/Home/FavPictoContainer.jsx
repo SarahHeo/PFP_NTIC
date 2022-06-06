@@ -18,6 +18,7 @@ function FavPictoContainer(props) {
     const selectPictoCallback = props.selectPictoCallback;
     const onDeleteFavPicto = props.onDeleteFavPicto;
     const handleAddPictoToFav = props.handleAddPictoToFav;
+    const isAdmin = props.isAdmin;
 
     const setIsModalVisible = props.setIsModalVisible;
     const setPopupId = props.setPopupId;
@@ -63,18 +64,38 @@ function FavPictoContainer(props) {
 
     return (
         <View style={[style.favPictoContainer, {}]}>
-            <FlatList
+            { isAdmin && 
+                <FlatList
+                    //numColumns={12}
+                    data={favPicto}
+                    ListFooterComponent={footer}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={({item}) => 
+                        <Pictogram picto={item} isTouchable={true} 
+                                onPressHandler={selectPictoCallback} 
+                                onLongPress={getDeleteFavPictoDialog} id={"fav"} 
+                                isAddingToFav={isAddingToFav} 
+                                canAddToFav={false}
+                        />
+                    }
+                />
+            }
+            { !isAdmin && 
+                <FlatList
                 //numColumns={12}
                 data={favPicto}
                 ListFooterComponent={footer}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({item}) => 
                     <Pictogram picto={item} isTouchable={true} 
-                               onPressHandler={selectPictoCallback} 
-                               onLongPress={getDeleteFavPictoDialog} id={"fav"} 
-                               isAddingToFav={isAddingToFav} canAddToFav={false}/>
+                            onPressHandler={selectPictoCallback} 
+                            onLongPress={()=>{}} id={"fav"} 
+                            isAddingToFav={isAddingToFav} 
+                            canAddToFav={false}
+                    />
                 }
             />
+            }
         </View>
     )
 }

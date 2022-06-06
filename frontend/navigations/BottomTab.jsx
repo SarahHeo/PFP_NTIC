@@ -30,6 +30,7 @@ function Tabs(props) {
                                                 
                 <Tab.Screen name="Home"
                             component={Home}
+                            initialParams = {{ isAdmin: isAdmin }}
                             options={{
                                 tabBarLabel: "ACCUEIL",
                                 tabBarIcon: ({focused, color, size}) => (
@@ -42,6 +43,7 @@ function Tabs(props) {
                 
                 <Tab.Screen name="Favorites"
                             component={Favorites}
+                            initialParams = {{ isAdmin: isAdmin}}
                             options={{
                                 tabBarLabel: "FAVORIS",
                                 tabBarIcon: ({focused, color, size}) => (
@@ -82,6 +84,7 @@ function Tabs(props) {
 
                 <Tab.Screen name="Logout"
                             component={Logout}
+                            initialParams = {{ isAdmin: isAdmin}}
                             options={{
                                 tabBarLabel: "DECONNEXION",
                                 tabBarIcon: ({focused, color, size}) => (

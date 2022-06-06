@@ -43,6 +43,25 @@ User.add = (newUser, result) => {
     });
 };
 
+User.updatePermission = (userId, permission, value, result) => {
+    database.query(`UPDATE User SET ? = ? WHERE id = ? `, 
+    [permission, value, userId], 
+    (error, res) =>{
+        if (error){
+            console.log("error: ", error);
+            result(error, null);
+            return;
+        }
+        if (res.affectedRows == 0) {
+            // not found User with the id
+            result({ kind: "not_found" }, null);
+            return;
+          }
+          console.log("updated user: ", { id: id, ...user });
+          result(null, { id: id, ...user });
+    });
+};
+
 
 // DELETE SQL Queries
 

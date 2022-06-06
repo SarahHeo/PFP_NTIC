@@ -53,7 +53,7 @@ function Register({navigation}) {
             }}
             />
             <Text></Text>
-            <Button  title = "Se connecter" onPress={() => navigation.navigate('LogIn')}/>
+            <Button title = "Se connecter" onPress={() => navigation.navigate('LogIn')}/>
             <Button title="Se connecter en tant qu'utilisateur" onPress={() => navigation.navigate('Users')}/>
         </View>
     );

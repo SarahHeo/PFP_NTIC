@@ -6,9 +6,6 @@ export default StyleSheet.create({
         marginHorizontal: 20,
         marginTop: 10
     },
-    options_button: {
-        marginTop: 20
-    },
     form:{
         marginBottom: 20   
     },

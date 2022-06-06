@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Platform } from 'react-native';
+import { View, Platform, Text } from 'react-native';
 
 import UserService from '../services/UserService.jsx';
 import AlgoService from '../services/AlgoService.jsx';
@@ -18,16 +18,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { clearWord } from '../utils/clearWord.jsx';
 
 
-function Home() {
+function Home({route}) {
 
     const [selectedPictoArray, setSelectedPictoArray] = useState([]);
     const [favPicto, setFavPicto] = useState([]);
-    const [userId, setUserId] = useState();
+    const [userId, setUserId] = useState(null);
     const [predictPicto, setPredictPicto] = useState([]);
     const [isAddingToFav, setIsAddingToFav] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [popupId, setPopupId] = useState();
     const [confirmPopupAction, setConfirmPopupAction] = useState(() => {});
+    const isAdmin = route.params.isAdmin;
     var deleteFavPicto;
 
     // useEffect = after every render
@@ -38,15 +39,12 @@ function Home() {
             try {
                 const id = await AsyncStorage.getItem("@user_id");
                 console.log(`Retrieved id: ${id}`);
-                if (id === null){
-                    setUserId(22);
-                } else {
+                if (id !== null){
                     setUserId(JSON.parse(id));
                 }
                  
             } catch(error) {
                 console.log("An error occured retrieving current user");
-                setUserId(22);
             }
         }       
         retrieveId();
@@ -145,39 +143,57 @@ function Home() {
 
     return (
         <View style={globalStyle.mainContainer}>
-            {/* Sentence bar + buttons */}
-            <View style={style.topContainer}>
-                <SelectedPictoContainer selectedPictoArray={selectedPictoArray}>
-                </SelectedPictoContainer>
-                <ButtonsContainer handleReadSentence={handleReadSentence}
-                                  handleRemovePicto={handleRemovePicto}
-                                  setSelectedPictoArray={setSelectedPictoArray}
-                                  setPredictPicto={setPredictPicto}
-                                  handleAddSentenceToFav={handleAddSentenceToFav}
-                                  setIsModalVisible={setIsModalVisible} setPopupId={setPopupId} setConfirmPopupAction={setConfirmPopupAction}>
-                </ButtonsContainer>
-                
-            </View>
-
-            {Platform.OS !== 'web' ?
-                <ModalPopup visible={isModalVisible} setIsModalVisible={setIsModalVisible} id={popupId} confirmAction={confirmPopupAction}></ModalPopup>
-                :
-                null
+            {userId === null &&
+                <View style={globalStyle.mainContainer}>
+                    <View style={globalStyle.mainTitleContainer}>
+                        <Text style={globalStyle.mainTitle}>Accueil</Text>
+                    </View>
+                    <View style={style.messageContainer}>
+                        <Text style={style.message}>Aucun utilisateur n'a été sélectionné !</Text>
+                    </View>
+                </View>
             }
-            <View style={style.botContainer}>
-                <FavPictoContainer favPicto={favPicto} isAddingToFav={isAddingToFav} userId={userId}
-                                   getFavPictoCallback={getFavPictoCallback}
-                                   selectPictoCallback={selectPictoCallback}
-                                   onDeleteFavPicto={onDeleteFavPicto}
-                                   handleAddPictoToFav={handleAddPictoToFav}
-                                   setIsModalVisible={setIsModalVisible} setPopupId={setPopupId} setConfirmPopupAction={setConfirmPopupAction} setDeleteFavPicto={setDeleteFavPicto}>
-                </FavPictoContainer>
-                <PictoContainer favPicto={favPicto} predictPicto={predictPicto} isAddingToFav={isAddingToFav} userId={userId}
-                                selectPictoCallback={selectPictoCallback}
-                                onAddPictoToFav={onAddPictoToFav}
-                                setIsModalVisible={setIsModalVisible} setPopupId={setPopupId}>
-                </PictoContainer>
-            </View>
+            {userId !== null &&
+                <View style={globalStyle.mainContainer}>
+                    {/* Sentence bar + buttons */}
+                    <View style={style.topContainer}>
+                        <SelectedPictoContainer selectedPictoArray={selectedPictoArray}>
+                        </SelectedPictoContainer>
+                        <ButtonsContainer handleReadSentence={handleReadSentence}
+                                        handleRemovePicto={handleRemovePicto}
+                                        setSelectedPictoArray={setSelectedPictoArray}
+                                        setPredictPicto={setPredictPicto}
+                                        handleAddSentenceToFav={handleAddSentenceToFav}
+                                        setIsModalVisible={setIsModalVisible} setPopupId={setPopupId} setConfirmPopupAction={setConfirmPopupAction}>
+                        </ButtonsContainer>
+                        
+                    </View>
+
+                    {Platform.OS !== 'web' ?
+                        <ModalPopup visible={isModalVisible} setIsModalVisible={setIsModalVisible} id={popupId} confirmAction={confirmPopupAction}></ModalPopup>
+                        :
+                        null
+                    }
+                    <View style={style.botContainer}>
+                        <FavPictoContainer favPicto={favPicto} isAddingToFav={isAddingToFav} userId={userId}
+                                        getFavPictoCallback={getFavPictoCallback}
+                                        selectPictoCallback={selectPictoCallback}
+                                        onDeleteFavPicto={onDeleteFavPicto}
+                                        handleAddPictoToFav={handleAddPictoToFav}
+                                        setIsModalVisible={setIsModalVisible} 
+                                        setPopupId={setPopupId} 
+                                        setConfirmPopupAction={setConfirmPopupAction} 
+                                        setDeleteFavPicto={setDeleteFavPicto}
+                                        isAdmin={isAdmin}>
+                        </FavPictoContainer>
+                        <PictoContainer favPicto={favPicto} predictPicto={predictPicto} isAddingToFav={isAddingToFav} userId={userId}
+                                        selectPictoCallback={selectPictoCallback}
+                                        onAddPictoToFav={onAddPictoToFav}
+                                        setIsModalVisible={setIsModalVisible} setPopupId={setPopupId}>
+                        </PictoContainer>
+                    </View>
+                </View>
+            }
         </View>
     )
 }

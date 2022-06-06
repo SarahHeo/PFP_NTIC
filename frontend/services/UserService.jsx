@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-const USER_BASE_URL = 'http://localhost:8080/user';
+const USER_BASE_URL = 'http://192.168.0.9:8080/user';
 
 class UserService {
 
@@ -34,6 +34,10 @@ class UserService {
 
     deleteFavSentence(userId, sentenceId){
         return axios.delete(USER_BASE_URL + "/" + userId + "/favsentence/" + sentenceId + "/delete");
+    }
+
+    updatePermission(userId, data){
+        return axios.put(USER_BASE_URL + "/" + userId, data);
     }
 
 }

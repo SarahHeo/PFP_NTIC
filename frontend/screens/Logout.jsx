@@ -1,17 +1,23 @@
 import React, { useEffect } from 'react';
 import { View, Text } from 'react-native';
-import { deleteToken } from '../services/AuthenticationService.jsx';
+import { clearStorage } from '../services/AuthenticationService.jsx';
 
 
 let disconnect = async function(){
-    await deleteToken();
+    await clearStorage();
 }
 
-function Logout({navigation}) {
+function Logout({route, navigation}) {
+
+    const isAdmin = route.params.isAdmin;
 
     useEffect(() => {
         disconnect();
-        navigation.navigate("Users");
+        if (isAdmin) {
+            navigation.navigate("LogIn");
+        } else {
+            navigation.navigate("Users");
+        }
     },[])
 
     return (

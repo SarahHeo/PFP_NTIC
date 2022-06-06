@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { View, Picker, Button, Text, Modal } from "react-native";
+import { View, Picker, Button, Text, Modal, TouchableOpacity, Image } from "react-native";
 import AuthenticationService from "../services/AuthenticationService.jsx";
 import UserService from "../services/UserService.jsx";
-import styles from '../styles/screens/users.jsx'
+import styles from '../styles/screens/users.jsx';
+import globalStyle from '../styles/components/global.jsx';
 import EducatorService from "../services/EducatorService.jsx";
 import Form from '../components/Form.jsx';
 import {validateContent } from '../validators/authenticationValidator.jsx';
+import { FlatList } from "react-native-gesture-handler";
+
+import singlePictogramIcon from '../images/singlePictogram.png';
+import multiplePictogramIcon from '../images/multiplePictogram.png';
 
 function Users({route, navigation}){
     const [selectedValue, setSelectedValue] = useState();
@@ -80,11 +85,25 @@ function Users({route, navigation}){
         }
     }
 
-    const setUserId = async (userId) => {
+    const handlePermissionChange = (permission, user) => {
+        if (permission === 'pictogram'){
+            user.CanDeleteFavPicto = !user.CanDeleteFavPicto;
+            console.log("CanDeleteFavPicto changed to ", user.CanDeleteFavPicto);
+        } else if (permission === 'sentence') {
+            user.CanDeleteFavSentence = !user.CanDeleteFavSentence;
+            console.log("CanDeleteFavSentence changed to ", user.CanDeleteFavSentence);
+        }
+    }
+
+    const setUser = async (user) => {
         if (!isLogged) {
             try {
                 await AsyncStorage.removeItem('@user_id');
-                await AsyncStorage.setItem('@user_id', JSON.stringify(userId));
+                await AsyncStorage.removeItem('@can_delete_fav_picto');
+                await AsyncStorage.removeItem('@can_delete_fav_sentence');
+                await AsyncStorage.setItem('@user_id', JSON.stringify(user.Id));
+                await AsyncStorage.setItem('@can_delete_fav_picto', JSON.stringify(user.CanDeleteFavPicto));
+                await AsyncStorage.setItem('@can_delete_fav_sentence', JSON.stringify(user.CanDeleteFavSentence));
                 console.log("Storing id: " + await AsyncStorage.getItem('@user_id'));
                 navigation.navigate("MainApp", { screen: 'Home', isAdmin:false });
             } catch (e) {
@@ -93,7 +112,7 @@ function Users({route, navigation}){
         } else {
             try {
                 await AsyncStorage.removeItem('@user_id');
-                await AsyncStorage.setItem('@user_id', JSON.stringify(userId));
+                await AsyncStorage.setItem('@user_id', JSON.stringify(user.Id));
                 console.log("Storing id: " + await AsyncStorage.getItem('@user_id'));
                 navigation.navigate("Home");
             } catch (e) {
@@ -113,7 +132,7 @@ function Users({route, navigation}){
                                 key={user.Id} >
                                     <Button
                                     title={`${user.FirstName} ${user.Name}`}
-                                    onPress={() => setUserId(user.Id)}
+                                    onPress={() => setUser(user)}
                                     />
                             </View>
                         )                
@@ -169,17 +188,53 @@ function Users({route, navigation}){
                 </Modal>
                 <View style = {styles.listContainer}>
                     <Text style = {styles.title}>Liste des utilisateurs</Text>
-                    {usersOfEducator.map(user =>
-                            <View 
-                                style={styles.buttonContainer}
-                                key={user.Id} >
-                                    <Button
-                                    title={`${user.FirstName} ${user.Name}`}
-                                    onPress={() => setUserId(user.Id)}
-                                    />
+                    <FlatList
+                        data={usersOfEducator}
+                        keyExtractor={(item) => item.Id.toString()}
+                        extraData={usersOfEducator}
+                        renderItem={({item})=>
+                            <View style={styles.userItem}>
+                                    <TouchableOpacity 
+                                    style={styles.userButton}
+                                    onPress={() => setUser(item)}
+                                    >
+                                        <Text>{item.FirstName} {item.Name}</Text>
+                                    </TouchableOpacity>
+
+                                    {item.CanDeleteFavPicto ? 
+                                    <TouchableOpacity 
+                                        style={styles.enabledButton}
+                                        onPress={()=>handlePermissionChange('pictogram', item)}
+                                    >
+                                        <Image style={styles.buttonImage} source={singlePictogramIcon}/>
+                                    </TouchableOpacity> :
+
+                                    <TouchableOpacity 
+                                        style={styles.disabledButton}
+                                        onPress={()=>handlePermissionChange('pictogram', item)}
+                                    >
+                                        <Image style={styles.buttonImage} source={singlePictogramIcon}/>
+                                    </TouchableOpacity>
+                                    }
+
+                                    {item.CanDeleteFavSentence ? 
+                                    <TouchableOpacity 
+                                        style={styles.enabledButton}
+                                        onPress={()=>handlePermissionChange('sentence', item)}
+                                    >
+                                        <Image style={styles.buttonImage} source={multiplePictogramIcon}/>
+                                    </TouchableOpacity> :
+
+                                    <TouchableOpacity 
+                                        style={styles.disabledButton}
+                                        onPress={()=>handlePermissionChange('sentence', item)}
+                                    >
+                                        <Image style={styles.buttonImage} source={multiplePictogramIcon}/>
+                                    </TouchableOpacity>
+                                    }
                             </View>
-                        )                
-                    }
+                        }              
+                    />
                 </View>
                 <View>
                     {usersLeft.length !== 0 &&
@@ -209,4 +264,18 @@ function Users({route, navigation}){
 
 }
 
+/*
+{usersOfEducator.map(user =>
+    <View style={styles.userItem}
+        key={user.Id} >
+            <Button style={styles.button}
+            title={`${user.FirstName} ${user.Name}`}
+            onPress={() => setUser(user)}
+            />
+            <Text>{user.CanDeleteFavPicto}</Text>
+            <Text>{user.CanDeleteFavSentence}</Text>
+    </View>
+)                
+}
+*/
 export default Users;
