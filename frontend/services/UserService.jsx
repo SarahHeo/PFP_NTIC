@@ -1,6 +1,7 @@
 const axios = require("axios");
+import devURL from "../utils/developmentURL.jsx";
 
-const USER_BASE_URL = 'http://localhost:8080/user';
+const USER_BASE_URL = `${devURL}/user`;
 
 class UserService {
 
@@ -34,6 +35,14 @@ class UserService {
 
     deleteFavSentence(userId, sentenceId){
         return axios.delete(USER_BASE_URL + "/" + userId + "/favsentence/" + sentenceId + "/delete");
+    }
+
+    updateCanDeleteFavPicto(userId, permission){
+        return axios.put(USER_BASE_URL + "/" + userId + "/pictogram/" + permission);
+    }
+
+    updateCanDeleteFavSentence(userId, permission){
+        return axios.put(USER_BASE_URL + "/" + userId + "/sentence/" + permission);
     }
 
 }

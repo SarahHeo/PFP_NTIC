@@ -15,7 +15,10 @@ import globalStyle from '../styles/components/global.jsx';
 const Tab = createBottomTabNavigator();
 
 
-function Tabs() {
+function Tabs(props) {
+    
+    const isAdmin = props.isAdmin;
+
     return(
             <Tab.Navigator initialRouteName={"Home"}
                            screenOptions={{ tabBarActiveTintColor: globalStyle.color.pink,
@@ -27,6 +30,7 @@ function Tabs() {
                                                 
                 <Tab.Screen name="Home"
                             component={Home}
+                            initialParams = {{ isAdmin: isAdmin }}
                             options={{
                                 tabBarLabel: "ACCUEIL",
                                 tabBarIcon: ({focused, color, size}) => (
@@ -39,6 +43,7 @@ function Tabs() {
                 
                 <Tab.Screen name="Favorites"
                             component={Favorites}
+                            initialParams = {{ isAdmin: isAdmin}}
                             options={{
                                 tabBarLabel: "FAVORIS",
                                 tabBarIcon: ({focused, color, size}) => (
@@ -60,8 +65,11 @@ function Tabs() {
                             }}
                 />
 
+                {isAdmin &&
+                
                 <Tab.Screen name="Users"
-                            component={Users}
+                            component = {Users}
+                            initialParams = {{ isLogged:true}}
                             options={{
                                 tabBarLabel: "UTILISATEURS",
                                 tabBarIcon: ({focused, color, size}) => (
@@ -72,8 +80,11 @@ function Tabs() {
                             }}
                 />
 
+                }
+
                 <Tab.Screen name="Logout"
                             component={Logout}
+                            initialParams = {{ isAdmin: isAdmin}}
                             options={{
                                 tabBarLabel: "DECONNEXION",
                                 tabBarIcon: ({focused, color, size}) => (

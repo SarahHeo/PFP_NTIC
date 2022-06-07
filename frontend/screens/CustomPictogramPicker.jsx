@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, Button, Image, Text } from 'react-native';
+import { View, Image, Text, TouchableOpacity } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
 import styles from '../styles/screens/customPictogram.jsx';
 import { TextInput } from 'react-native-gesture-handler';
@@ -15,7 +15,6 @@ function CustomPictogramPicker() {
             const response = await DocumentPicker.getDocumentAsync({
                 type: 'image/*'
             });
-            console.log(response);
             setPictogramImage(response);
         } catch (error) {
             console.log(error);
@@ -39,19 +38,6 @@ function CustomPictogramPicker() {
         }
     }
 
-    /*const submit = async () => {
-        const base64 = await FileSystem.readAsStringAsync(pictogramImage.uri, { encoding: 'base64' });
-        PictogramService.addCustomPictogramImage({
-            name: pictogramName,
-            url: base64
-        }).then(()=>
-            {
-                setPictogramImage(null);
-                setPictogramName(null);
-            }
-        );
-    }*/
-  
     return (
         <View>
             <Text style={styles.field}>
@@ -65,8 +51,14 @@ function CustomPictogramPicker() {
                 source={{uri: pictogramImage && pictogramImage.uri}}
                 style={styles.image}
             />}
-            <Button onPress={handleDocumentSelection} title="Importer une photo"></Button>
-            <Button onPress={submit} title="Créer le pictogramme"></Button>
+            <View style={styles.buttonsChoiceContainer}>
+                <TouchableOpacity style={styles.choiceButton} onPress={handleDocumentSelection}>
+                    <Text style={styles.buttonText}>{"Importer une photo"}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.createButton} onPress={submit}>
+                    <Text style={styles.buttonText}>{"Créer le pictogramme"}</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 }

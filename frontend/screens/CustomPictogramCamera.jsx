@@ -29,9 +29,7 @@ function CustomPictogramCamera() {
 
     async function takePicture() {
         if (camera) {
-            console.log('Picture Taken')
             let photo = await camera.current.takePictureAsync();
-            console.log(photo);
             setPreviewVisible(true);
             setPictogramImage(photo);
         }
@@ -112,8 +110,14 @@ function CustomPictogramCamera() {
                     source={{uri: pictogramImage && pictogramImage.uri}}
                     style={styles.image}
                 />}
-                <Button onPress={startCamera} title="Prendre une photo"></Button>
-                <Button onPress={submit} title="Créer le pictogramme"></Button>
+                <View style={styles.buttonsChoiceContainer}>
+                    <TouchableOpacity style={styles.choiceButton} onPress={startCamera}>
+                        <Text style={styles.buttonText}>{"Prendre une photo"}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.createButton} onPress={submit}>
+                        <Text style={styles.buttonText}>{"Créer le pictogramme"}</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         )}
         </View>

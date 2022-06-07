@@ -1,6 +1,7 @@
 const axios = require("axios");
+import devURL from "../utils/developmentURL";
 
-const PICTOGRAM_BASE_URL = 'http://localhost:8080/pictograms';
+const PICTOGRAM_BASE_URL = `${devURL}/pictograms`;
 
 class PictogramService {
     getPictograms(){

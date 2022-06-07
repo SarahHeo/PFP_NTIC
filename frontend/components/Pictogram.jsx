@@ -1,5 +1,6 @@
 import React from 'react';
 import {TouchableOpacity, Image} from 'react-native';
+import devURL from "../utils/developmentURL";
 
 import pictoStyle from '../styles/components/pictogram.jsx';
 import listPictoStyle from '../styles/components/listPictogram.jsx';
@@ -42,21 +43,21 @@ function Pictogram(props) {
     if (isTouchable && isAddingToFav && !canAddToFav) {
         return (
             <TouchableOpacity style={[pictoStyle.mainContainer, style.mainContainer]} disabled={true}>
-                <Image source={{uri: "http://localhost:8080/" + picto.url}} style={pictoStyle.disabledImage}/>
+                <Image source={{uri: `${devURL}/${picto.url}`}} style={pictoStyle.disabledImage}/>
             </TouchableOpacity>
         )
     } else if(id=="fav"){
         return (
             <TouchableOpacity style={[pictoStyle.mainContainer, style.mainContainer]} disabled={!isTouchable}
                             onPress={() => props.onPressHandler(picto)} onLongPress={() => props.onLongPress(picto)}>
-                <Image source={{uri: "http://localhost:8080/" + picto.url}} style={[pictoStyle.image, style.image]}/>
+                <Image source={{uri: `${devURL}/${picto.url}`}} style={[pictoStyle.image, style.image]}/>
             </TouchableOpacity>
         )
     } else {
         return (
             <TouchableOpacity style={[pictoStyle.mainContainer, style.mainContainer]} disabled={!isTouchable}
                             onPress={() => props.onPressHandler(picto)}>
-                <Image source={{uri: "http://localhost:8080/" + picto.url}} style={isPredicted ? pictoStyle.imagePredict : [pictoStyle.image, style.image]}/>
+                <Image source={{uri: `${devURL}/${picto.url}`}} style={isPredicted ? pictoStyle.imagePredict : [pictoStyle.image, style.image]}/>
             </TouchableOpacity>
         )
     }

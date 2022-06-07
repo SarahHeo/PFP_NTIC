@@ -1,6 +1,7 @@
 const axios = require("axios");
+import devURL from "../utils/developmentURL";
 
-const ALGO_BASE_URL = 'http://localhost:8080/algo';
+const ALGO_BASE_URL = `${devURL}/algo`;
 
 class AlgoService {
 

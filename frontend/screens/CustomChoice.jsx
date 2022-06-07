@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, TextInput, TouchableOpacity, View, Button, SafeAreaView } from 'react-native';
-import globalStyle from '../styles/components/global.jsx';
+import { Text, TextInput, TouchableOpacity, View, Button } from 'react-native';
 
-import CustomPictogramURL from './CustomPictogramURL.jsx';
+import globalStyle from '../styles/components/global.jsx';
+import styles from '../styles/screens/customPictogram.jsx';
 import CustomPictogramCamera from './CustomPictogramCamera.jsx';
 import CustomPictogramPicker from './CustomPictogramPicker.jsx';
 
@@ -14,13 +14,18 @@ function CustomChoice() {
     // {selectedTab == 0 && <CustomPictogramURL/>}
 
     return (
-        <View style = {{marginHorizontal:30, marginTop: 30}}>
-            
-            <Button title="Via une nouvelle photo" onPress={() => setSelectedTab(1)}/>
-            <Button title="Via une photo déjà existante" onPress={() => setSelectedTab(2)}/>
+        <View style={globalStyle.mainContainer}>
+
+            <View style={styles.buttonsChoiceContainer}>
+                <TouchableOpacity style={styles.choiceButton} onPress={() => { setSelectedTab(1) }} disabled={selectedTab == 1}>
+                    <Text style={styles.buttonText}>{"Via une nouvelle photo"}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.choiceButton} onPress={() => { setSelectedTab(2) }} disabled={selectedTab == 2}>
+                    <Text style={styles.buttonText}>{"Via une photo déjà existante"}</Text>
+                </TouchableOpacity>
+            </View>
 
             <View>
-                
                 {selectedTab == 1 && <CustomPictogramCamera/>}
                 {selectedTab == 2 && <CustomPictogramPicker/>}
             </View>

@@ -100,6 +100,15 @@ const style =  StyleSheet.create({
             justifyContent: 'space-evenly',
             //flexWrap:'wrap'
         },
+        
+        messageContainer: {
+            marginTop: 50
+        },
+    
+        message: {
+            fontSize: 15,
+            textAlign: "center"
+        }
 
     /* */
 

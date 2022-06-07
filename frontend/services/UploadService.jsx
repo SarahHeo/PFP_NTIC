@@ -1,6 +1,6 @@
-const axios = require("axios");
+import devURL from "../utils/developmentURL";
 
-const UPLOAD_BASE_URL = 'http://localhost:8080/upload';
+const UPLOAD_BASE_URL = `${devURL}/upload`;
 
 class UploadService {
 

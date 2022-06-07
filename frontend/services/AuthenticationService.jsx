@@ -1,7 +1,8 @@
 const axios = require("axios");
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import devURL from "../utils/developmentURL";
 
-const AUTHENTICATION_BASE_URL = 'http://localhost:8080/authentication';
+const AUTHENTICATION_BASE_URL = `${devURL}/authentication`;
 
 class AuthenticationService {
 
@@ -39,9 +40,9 @@ export const setToken = async (token) => {
     }
 }
 
-export const deleteToken = async () => {
+export const clearStorage = async () => {
     try {
-        await AsyncStorage.removeItem('@auth_token');
+        await AsyncStorage.clear();
     } catch (e) {
         return null;
     }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Button, View, Text } from 'react-native';
+import { Button, View, Text, TouchableOpacity } from 'react-native';
 import AuthenticationService, { setToken, getToken } from '../services/AuthenticationService.jsx';
 import Form from '../components/Form.jsx';
 import {validateContent, validateEmail, validatePassword } from '../validators/authenticationValidator.jsx';
@@ -11,7 +11,7 @@ function Login({navigation}) {
         async function checkIfAlreadyLoggedIn() {
             const token = await getToken();
             if (token != null){
-                navigation.navigate('MainApp');
+                navigation.navigate('MainApp', { screen: 'Users', isAdmin: true });
             }
         }
         checkIfAlreadyLoggedIn();
@@ -29,7 +29,7 @@ function Login({navigation}) {
 
     let successLoginCallback = async function(data){
         await setToken(data.auth_token);
-        navigation.navigate('MainApp', { screen: 'Users' });
+        navigation.navigate('MainApp', { screen: 'Users', isAdmin: true });
     }
 
     return (
@@ -57,8 +57,14 @@ function Login({navigation}) {
                 },
             }}
             />
-            <Text></Text>
-            <Button title="S'inscrire" onPress={() => navigation.navigate('Register')}/>
+            <View style={styles.buttonsContainer}>
+                <TouchableOpacity style={styles.signinButton} onPress={() => navigation.navigate('Register')}>
+                    <Text style={styles.buttonText}>{"S'inscrire"}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.userButton} onPress={() => navigation.navigate('Users')}>
+                    <Text style={styles.buttonText}>{"Se connecter en tant qu'utilisateur"}</Text>
+                </TouchableOpacity>
+            </View>
         </View>
         
     );

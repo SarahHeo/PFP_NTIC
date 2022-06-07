@@ -43,6 +43,44 @@ User.add = (newUser, result) => {
     });
 };
 
+User.updateCanDeleteFavPicto = (userId, permission, result) => {
+    database.query(`UPDATE User SET CanDeleteFavPicto = ? WHERE id = ? `, 
+    [permission, userId], 
+    (error, res) =>{
+        if (error){
+            console.log("error: ", error);
+            result(error, null);
+            return;
+        }
+        if (res.affectedRows == 0) {
+            // not found User with the id
+            result({ kind: "not_found" }, null);
+            return;
+          }
+          console.log("updated user: ", { id: userId, permission });
+          result(null, { id: userId, permission });
+    });
+};
+
+User.updateCanDeleteFavSentence = (userId, permission, result) => {
+    database.query(`UPDATE User SET CanDeleteFavSentence = ? WHERE id = ? `, 
+    [permission, userId], 
+    (error, res) =>{
+        if (error){
+            console.log("error: ", error);
+            result(error, null);
+            return;
+        }
+        if (res.affectedRows == 0) {
+            // not found User with the id
+            result({ kind: "not_found" }, null);
+            return;
+          }
+          console.log("updated user: ", { id: userId, permission });
+          result(null, { id: userId, permission });
+    });
+};
+
 
 // DELETE SQL Queries
 
