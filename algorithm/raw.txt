@@ -1,36 +1,36 @@
-Il manger ananas.
+Il mange ananas.
 Oui je veux ananas.
 Je veux ananas s'il te plaît.
-Je veux manger ananas.
+Je veux mange ananas.
 Non ananas.
 Oui je veux banane.
 Je veux banane s'il te plaît.
-Je veux manger banane.
+Je veux mange banane.
 Oui je veux banane.
 S'il te plaît banane.
-Je veux manger cerise.
+Je veux mange cerise.
 Je veux cerise.
 Je veux encore cerise.
-Non boire, manger cerise.
+Non boire, mange cerise.
 Encore cerise s'il te plaît.
 Je veux framboise.
-Je veux manger framboise, merci.
+Je veux mange framboise, merci.
 Je veux encore framboise.
-Non boire, manger framboise.
+Non boire, mange framboise.
 Encore framboise s'il te plaît.
-Je veux manger citron.
+Je veux mange citron.
 Je veux boire citron.
 Non citron.
 Je veux encore citron.
-Tu manger citron.
+Tu mange citron.
 Je veux kiwi, merci.
-Je veux manger kiwi.
+Je veux mange kiwi.
 Je veux encore kiwi.
-Non boire, manger kiwi.
+Non boire, mange kiwi.
 Encore kiwi s'il te plaît.
 Non poire non.
 Merci encore poire.
-Je veux manger poire.
+Je veux mange poire.
 Oui je veux poire.
 S'il te plaît poire.
 Je veux eau.
@@ -38,7 +38,7 @@ Je veux boire eau.
 S'il te plait je veux eau.
 Je veux l'eau s'il te plait.
 Il boire eau.
-Je veux manger fruits.
+Je veux mange fruits.
 Encore fruits.
 Non encore des fruits.
 Non fruits.
@@ -48,7 +48,7 @@ Je veux lancer pomme.
 Je veux pomme.
 Je veux encore pomme.
 Encore pomme s'il te plaît.
-Je veux manger pastèque.
+Je veux mange pastèque.
 Je veux pastèque.
 Je veux encore pastèque.
 Encore pastèque s'il te plaît.
