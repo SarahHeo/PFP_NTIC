@@ -25,8 +25,10 @@ export default StyleSheet.create({
 
     modalView: {
         margin: 20,
-        backgroundColor: "white",
+        backgroundColor: "#2a9d8F",
         borderRadius: 20,
+        borderColor: 'black',
+        borderWidth: 2,
         padding: 35,
         alignItems: "center",
         shadowColor: "#000",

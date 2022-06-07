@@ -10,13 +10,17 @@ import styles from '../styles/screens/authentication.jsx';
 function Register({navigation}) {
     const handleResult = async (result) => {
         if (result.data.auth_token) {
-            await setToken(result.data.auth_token);
-            navigation.navigate('MainApp', { screen: 'Users', isAdmin: true });
+            successRegisterCallback(result.data);
         } else if (result.status === 401) {
             throw new Error('Invalid login.');
         } else {
             throw new Error('Something went wrong.');
         }
+    }
+
+    let successRegisterCallback = async function(data){
+        await setToken(data.auth_token);
+        navigation.navigate('MainApp', { screen: 'Users', isAdmin: true });
     }
 
     return (

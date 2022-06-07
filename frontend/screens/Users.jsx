@@ -35,7 +35,6 @@ function Users({route, navigation}){
                 
                 EducatorService.getUsersByEducator(response.data.id).then((educatorUsers) => {
                     setUsersOfEducator(educatorUsers.data);
-                    console.log("Users of educator:", educatorUsers.data);
     
                     UserService.getUsers().then((users) => {
                         setUsers(users.data);
@@ -83,7 +82,6 @@ function Users({route, navigation}){
     const handleResult = async (result) => {
         setModalVisible(false);
         if (result.data) {
-            console.log(result.data);
             loadUsers();
         } else if (result.status === 401) {
             throw new Error('Invalid data.');
@@ -114,9 +112,6 @@ function Users({route, navigation}){
                 await AsyncStorage.setItem('@user_id', JSON.stringify(user.Id));
                 await AsyncStorage.setItem('@can_delete_fav_picto', JSON.stringify(user.CanDeleteFavPicto));
                 await AsyncStorage.setItem('@can_delete_fav_sentence', JSON.stringify(user.CanDeleteFavSentence));
-                console.log("Storing id: " + await AsyncStorage.getItem('@user_id'));
-                console.log("Storing CanDeleteFavPicto: " + await AsyncStorage.getItem('@can_delete_fav_picto'));
-                console.log("Storing CanDeleteFavPicto: " + await AsyncStorage.getItem('@can_delete_fav_sentence'));
                 navigation.navigate("MainApp", { screen: 'Home', isAdmin:false });
             } catch (e) {
                 return null;
@@ -197,10 +192,9 @@ function Users({route, navigation}){
                                 }
                             }}
                         />
-                        <Button
-                            title="Annuler"
-                            onPress={() => setModalVisible(!modalVisible)}
-                        />
+                        <TouchableOpacity style={styles.adminButton} onPress={() => setModalVisible(!modalVisible)}>
+                            <Text style={styles.buttonText}>Annuler</Text>
+                        </TouchableOpacity>
                     </View>
                 </Modal>
                 <View style = {styles.listContainer}>

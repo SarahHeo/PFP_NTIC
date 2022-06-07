@@ -31,7 +31,6 @@ function Favorites({route}) {
     var deleteFavPicto;
 
     const isAdmin = route.params.isAdmin;
-    console.log(isAdmin);
 
     useEffect(() =>{
         const retrieveId = async () => {
@@ -39,15 +38,10 @@ function Favorites({route}) {
                 const id = await AsyncStorage.getItem("@user_id");
                 const canDeleteFavPicto = await AsyncStorage.getItem("@can_delete_fav_picto");
                 const canDeleteFavSentence = await AsyncStorage.getItem("@can_delete_fav_sentence");
-                console.log(`Retrieved id: ${id}`);
-                console.log(`Retrieved canDeleteFavPicto: ${canDeleteFavPicto}`);
-                console.log(`Retrieved canDeleteFavSentence: ${canDeleteFavSentence}`);
                 if (id !== null){
                     setUserId(JSON.parse(id));
                     setCanDeleteFavPicto(Boolean(JSON.parse(canDeleteFavPicto)));
-                    console.log("FavPicto", Boolean(JSON.parse(canDeleteFavPicto)));
                     setCanDeleteFavSentence(Boolean(JSON.parse(canDeleteFavSentence)));
-                    console.log("FavSentence", Boolean(JSON.parse(canDeleteFavSentence)));
                 }
             } catch(error) {
                 console.log("An error occured retrieving current user");
@@ -90,7 +84,6 @@ function Favorites({route}) {
         favSentences.push(currentSentence);
 
         setAllFavSentences(favSentences);
-        console.log(favSentences)
     }
 
     let getDeleteFavSentenceDialog = function(idSentence) {

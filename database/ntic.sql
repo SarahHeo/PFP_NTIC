@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 06 juin 2022 à 18:59
+-- Généré le : mar. 07 juin 2022 à 20:15
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `ntic`
+-- Base de données : `ntic_date`
 --
 
 -- --------------------------------------------------------
@@ -59,7 +59,7 @@ INSERT INTO `category` (`id`, `name`, `url`) VALUES
 (16, 'Objets', '510-_Livres-1652737362663.jpeg'),
 (17, 'Transports', '545-_Voiture-1652737364124.jpeg'),
 (18, 'Santé', '165-_Prendre_la_temperature-1652737351030.jpeg'),
-(19, 'Personnalisé', 'custom.png');
+(19, 'Personnalisé', 'customPicto.png');
 
 -- --------------------------------------------------------
 
@@ -75,16 +75,7 @@ CREATE TABLE IF NOT EXISTS `educator` (
   `email` varchar(255) NOT NULL,
   `password` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `educator`
---
-
-INSERT INTO `educator` (`id`, `name`, `firstName`, `email`, `password`) VALUES
-(22, 'Dupont', 'Jean', 'Jean@gmail.com', '*69E04464BC0A7BEA62070D6C8E465A3E0AC4FBAC'),
-(23, 'Sarah', 'HEOUAINE', 'sarah@test.fr', '$2b$10$9rcXhL5o0GmR4WgWCOkGauCoqEVzLfzM.fBVrld.ty5Nr/8Djh0Bu'),
-(24, 'Lamy', 'David', 'david@lamy.fr', '$2b$10$qJqVanFIDv4mXZO5JVxyPe17CIrsQqw8tsvTewoVo0kbNgZTBdwbG');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -100,14 +91,6 @@ CREATE TABLE IF NOT EXISTS `educator_user` (
   KEY `idEducator` (`idEducator`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Déchargement des données de la table `educator_user`
---
-
-INSERT INTO `educator_user` (`idEducator`, `idUser`) VALUES
-(24, 21),
-(24, 22);
-
 -- --------------------------------------------------------
 
 --
@@ -122,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `pictogram` (
   `url` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idCaterogy` (`idCategory`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1291 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1293 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `pictogram`
@@ -701,21 +684,12 @@ CREATE TABLE IF NOT EXISTS `user` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(255) NOT NULL,
   `FirstName` varchar(255) NOT NULL,
-  `DateOfBirth` int(3) NOT NULL,
+  `DateOfBirth` date NOT NULL,
   `Gender` varchar(255) NOT NULL,
   `CanDeleteFavPicto` tinyint(1) NOT NULL DEFAULT '0',
   `CanDeleteFavSentence` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `user`
---
-
-INSERT INTO `user` (`Id`, `Name`, `FirstName`, `DateOfBirth`, `Gender`, `CanDeleteFavPicto`, `CanDeleteFavSentence`) VALUES
-(21, 'A', 'A', 0, 'A', 0, 0),
-(22, 'Dubois', 'Paul', 25, 'Homme', 1, 1),
-(23, 'Martin', 'Dujardin', 2, 'M', 0, 0);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -736,30 +710,7 @@ CREATE TABLE IF NOT EXISTS `user_favpicto` (
 --
 
 INSERT INTO `user_favpicto` (`idUser`, `idPictogram`) VALUES
-(22, 741),
-(22, 742),
-(22, 734),
-(22, 740),
-(22, 733),
-(22, 743),
-(22, 744),
-(22, 735),
-(22, 745),
-(22, 736),
-(22, 762),
-(22, 752),
-(22, 753),
-(22, 754),
-(22, 761),
-(22, 788),
-(22, 737),
-(22, 731),
-(22, 1078),
-(22, 1201),
-(22, 1180),
-(21, 731),
-(22, 864),
-(21, 916);
+(1, 937);
 
 -- --------------------------------------------------------
 
@@ -783,16 +734,9 @@ CREATE TABLE IF NOT EXISTS `user_favsentence` (
 --
 
 INSERT INTO `user_favsentence` (`id`, `idUser`, `position`, `idPictogram`) VALUES
-(6, 22, 0, 734),
-(4, 22, 0, 736),
-(6, 22, 1, 736),
-(4, 22, 1, 745),
-(2, 22, 3, 777),
-(2, 22, 0, 788),
-(2, 22, 1, 789),
-(2, 22, 2, 798),
-(8, 22, 0, 1225),
-(8, 22, 1, 1226);
+(2, 1, 0, 935),
+(2, 1, 1, 936),
+(2, 1, 2, 937);
 
 --
 -- Contraintes pour les tables déchargées

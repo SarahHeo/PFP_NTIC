@@ -29,9 +29,7 @@ function CustomPictogramCamera() {
 
     async function takePicture() {
         if (camera) {
-            console.log('Picture Taken')
             let photo = await camera.current.takePictureAsync();
-            console.log(photo);
             setPreviewVisible(true);
             setPictogramImage(photo);
         }

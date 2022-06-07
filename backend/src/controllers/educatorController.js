@@ -26,7 +26,7 @@ exports.register = async (req, res) => {
                     message: error.message || `An error occured while creating the new pictogram`
                 });
             } else {
-                const accessToken = JWT.generateJWT(data.id, data.email);
+                const accessToken = JWT.generateJWT({id: data.id, email: data.email});
                 res.send({auth_token: accessToken});
             }
         });

@@ -15,7 +15,6 @@ function CustomPictogramPicker() {
             const response = await DocumentPicker.getDocumentAsync({
                 type: 'image/*'
             });
-            console.log(response);
             setPictogramImage(response);
         } catch (error) {
             console.log(error);

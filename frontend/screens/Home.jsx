@@ -38,7 +38,6 @@ function Home({route}) {
         const retrieveId = async () => {
             try {
                 const id = await AsyncStorage.getItem("@user_id");
-                console.log(`Retrieved id: ${id}`);
                 if (id !== null){
                     setUserId(JSON.parse(id));
                 }
